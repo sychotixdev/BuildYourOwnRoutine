@@ -1,0 +1,9 @@
+2/3/2018 9:21 PM Program exited with message:
+ System.Exception: Error when loading alert.wav| Please be sure a sound file exists at the specified location.: ---> System.IO.FileNotFoundException: Please be sure a sound file exists at the specified location.
+   at System.Media.SoundPlayer.Load()
+   at PoeHUD.Hud.Sounds.AddSound(String name) in C:\Users\sychotix\Documents\GitHub\PoEHUD\src\Hud\Sounds.cs:line 23
+   --- End of inner exception stack trace ---
+   at PoeHUD.Hud.Sounds.AddSound(String name) in C:\Users\sychotix\Documents\GitHub\PoEHUD\src\Hud\Sounds.cs:line 27
+   at PoeHUD.Hud.Sounds.LoadSounds() in C:\Users\sychotix\Documents\GitHub\PoEHUD\src\Hud\Sounds.cs:line 40
+   at PoeHUD.Program.Main(String[] args) in C:\Users\sychotix\Documents\GitHub\PoEHUD\src\Program.cs:line 71
+------------------------------
