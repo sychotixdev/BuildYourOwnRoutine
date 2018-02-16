@@ -18,6 +18,11 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension
             ActionFilterList = new HashSet<string>();
             ConditionFilterList = new HashSet<string>();
 
+            LoadDefaultExtensions();
+        }
+
+        private void LoadDefaultExtensions()
+        {
             // Load the default extension
             LoadedExtensions.Add(new DefaultExtension());
         }

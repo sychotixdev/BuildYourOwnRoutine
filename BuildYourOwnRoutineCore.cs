@@ -51,6 +51,34 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
             ProfileDirectory = PluginDirectory + @"/Profile/";
             ExtensionDirectory = PluginDirectory + @"/Extension/";
             ExtensionLoader.LoadAllExtensions(ExtensionCache, ExtensionDirectory);
+            ProcessLoadedExtensions();
+
+            ProfileMenu = new ProfileMenu(this);
+
+            CreateAndStartTreeFromLoadedProfile();
+
+            Settings.FramesBetweenTicks.OnValueChanged += UpdateCoroutineWaitRender;
+        }
+
+        private void ProcessLoadedExtensions()
+        {
+            // For every loaded extension, add its a
+            foreach (var extension in ExtensionCache.LoadedExtensions)
+            {
+                // Load the extension actions
+                var allActions = extension.GetActions();
+                if (allActions != null && allActions.Count() > 0)
+                {
+                    ExtensionCache.ActionList.AddRange(allActions);
+                }
+                // Load th extension conditions
+                var allConditions = extension.GetConditions();
+                if (allConditions != null && allConditions.Count() > 0)
+                {
+                    ExtensionCache.ConditionList.AddRange(allConditions);
+                }
+            }
+
 
             // We need to initialize the filter list.
             ExtensionCache.ActionFilterList.Add(ExtensionComponentFilterType.None);
@@ -59,11 +87,6 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
             ExtensionCache.ConditionFilterList.Add(ExtensionComponentFilterType.None);
             ExtensionCache.ConditionList.ForEach(factory => factory.GetFilterTypes().ForEach(x => ExtensionCache.ConditionFilterList.Add(x)));
 
-            ProfileMenu = new ProfileMenu(this);
-
-            CreateAndStartTreeFromLoadedProfile();
-
-            Settings.FramesBetweenTicks.OnValueChanged += UpdateCoroutineWaitRender;
         }
 
         private void UpdateCoroutineWaitRender()

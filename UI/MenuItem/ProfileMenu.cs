@@ -41,7 +41,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
 
 
             if (ImGui.Button("Load profile")) ImGui.OpenPopup("Load profile Menu");
-            if (ImGui.BeginPopupModal("Load profile Menu", WindowFlags.Default))
+            if (ImGui.BeginPopupModal("Load profile Menu", WindowFlags.AlwaysAutoResize))
             {
                 string[] files = Directory.GetFiles(Plugin.ProfileDirectory);
 
@@ -87,7 +87,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
             ImGui.SameLine();
 
             if (ImGui.Button("Save profile")) ImGui.OpenPopup("Save profile Menu");
-            if (ImGui.BeginPopupModal("Save profile Menu", WindowFlags.Default))
+            if (ImGui.BeginPopupModal("Save profile Menu", WindowFlags.AlwaysAutoResize))
             {
                 
                 currentFileName = ImGuiExtension.InputText("File Name", currentFileName, 100, InputTextFlags.AlwaysInsertMode);
@@ -142,11 +142,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                         ImGui.OpenPopup(TriggerMenuLabel);
                         NewTriggerMenu = new TriggerMenu(Plugin.ExtensionCache, null);
                     }
+                    ImGuiExtension.ToolTip("Add root");
 
-                    if (ImGui.IsItemHovered(HoveredFlags.Default))
-                    {
-                        ImGui.SetTooltip("Add root");
-                    }
 
                     // If start profile is clicked, trigger menu is rendered
                     RenderTriggerMenu();
@@ -189,11 +186,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                     // Simply return false to remove the child
                     return false;
                 }
-
-                if (ImGui.IsItemHovered(HoveredFlags.Default))
-                {
-                    ImGui.SetTooltip("Remove");
-                }
+                ImGuiExtension.ToolTip("Remove");
 
                 ImGui.SameLine();
 
@@ -203,10 +196,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                     NewTriggerMenu = new TriggerMenu(Plugin.ExtensionCache, parent, composite);
                 }
 
-                if (ImGui.IsItemHovered(HoveredFlags.Default))
-                {
-                    ImGui.SetTooltip("Edit");
-                }
+                ImGuiExtension.ToolTip("Edit");
 
                 RenderTriggerMenu();
 
@@ -220,11 +210,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                             ImGui.OpenPopup(TriggerMenuLabel);
                             NewTriggerMenu = new TriggerMenu(Plugin.ExtensionCache, composite);
                         }
-
-                        if (ImGui.IsItemHovered(HoveredFlags.Default))
-                        {
-                            ImGui.SetTooltip("Add Child");
-                        }
+                        ImGuiExtension.ToolTip("Add Child");
                     }
 
                     if (composite.Children != null && composite.Children.Any())

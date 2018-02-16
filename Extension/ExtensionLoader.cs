@@ -34,18 +34,6 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension
                     var extension = (Extension)Activator.CreateInstance(type);
 
                     cache.LoadedExtensions.Add(extension);
-                    // Load the extension actions
-                    var allActions = extension.GetActions();
-                    if (allActions != null && allActions.Count > 0)
-                    {
-                        cache.ActionList.AddRange(allActions);
-                    }
-                    // Load th extension conditions
-                    var allConditions = extension.GetConditions();
-                    if (allConditions != null && allConditions.Count > 0)
-                    {
-                        cache.ConditionList.AddRange(allConditions);
-                    }
                 }
             }
         }

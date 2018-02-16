@@ -28,10 +28,10 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
         public override bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters)
         {
             ImGui.TextDisabled("Action Info");
-            ImGui.SetTooltip("This action is used to use a specific flask.\nFlask Hotkey will be pulled from plugin settings.");
+            ImGuiExtension.ToolTip("This action is used to use a specific flask.\nFlask Hotkey will be pulled from plugin settings.");
 
             flaskIndex = ImGuiExtension.IntSlider("Flask Index", flaskIndex, 1, 5);
-            ImGui.SetTooltip("Index for flask to be used (1= farthest left, 5 = farthest right)");
+            ImGuiExtension.ToolTip("Index for flask to be used (1= farthest left, 5 = farthest right)");
             Parameters[flaskIndexString] = flaskIndex.ToString();
             return true;
         }

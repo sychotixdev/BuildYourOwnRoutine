@@ -90,7 +90,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
         public override bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters)
         {
             ImGui.TextDisabled("Action Info");
-            ImGui.SetTooltip("This action is used to use a specific type(s) of flask.\nFlask Hotkey will be pulled from plugin settings.\nFlask types will be pulled from the file /config/flaskinfo.json");
+            ImGuiExtension.ToolTip("This action is used to use a specific type(s) of flask.\nFlask Hotkey will be pulled from plugin settings.\nFlask types will be pulled from the file /config/flaskinfo.json");
 
             useLife = ImGuiExtension.Checkbox("Life", useLife);
             Parameters[useLifeString] = useLife.ToString();
@@ -104,7 +104,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
             Parameters[useHybridString] = useHybrid.ToString();
 
             useHybrid = ImGuiExtension.Checkbox("Use Instant", useHybrid);
-            ImGui.SetTooltip("This only makes sense to use with life/mana/hybrid flasks");
+            ImGuiExtension.ToolTip("This only makes sense to use with life/mana/hybrid flasks");
 
             Parameters[useHybridString] = useHybrid.ToString();
 

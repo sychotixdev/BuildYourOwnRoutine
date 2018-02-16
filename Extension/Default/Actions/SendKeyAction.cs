@@ -29,9 +29,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
         public override bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters)
         {
             ImGui.TextDisabled("Action Info");
-            ImGui.SetTooltip("This action is used to send a hotkey to the game.");
+            ImGuiExtension.ToolTip("This action is used to send a hotkey to the game.");
             Key = (int)ImGuiExtension.HotkeySelector("Hotkey", (Keys)Key);
-            ImGui.SetTooltip("Hotkey to press for this action.");
+            ImGuiExtension.ToolTip("Hotkey to press for this action.");
             Parameters[keyString] = Key.ToString();
             return true;
         }
