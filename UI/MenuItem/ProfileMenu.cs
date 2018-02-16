@@ -55,7 +55,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                     ImGui.Combo("Files", ref currentlySelectedProfile, files.Select(x => Path.GetFileName(x)).ToArray());
                 }
 
-                if (ImGui.Button("Load selected profile"))
+                if (currentlySelectedProfile >= 0 && ImGui.Button("Load selected profile"))
                 {
                     Profile.LoadedProfile loadedProfile = BuildYourOwnRoutineCore.LoadSettingFile<Profile.LoadedProfile>(files[currentlySelectedProfile]);
                     if (loadedProfile == null || loadedProfile.Name == null)
@@ -89,8 +89,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
             if (ImGui.Button("Save profile")) ImGui.OpenPopup("Save profile Menu");
             if (ImGui.BeginPopupModal("Save profile Menu", WindowFlags.Default))
             {
+                
                 currentFileName = ImGuiExtension.InputText("File Name", currentFileName, 100, InputTextFlags.AlwaysInsertMode);
-                if (ImGui.Button("Save profile to file"))
+                if (currentFileName != null && currentFileName.Length > 0 && ImGui.Button("Save profile to file"))
                 {
                     BuildYourOwnRoutineCore.SaveSettingFile<Profile.LoadedProfile>(Plugin.ProfileDirectory + currentFileName, Plugin.Settings.LoadedProfile);
 
