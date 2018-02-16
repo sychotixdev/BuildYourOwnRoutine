@@ -25,8 +25,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
         {
             List<ExtensionActionFactory> list = new List<ExtensionActionFactory>
             {
-                new UseFlaskActionFactory(Name),
-                new SendKeyActionFactory(Name)
+                new UseFlaskTypeActionFactory(Name),
+                new SendKeyActionFactory(Name),
+                new UseFlaskTypeActionFactory(Name)
             };
 
             return list;

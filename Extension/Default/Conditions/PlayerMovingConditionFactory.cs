@@ -16,12 +16,12 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
         public override ExtensionCondition GetCondition()
         {
-            return new CanUseFlaskCondition(Owner, Name);
+            return new PlayerMovingCondition(Owner, Name);
         }
 
         public override List<string> GetFilterTypes()
         {
-            return new List<string>() { ExtensionComponentFilterType.Flask };
+            return new List<string>() { ExtensionComponentFilterType.Player };
         }
     }
 }

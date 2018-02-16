@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 {
-    internal class UseFlaskActionFactory : ExtensionActionFactory
+    internal class UseFlaskTypeActionFactory : ExtensionActionFactory
     {
-        public UseFlaskActionFactory(string owner)
+        public UseFlaskTypeActionFactory(string owner)
         {
             Owner = owner;
-            Name = "UseFlaskActionFactory";
+            Name = "UseFlaskTypeActionFactory";
         }
 
         public override ExtensionAction GetAction()
         {
-            return new UseFlaskAction(Owner, Name);
+            return new UseFlaskTypeAction(Owner, Name);
         }
 
         public override List<string> GetFilterTypes()
