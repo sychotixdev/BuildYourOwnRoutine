@@ -1,10 +1,9 @@
-﻿using TreeRoutine.Routine.BuildYourOwnRoutine.Extension.DefaultExtension.Actions;
-using TreeRoutine.Routine.BuildYourOwnRoutine.Extension.DefaultExtension.Conditions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default;
 
 namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension
 {
@@ -15,28 +14,12 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension
             LoadedExtensions = new List<Extension>();
             ConditionList = new List<ExtensionConditionFactory>();
             ActionList = new List<ExtensionActionFactory>();
-            CustomExtensionCache = new Dictionary<string, Dictionary<string, object>>();
+            Cache = new Dictionary<string, Dictionary<string, object>>();
             ActionFilterList = new HashSet<string>();
             ConditionFilterList = new HashSet<string>();
 
-            loadDefaultActions();
-            loadDefaultConditions();
-        }
-
-        private void loadDefaultActions()
-        {
-            ActionList.Add(new UseFlaskActionFactory());
-            ActionList.Add(new SendKeyActionFactory());
-        }
-
-        private void loadDefaultConditions()
-        {
-            ConditionList.Add(new ManaPercentConditionFactory());
-            ConditionList.Add(new HealthPercentConditionFactory());
-            ConditionList.Add(new EnergyShieldPercentConditionFactory());
-            ConditionList.Add(new CanUseFlaskConditionFactory());
-            ConditionList.Add(new InHideoutConditionFactory());
-            ConditionList.Add(new HasCurableAilmentConditionFactory());
+            // Load the default extension
+            LoadedExtensions.Add(new DefaultExtension());
         }
 
         public List<Extension> LoadedExtensions { get; set; }
@@ -47,6 +30,6 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension
         public List<ExtensionActionFactory> ActionList { get; set; }
         public HashSet<string> ActionFilterList { get; set; }
 
-        public Dictionary<string, Dictionary<string, object>> CustomExtensionCache { get; }
+        public Dictionary<string, Dictionary<string, object>> Cache { get; }
     }
 }

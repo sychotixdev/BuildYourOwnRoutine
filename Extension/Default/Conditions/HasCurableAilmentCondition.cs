@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TreeRoutine.Menu;
 
-namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.DefaultExtension.Conditions
+namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 {
     internal class HasCurableAilmentCondition : ExtensionCondition
     {

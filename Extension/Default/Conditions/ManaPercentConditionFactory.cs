@@ -4,19 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.DefaultExtension.Conditions
+namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 {
-    internal class EnergyShieldPercentConditionFactory : ExtensionConditionFactory
+    internal class ManaPercentConditionFactory : ExtensionConditionFactory
     {
-        public EnergyShieldPercentConditionFactory()
+        public ManaPercentConditionFactory(string owner)
         {
-            Owner = "Default";
-            Name = "EnergyShieldPercentCondition";
+            Owner = owner;
+            Name = "ManaPercentConditionFactory";
         }
 
         public override ExtensionCondition GetCondition()
         {
-            return new EnergyShieldPercentCondition(Owner, Name);
+            return new ManaPercentCondition(Owner, Name);
         }
 
         public override List<string> GetFilterTypes()

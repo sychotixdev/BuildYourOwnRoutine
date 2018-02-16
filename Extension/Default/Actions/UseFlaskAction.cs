@@ -8,7 +8,7 @@ using TreeRoutine.DefaultBehaviors.Actions;
 using TreeRoutine.Menu;
 using TreeSharp;
 
-namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.DefaultExtension.Actions
+namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 {
     internal class UseFlaskAction : ExtensionAction
     {

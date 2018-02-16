@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using TreeRoutine.Menu;
 using TreeSharp;
 
-namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.DefaultExtension.Conditions
+namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 {
-    internal class HealthPercentCondition : ExtensionCondition
+    internal class EnergyShieldPercentCondition : ExtensionCondition
     {
         private Boolean IsAbove { get; set; }
         private String IsAboveString = "IsAbove";
@@ -17,7 +17,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.DefaultExtension.Con
         private int Percentage { get; set; }
         private String PercentageString = "Percentage";
 
-        public HealthPercentCondition(string owner, string name) : base(owner, name)
+        public EnergyShieldPercentCondition(string owner, string name) : base(owner, name)
         {
             Percentage = 50;
             IsAbove = false;
@@ -36,13 +36,14 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.DefaultExtension.Con
             base.CreateConfigurationMenu(ref Parameters);
 
             int radioTarget = IsAbove ? 0 : 1;
-            ImGui.RadioButton("Above Percentage", ref radioTarget, 0);
-            ImGui.RadioButton("Below Percentage", ref radioTarget, 1);
+            if (ImGui.RadioButton("Above Percentage", ref radioTarget, 0))
+                IsAbove = true;
+            if (ImGui.RadioButton("Below Percentage", ref radioTarget, 1))
+                IsAbove = false;
 
-            IsAbove = radioTarget == 0;
             Parameters[IsAboveString] = IsAbove.ToString();
 
-            Percentage = ImGuiExtension.IntSlider("Health Percentage", Percentage, 1, 100);
+            Percentage = ImGuiExtension.IntSlider("Energy Shield Percentage", Percentage, 1, 100);
             Parameters[PercentageString] = Percentage.ToString();
 
             return true;
@@ -50,7 +51,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.DefaultExtension.Con
 
         public override Func<bool> GetCondition(ExtensionParameter profileParameter)
         {
-            return () => !profileParameter.Plugin.PlayerHelper.isHealthBelowPercentage(Percentage) == IsAbove;
+            return () => !profileParameter.Plugin.PlayerHelper.isEnergyShieldBelowPercentage(Percentage) == IsAbove;
         }
     }
 }

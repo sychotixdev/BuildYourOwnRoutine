@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TreeSharp;
 
-namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.DefaultExtension.Actions
+namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 {
     class SimpleAction : ExtensionAction
     {

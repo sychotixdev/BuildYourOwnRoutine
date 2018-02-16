@@ -1,0 +1,59 @@
+﻿using ImGuiNET;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TreeRoutine.Menu;
+using TreeSharp;
+
+namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
+{
+    internal class PlayerMovingCondition : ExtensionCondition
+    {
+        private int msMoving { get; set; } = 0;
+        private const String flaskIndexString = "msMoving";
+
+
+        public PlayerMovingCondition(string owner, string name) : base(owner, name)
+        {
+
+        }
+
+        public override void Initialise(Dictionary<String, Object> Parameters)
+        {
+            base.Initialise(Parameters);
+            msMoving = Int32.Parse((String)Parameters[flaskIndexString]);
+
+        }
+
+        public override bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters)
+        {
+            base.CreateConfigurationMenu(ref Parameters);
+
+            msMoving = ImGuiExtension.IntSlider("Time spent moving (ms)", msMoving, 0, 10000);
+            ImGui.SetTooltip("Player must remain moving for this configured number of milliseconds before this condition returns true");
+            return true;
+        }
+
+        public override Func<bool> GetCondition(ExtensionParameter profileParameter)
+        {
+            return () =>
+            {
+                if (!profileParameter.Plugin.ExtensionCache.Cache.TryGetValue(Owner, out Dictionary<string, object> myCache))
+                {
+                    return false;
+                }
+
+                if (myCache.TryGetValue(DefaultExtension.CacheStartedMoving, out object o))
+                    return false;
+                if (o is Int32)
+                {
+                    return ((int)o) >= msMoving;
+                }
+                profileParameter.Plugin.LogErr("The cached value " + DefaultExtension.CacheStartedMoving + " is not an int.", 5);
+                return false;
+            };
+        }
+    }
+}

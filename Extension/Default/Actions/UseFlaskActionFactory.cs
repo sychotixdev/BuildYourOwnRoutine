@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.DefaultExtension.Actions
+namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 {
     internal class UseFlaskActionFactory : ExtensionActionFactory
     {
-        public UseFlaskActionFactory()
+        public UseFlaskActionFactory(string owner)
         {
-            Owner = "Default";
+            Owner = owner;
             Name = "UseFlaskActionFactory";
         }
 

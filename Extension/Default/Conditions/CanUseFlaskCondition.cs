@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TreeRoutine.Menu;
 using TreeSharp;
 
-namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.DefaultExtension.Conditions
+namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 {
     internal class CanUseFlaskCondition : ExtensionCondition
     {

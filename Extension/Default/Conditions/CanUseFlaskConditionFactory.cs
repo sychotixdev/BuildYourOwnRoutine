@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.DefaultExtension.Conditions
+namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 {
     internal class CanUseFlaskConditionFactory : ExtensionConditionFactory
     {
-        public CanUseFlaskConditionFactory()
+        public CanUseFlaskConditionFactory(string owner)
         {
-            Owner = "Default";
+            Owner = owner;
             Name = "CanUseFlaskConditionFactory";
         }
 

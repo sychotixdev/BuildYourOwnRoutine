@@ -85,12 +85,12 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
 
             if (TreeCoroutine != null)
                 TreeCoroutine.Done(true);
-
-            Tree = new ProfileTreeBuilder(ExtensionCache, new ExtensionParameter(this, Settings)).BuildTreeFromTriggerComposite(Settings.LoadedProfile.Composite);
+            var extensionParameter = new ExtensionParameter(this, Settings);
+            Tree = new ProfileTreeBuilder(ExtensionCache, extensionParameter).BuildTreeFromTriggerComposite(Settings.LoadedProfile.Composite);
 
             // Append the cache action to the built tree
             Tree = new Sequence(
-                    new TreeSharp.Action(x => ExtensionCache.LoadedExtensions.ForEach(ext => ext.UpdateCache(ExtensionCache.CustomExtensionCache))),
+                    new TreeSharp.Action(x => ExtensionCache.LoadedExtensions.ForEach(ext => ext.UpdateCache(extensionParameter, ExtensionCache.Cache))),
                     Tree);
 
             // Add this as a coroutine for this plugin

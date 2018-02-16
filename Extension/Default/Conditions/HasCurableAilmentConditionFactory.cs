@@ -4,19 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.DefaultExtension.Conditions
+namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 {
-    internal class InHideoutConditionFactory : ExtensionConditionFactory
+    internal class HasCurableAilmentConditionFactory : ExtensionConditionFactory
     {
-        public InHideoutConditionFactory()
+        public HasCurableAilmentConditionFactory(string owner)
         {
-            Owner = "Default";
-            Name = "InHideoutConditionFactory";
+            Owner = owner;
+            Name = "HasCurableAilmentConditionFactory";
         }
 
         public override ExtensionCondition GetCondition()
         {
-            return new SimpleCondition(Owner, Name, x => (() => x.Plugin.Cache.InHideout));
+            return new HasCurableAilmentCondition(Owner, Name);
         }
 
         public override List<string> GetFilterTypes()

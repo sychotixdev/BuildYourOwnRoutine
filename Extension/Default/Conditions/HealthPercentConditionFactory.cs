@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.DefaultExtension.Conditions
+namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 {
     internal class HealthPercentConditionFactory : ExtensionConditionFactory
     {
-        public HealthPercentConditionFactory()
+        public HealthPercentConditionFactory(string owner)
         {
-            Owner = "Default";
+            Owner = owner;
             Name = "HealthPercentConditionFactory";
         }
 
