@@ -55,6 +55,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
             // We need to initialize the filter list.
             ExtensionCache.ActionFilterList.Add(ExtensionComponentFilterType.None);
             ExtensionCache.ActionList.ForEach(factory => factory.GetFilterTypes().ForEach(x => ExtensionCache.ActionFilterList.Add(x)));
+
+            ExtensionCache.ConditionFilterList.Add(ExtensionComponentFilterType.None);
             ExtensionCache.ConditionList.ForEach(factory => factory.GetFilterTypes().ForEach(x => ExtensionCache.ConditionFilterList.Add(x)));
 
             ProfileMenu = new ProfileMenu(this);

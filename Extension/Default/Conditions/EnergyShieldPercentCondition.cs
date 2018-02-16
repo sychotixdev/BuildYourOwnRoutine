@@ -25,6 +25,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
         public override void Initialise(Dictionary<String, Object> Parameters)
         {
+            ImGui.TextDisabled("Condition Info");
+            ImGui.SetTooltip("This condition will return true if the player's energy shield percentage is above/below the specified amount.");
+
             base.Initialise(Parameters);
 
             IsAbove = Boolean.Parse((string)Parameters[IsAboveString]);

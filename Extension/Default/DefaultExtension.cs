@@ -23,24 +23,27 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
 
         public override List<ExtensionActionFactory> GetActions()
         {
-            List<ExtensionActionFactory> list = new List<ExtensionActionFactory>();
-
-            list.Add(new UseFlaskActionFactory(Name));
-            list.Add(new SendKeyActionFactory(Name));
+            List<ExtensionActionFactory> list = new List<ExtensionActionFactory>
+            {
+                new UseFlaskActionFactory(Name),
+                new SendKeyActionFactory(Name)
+            };
 
             return list;
         }
 
         public override List<ExtensionConditionFactory> GetConditions()
         {
-            List<ExtensionConditionFactory> list = new List<ExtensionConditionFactory>();
-
-            list.Add(new ManaPercentConditionFactory(Name));
-            list.Add(new HealthPercentConditionFactory(Name));
-            list.Add(new EnergyShieldPercentConditionFactory(Name));
-            list.Add(new CanUseFlaskConditionFactory(Name));
-            list.Add(new InHideoutConditionFactory(Name));
-            list.Add(new HasCurableAilmentConditionFactory(Name));
+            List<ExtensionConditionFactory> list = new List<ExtensionConditionFactory>
+            {
+                new ManaPercentConditionFactory(Name),
+                new HealthPercentConditionFactory(Name),
+                new EnergyShieldPercentConditionFactory(Name),
+                new CanUseFlaskConditionFactory(Name),
+                new InHideoutConditionFactory(Name),
+                new HasCurableAilmentConditionFactory(Name),
+                new PlayerMovingConditionFactory(Name)
+            };
 
             return list;
         }
@@ -48,8 +51,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
         public override void UpdateCache(ExtensionParameter extensionParameter, Dictionary<string, Dictionary<string, object>> cache)
         {
             // First, get the dictionary out
-            Dictionary<string, object> myCache;
-            if (!cache.TryGetValue(Name, out myCache))
+            if (!cache.TryGetValue(Name, out Dictionary<string, object> myCache))
             {
                 myCache = new Dictionary<string, object>();
                 cache.Add(Name, myCache);
@@ -58,7 +60,6 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
 
 
             // Add cache values
-
             long elapsedMovingTime = 0;
             var player = extensionParameter.Plugin.GameController.Player.GetComponent<Actor>();
             if (player != null && player.Address != 0 && player.isMoving)

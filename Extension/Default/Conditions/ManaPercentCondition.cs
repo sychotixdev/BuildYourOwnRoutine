@@ -33,6 +33,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
         public override bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters)
         {
+            ImGui.TextDisabled("Condition Info");
+            ImGui.SetTooltip("This condition will return true if the player's mana percentage is above/below the specified amount.");
+
             base.CreateConfigurationMenu(ref Parameters);
 
             int radioTarget = IsAbove ? 0 : 1;

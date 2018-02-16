@@ -54,10 +54,19 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
 
             bool shouldPerformClear = false;
             int radioTarget = (int)TriggerComposite.Type;
-            shouldPerformClear |= ImGui.RadioButton("PrioritySelector", ref radioTarget, (int)TriggerType.PrioritySelector); ImGui.SameLine();
+            shouldPerformClear |= ImGui.RadioButton("PrioritySelector", ref radioTarget, (int)TriggerType.PrioritySelector);
+            ImGui.SetTooltip("A PrioritySelector runs a list of composites in order from first to last until one of the composites returns true.");
+
+            ImGui.SameLine();
             shouldPerformClear |= ImGui.RadioButton("Sequence", ref radioTarget, (int)TriggerType.Sequence);
-            shouldPerformClear |= ImGui.RadioButton("Decorator", ref radioTarget, (int)TriggerType.Decorator); ImGui.SameLine();
+            ImGui.SetTooltip("A Sequence runs a list of composites in order from first to last until one of the composites returns false.");
+
+            shouldPerformClear |= ImGui.RadioButton("Decorator", ref radioTarget, (int)TriggerType.Decorator);
+            ImGui.SetTooltip("A Decorator will run its child if all conditions return true.\nThink of this as an if condition.");
+
+            ImGui.SameLine();
             var choseAction = ImGui.RadioButton("Action", ref radioTarget, (int)TriggerType.Action);
+            ImGui.SetTooltip("An action is a final point in a behavior tree.\nActions can return true or false.\nAll branches MUST end in an action.");
 
             if (choseAction && TriggerComposite.Children != null && TriggerComposite.Children.Any() // If we chose action, make sure we don't have any children
                 || (TriggerType)radioTarget == TriggerType.Decorator && TriggerComposite.Children != null && TriggerComposite.Children.Count > 1) // if we chose decorator, make sure we don't have more than 1 child

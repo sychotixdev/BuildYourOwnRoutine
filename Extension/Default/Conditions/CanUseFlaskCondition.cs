@@ -33,6 +33,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
         public override bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters)
         {
+            ImGui.TextDisabled("Condition Info");
+            ImGui.SetTooltip("This condition is used to determine if we can use a specific flask.\nIt will ensure that health/hybrid/mana potions are not used when we are at full health/mana.\nThis will also ensure that we do not use up reserved uses.");
+
             base.CreateConfigurationMenu(ref Parameters);
 
             flaskIndex = ImGuiExtension.IntSlider("Flask Index", flaskIndex, 1, 5);

@@ -1,4 +1,5 @@
-﻿using PoeHUD.Poe.Components;
+﻿using ImGuiNET;
+using PoeHUD.Poe.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
         public override void Initialise(Dictionary<String, Object> Parameters)
         {
+            ImGui.TextDisabled("Condition Info");
+            ImGui.SetTooltip("This condition will return true if the player has any of the selected ailments or a minimum of the specified corrupted blood stacks.");
+
             base.Initialise(Parameters);
 
             RemFrozen = Boolean.Parse((String)Parameters[RemFrozenString]);

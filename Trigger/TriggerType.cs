@@ -8,9 +8,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Trigger
 {
     internal enum TriggerType
     {
-        Decorator = 0,
-        PrioritySelector = 1,
-        Sequence = 2,
+        PrioritySelector = 0,
+        Sequence = 1,
+        Decorator = 2,
         Action = 3
     }
 }
