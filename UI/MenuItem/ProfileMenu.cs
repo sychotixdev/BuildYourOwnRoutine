@@ -89,16 +89,20 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
             if (ImGui.Button("Save profile")) ImGui.OpenPopup("Save profile Menu");
             if (ImGui.BeginPopupModal("Save profile Menu", WindowFlags.AlwaysAutoResize))
             {
-                
-                currentFileName = ImGuiExtension.InputText("File Name", currentFileName, 100, InputTextFlags.AlwaysInsertMode);
-                if (currentFileName != null && currentFileName.Length > 0 && ImGui.Button("Save profile to file"))
-                {
-                    BuildYourOwnRoutineCore.SaveSettingFile<Profile.LoadedProfile>(Plugin.ProfileDirectory + currentFileName, Plugin.Settings.LoadedProfile);
 
-                    currentFileName = "";
-                    ImGui.CloseCurrentPopup();
+                currentFileName = ImGuiExtension.InputText("File Name", currentFileName, 100, InputTextFlags.AlwaysInsertMode);
+                if (currentFileName != null && currentFileName.Length > 0)
+                {
+                    if (ImGui.Button("Save profile to file"))
+                    {
+                        BuildYourOwnRoutineCore.SaveSettingFile<Profile.LoadedProfile>(Plugin.ProfileDirectory + currentFileName, Plugin.Settings.LoadedProfile);
+
+                        currentFileName = "";
+                        ImGui.CloseCurrentPopup();
+                    }
+                    ImGui.SameLine();
                 }
-                ImGui.SameLine();
+
                 if (ImGui.Button("Cancel save profile"))
                 {
                     currentFileName = "";

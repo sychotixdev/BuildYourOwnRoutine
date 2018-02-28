@@ -12,7 +12,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
     internal class PlayerMovingCondition : ExtensionCondition
     {
         private int msMoving { get; set; } = 0;
-        private const String flaskIndexString = "msMoving";
+        private const String msMovingString = "msMoving";
 
 
         public PlayerMovingCondition(string owner, string name) : base(owner, name)
@@ -23,7 +23,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         public override void Initialise(Dictionary<String, Object> Parameters)
         {
             base.Initialise(Parameters);
-            msMoving = Int32.Parse((String)Parameters[flaskIndexString]);
+            msMoving = Int32.Parse((String)Parameters[msMovingString]);
 
         }
 
@@ -36,6 +36,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
             msMoving = ImGuiExtension.IntSlider("Time spent moving (ms)", msMoving, 0, 10000);
             ImGuiExtension.ToolTip("Player must remain moving for this configured number of milliseconds (1000ms = 1 sec) before this condition returns true");
+            Parameters[msMovingString] = msMoving.ToString();
             return true;
         }
 

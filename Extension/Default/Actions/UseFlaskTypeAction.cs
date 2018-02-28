@@ -103,10 +103,10 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
             useHybrid = ImGuiExtension.Checkbox("Hybrid", useHybrid);
             Parameters[useHybridString] = useHybrid.ToString();
 
-            useHybrid = ImGuiExtension.Checkbox("Use Instant", useHybrid);
+            useInstant = ImGuiExtension.Checkbox("Use Instant", useHybrid);
             ImGuiExtension.ToolTip("This only makes sense to use with life/mana/hybrid flasks");
 
-            Parameters[useHybridString] = useHybrid.ToString();
+            Parameters[useInstantString] = useInstant.ToString();
 
             useDefense = ImGuiExtension.Checkbox("Defense", useDefense);
             Parameters[useDefenseString] = useDefense.ToString();
@@ -174,6 +174,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
             if(actions.Count == 0)
             {
+                extensionParameter.Plugin.Log("No actions selected.", 5);
                 return new TreeSharp.Action();
             }
 
@@ -184,12 +185,18 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
         {
             return new UseHotkeyAction(extensionParameter.Plugin.KeyboardHelper, x =>
             {
+                extensionParameter.Plugin.Log("Searching for flask.", 5);
+
                 var foundFlask = findFlaskMatchingAnyAction(extensionParameter, flaskActions, instant, ignoreFlasksWithAction);
 
                 if (foundFlask == null)
                 {
+                    extensionParameter.Plugin.Log("No flask found.", 5);
                     return null;
                 }
+
+                extensionParameter.Plugin.Log("Found a flask! Index: " + foundFlask.Index, 5);
+
 
                 return extensionParameter.Settings.FlaskSettings[foundFlask.Index].Hotkey;
             });
@@ -202,6 +209,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
             // We have no flasks or settings for flasks?
             if (allFlasks == null || extensionParameter.Settings.FlaskSettings == null)
             {
+                extensionParameter.Plugin.Log("No flasks or no settings.", 5);
                 return null;
             }
 
@@ -222,6 +230,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
             if (flaskList == null || !flaskList.Any())
             {
+                extensionParameter.Plugin.Log("Flask list was empty", 5);
                 return null;
             }
 

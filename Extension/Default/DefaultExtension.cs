@@ -25,7 +25,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
         {
             List<ExtensionActionFactory> list = new List<ExtensionActionFactory>
             {
-                new UseFlaskTypeActionFactory(Name),
+                new UseFlaskActionFactory(Name),
                 new SendKeyActionFactory(Name),
                 new UseFlaskTypeActionFactory(Name)
             };
@@ -55,10 +55,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
             if (!cache.TryGetValue(Name, out Dictionary<string, object> myCache))
             {
                 myCache = new Dictionary<string, object>();
-                cache.Add(Name, myCache);
+                cache[Name] = myCache;
             }
-            cache.Add(CacheStartedMoving, myCache);
-
 
             // Add cache values
             long elapsedMovingTime = 0;
@@ -74,7 +72,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
                 MovingStopwatch.Stop();
             }
 
-            myCache.Add(CacheStartedMoving, elapsedMovingTime);
+            myCache[CacheStartedMoving] = elapsedMovingTime;
 
 
         }

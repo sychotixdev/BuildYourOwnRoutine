@@ -115,7 +115,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
                             // If we do not have an extension action cached OR we swapped actions... initialize values
                             if (ActiveWorkingExtensionAction == null || previouslySelectedAction != SelectedOption1)
                             {
-                                var action = ExtensionCache.ActionList[SelectedOption1];
+                                var action = actionList[SelectedOption1];
                                 if (TriggerComposite.Action == null)
                                     TriggerComposite.Action = new TriggerAction(action.Owner, action.Name);
 
