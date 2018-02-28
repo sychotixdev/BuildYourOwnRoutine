@@ -9,11 +9,21 @@ using TreeRoutine.Routine.BuildYourOwnRoutine.Extension;
 using System.IO;
 using TreeRoutine.Menu;
 using TreeRoutine.Routine.BuildYourOwnRoutine.Trigger;
+using System.Numerics;
 
 namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
 {
     public class ProfileMenu
     {
+        internal enum ProfileMenuAction
+        {
+            None,
+            Remove,
+            Edit,
+            MoveUp,
+            MoveDown
+        }
+
         public ProfileMenu(BuildYourOwnRoutineCore plugin)
         {
             this.Plugin = plugin;
@@ -23,95 +33,22 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
 
         private const string TriggerMenuLabel = "TriggerMenu";
         private const string OkMenuLabel = "OkMenu";
+        private static Vector4 GreenColor = new Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+        private static Vector4 RedColor = new Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+
+
+        #region Menu Cache
 
         private TriggerMenu NewTriggerMenu = null;
         private int currentlySelectedProfile = -1;
         private string currentFileName = "";
 
+        #endregion
+    
+
         public void Render()
         {
-            ImGuiExtension.BeginWindow("Profile Menu", Plugin.Settings.LastSettingPos.X, Plugin.Settings.LastSettingPos.Y, Plugin.Settings.LastSettingSize.X, Plugin.Settings.LastSettingSize.Y);
-
-            if (ImGui.Button("New profile") || Plugin.Settings.LoadedProfile == null)
-            {
-                Plugin.Settings.LoadedProfile = new Profile.LoadedProfile();
-            }
-
-            ImGui.SameLine();
-
-
-            if (ImGui.Button("Load profile")) ImGui.OpenPopup("Load profile Menu");
-            if (ImGui.BeginPopupModal("Load profile Menu", WindowFlags.AlwaysAutoResize))
-            {
-                string[] files = Directory.GetFiles(Plugin.ProfileDirectory);
-
-                if (files == null || files.Length == 0)
-                {
-                    ImGui.Text("No profiles in profile directory.");
-                    currentlySelectedProfile = -1;
-                }
-                else
-                {
-                    ImGui.Combo("Files", ref currentlySelectedProfile, files.Select(x => Path.GetFileName(x)).ToArray());
-                }
-
-                if (currentlySelectedProfile >= 0 && ImGui.Button("Load selected profile"))
-                {
-                    Profile.LoadedProfile loadedProfile = BuildYourOwnRoutineCore.LoadSettingFile<Profile.LoadedProfile>(files[currentlySelectedProfile]);
-                    if (loadedProfile == null || loadedProfile.Name == null)
-                    {
-                        StartNewOKMenu("Profile did not load properly");
-                    }
-                    else
-                    {
-                        Plugin.Settings.LoadedProfile = loadedProfile;
-                        Plugin.CreateAndStartTreeFromLoadedProfile();
-
-                        currentlySelectedProfile = -1;
-                        ImGui.CloseCurrentPopup();
-                    }
-
-                }
-                // Render the menu from loading profile
-                RenderOkMenu();
-
-                if (ImGui.Button("Cancel Load Profile"))
-                {
-                    currentlySelectedProfile = -1;
-                    ImGui.CloseCurrentPopup();
-                }
-
-                ImGui.EndPopup();
-            }
-
-            ImGui.SameLine();
-
-            if (ImGui.Button("Save profile")) ImGui.OpenPopup("Save profile Menu");
-            if (ImGui.BeginPopupModal("Save profile Menu", WindowFlags.AlwaysAutoResize))
-            {
-
-                currentFileName = ImGuiExtension.InputText("File Name", currentFileName, 100, InputTextFlags.AlwaysInsertMode);
-                if (currentFileName != null && currentFileName.Length > 0)
-                {
-                    if (ImGui.Button("Save profile to file"))
-                    {
-                        BuildYourOwnRoutineCore.SaveSettingFile<Profile.LoadedProfile>(Plugin.ProfileDirectory + currentFileName, Plugin.Settings.LoadedProfile);
-
-                        currentFileName = "";
-                        ImGui.CloseCurrentPopup();
-                    }
-                    ImGui.SameLine();
-                }
-
-                if (ImGui.Button("Cancel save profile"))
-                {
-                    currentFileName = "";
-                    ImGui.CloseCurrentPopup();
-                }
-                ImGui.EndPopup();
-            }
-
-            if (ImGui.Button("Reload Tree"))
+            if (ImGui.SmallButton("Reload"))
             {
                 // Validate current tree
                 var root = Plugin.Settings.LoadedProfile.Composite;
@@ -122,8 +59,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                 }
                 else
                 {
-                    var error = ValidateTree(Plugin.Settings.LoadedProfile.Composite);
-                    if (error != null)
+                    if (!ValidateTree(Plugin.Settings.LoadedProfile.Composite, out string error))
                     {
                         StartNewOKMenu(error);
                     }
@@ -134,39 +70,73 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                     }
                 }
             }
+            ImGuiExtension.ToolTip("The tree MUST be reloaded in order for changes to take effect.");
+
+            ImGui.SameLine();
+            ImGui.Spacing();
+            ImGui.SameLine();
+
+            if (ImGui.SmallButton("Save"))
+            {
+                ImGui.OpenPopup("Save Profile");
+            }
+
+            RenderSaveProfileMenu();
+
+            ImGui.SameLine();
+            ImGui.Spacing();
+            ImGui.SameLine();
+
+            if (ImGui.SmallButton("Load"))
+            {
+                ImGui.OpenPopup("Load Profile");
+            }
+
+            RenderLoadProfileMenu();
+
+            ImGui.SameLine();
+            ImGui.Spacing();
+            ImGui.SameLine();
+
+            if (ImGui.SmallButton("Clear") || Plugin.Settings.LoadedProfile == null)
+            {
+                Plugin.Settings.LoadedProfile = new Profile.LoadedProfile();
+            }
+            ImGuiExtension.ToolTip("Clear the tree to start over.");
 
             RenderOkMenu();
 
-            if (ImGui.TreeNodeEx("Profile Tree", TreeNodeFlags.OpenOnArrow | TreeNodeFlags.DefaultOpen))
+            ImGui.Spacing();
+            ImGui.Separator();
+            ImGui.Text("Loaded Tree");
+            ImGui.Spacing();
+
+            if (Plugin.Settings.LoadedProfile.Composite == null)
             {
-                if (Plugin.Settings.LoadedProfile.Composite == null)
+                if (ImGui.Button("+"))
                 {
-                    if (ImGui.Button("+"))
-                    {
-                        ImGui.OpenPopup(TriggerMenuLabel);
-                        NewTriggerMenu = new TriggerMenu(Plugin.ExtensionCache, null);
-                    }
-                    ImGuiExtension.ToolTip("Add root");
+                    ImGui.OpenPopup(TriggerMenuLabel);
+                    NewTriggerMenu = new TriggerMenu(Plugin.ExtensionCache, null);
+                }
+                ImGuiExtension.ToolTip("Add root");
 
 
-                    // If start profile is clicked, trigger menu is rendered
-                    RenderTriggerMenu();
-                }
-                else
-                {
-                    if (!CreateTreeForComposite(null, Plugin.Settings.LoadedProfile.Composite, 0))
-                    {
-                        // Was asked to remove the root node.
-                        Plugin.Settings.LoadedProfile.Composite = null;
-                    }
-                }
-                ImGui.TreePop();
+                // If start profile is clicked, trigger menu is rendered
+                RenderTriggerMenu();
             }
-            
-            ImGui.EndWindow();
+            else
+            {
+                var menuAction = CreateTreeForComposite(null, Plugin.Settings.LoadedProfile.Composite, 0);
+                if (menuAction == ProfileMenuAction.Remove)
+                {
+                    // Was asked to remove the root node.
+                    Plugin.Settings.LoadedProfile.Composite = null;
+                }
+            }
+
         }
 
-        private Boolean CreateTreeForComposite(TriggerComposite parent, TriggerComposite composite, int depth)
+        private ProfileMenuAction CreateTreeForComposite(TriggerComposite parent, TriggerComposite composite, int depth)
         {
             String typeTag = "";
             if (composite.Type == TriggerType.Action)
@@ -179,33 +149,52 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                 typeTag = "[S]";
 
             string label = depth + ":" + typeTag + composite.Name;
-            if (ImGui.TreeNodeEx(label, TreeNodeFlags.OpenOnArrow))
+
+            ImGui.PushID("Composite" + depth + label);
+            try
             {
-                //ImGui.Text(label);
-
-                ImGui.SameLine();
-
-                if (ImGui.Button("X"))
+                Vector4 chosenColor = GreenColor;
+                if (!ValidateTree(composite, out string error))
                 {
-                    // Simply return false to remove the child
-                    return false;
-                }
-                ImGuiExtension.ToolTip("Remove");
-
-                ImGui.SameLine();
-
-                if (ImGui.Button("^"))
-                {
-                    ImGui.OpenPopup(TriggerMenuLabel);
-                    NewTriggerMenu = new TriggerMenu(Plugin.ExtensionCache, parent, composite);
+                    chosenColor = RedColor;
                 }
 
-                ImGuiExtension.ToolTip("Edit");
-
-                RenderTriggerMenu();
-
-                if (composite.Type != TriggerType.Action)
+                if (composite.Type == TriggerType.Action)
                 {
+                    // Push an ID so everything below remains unique
+                    ImGuiNative.igIndent();
+
+                    var profileAction = CreateTriggerTextWithPopupMenu(label, chosenColor);
+                    if (profileAction == ProfileMenuAction.Edit)
+                    {
+                        ImGui.OpenPopup(TriggerMenuLabel);
+                        NewTriggerMenu = new TriggerMenu(Plugin.ExtensionCache, parent, composite);
+                    }
+                    else if (profileAction != ProfileMenuAction.None)
+                    {
+                        // Pass it up, maybe someone above knows how to deal with it
+                        return profileAction;
+                    }
+
+                    RenderTriggerMenu();
+                    ImGuiNative.igUnindent();
+                }
+                else if (ImGui.TreeNodeEx("", TreeNodeFlags.OpenOnArrow | TreeNodeFlags.DefaultOpen))
+                {
+                    ImGui.SameLine();
+
+                    var profileAction = CreateTriggerTextWithPopupMenu(label, chosenColor);
+                    if (profileAction == ProfileMenuAction.Edit)
+                    {
+                        ImGui.OpenPopup(TriggerMenuLabel);
+                        NewTriggerMenu = new TriggerMenu(Plugin.ExtensionCache, parent, composite);
+                    }
+                    else if (profileAction != ProfileMenuAction.None)
+                    {
+                        // Pass it up, maybe someone above knows how to deal with it
+                        return profileAction;
+                    }
+
                     // Decorators can only have one child
                     if (composite.Type != TriggerType.Decorator || (composite.Children == null || composite.Children.Count == 0))
                     {
@@ -222,17 +211,71 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                         List<TriggerComposite> childrenToRemove = new List<TriggerComposite>();
                         foreach (var child in composite.Children)
                         {
-                            if (!CreateTreeForComposite(composite, child, depth + 1))
+                            var childAction = CreateTreeForComposite(composite, child, depth + 1);
+                            if (childAction == ProfileMenuAction.Remove)
                                 childrenToRemove.Add(child);
                         }
                         // Remove all children who were requested deletion
                         childrenToRemove.ForEach(x => composite.Children.Remove(x));
                     }
+
+                    RenderTriggerMenu();
+
+                    ImGui.TreePop();
                 }
-                ImGui.TreePop();
+                else
+                {
+                    // Tree is closed, but we still want to display the text.
+                    ImGui.SameLine();
+                    var profileAction = CreateTriggerTextWithPopupMenu(label, chosenColor);
+                    if (profileAction == ProfileMenuAction.Edit)
+                    {
+                        ImGui.OpenPopup(TriggerMenuLabel);
+                        NewTriggerMenu = new TriggerMenu(Plugin.ExtensionCache, parent, composite);
+                    }
+                    else if (profileAction != ProfileMenuAction.None)
+                    {
+                        // Pass it up, maybe someone above knows how to deal with it
+                        return profileAction;
+                    }
+
+                    RenderTriggerMenu();
+                }
+            }
+            finally
+            {
+                // Just to make sure we pop the ID, no matter if we return early
+                ImGui.PopID();
             }
 
-            return true;
+            return ProfileMenuAction.None;
+        }
+
+        private ProfileMenuAction CreateTriggerTextWithPopupMenu(string label, Vector4 color)
+        {
+            ImGui.Text(label, color);
+
+            if (ImGui.IsItemHovered(HoveredFlags.Default) && ImGui.IsMouseClicked(1))
+            {
+                ImGui.OpenPopup("Trigger Menu Context");
+            }
+
+            var selectedAction = ProfileMenuAction.None;
+            if (ImGui.BeginPopup("Trigger Menu Context"))
+            {
+                if (ImGui.Selectable("Remove"))
+                {
+                    selectedAction = ProfileMenuAction.Remove;
+                }
+                if (ImGui.Selectable("Edit"))
+                {
+                    selectedAction = ProfileMenuAction.Edit;
+                }
+                ImGui.EndPopup();
+                return selectedAction;
+            }
+
+            return selectedAction;
         }
 
         private void RenderTriggerMenu()
@@ -263,28 +306,106 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
             }
         }
 
-        private string ValidateTree(TriggerComposite composite)
+        private bool ValidateTree(TriggerComposite composite, out string error)
         {
+            error = null;
             if (composite == null)
             {
-                return "No profile loaded";
+                error = "No profile loaded";
+                return false; ;
             }
             if (composite.Type != TriggerType.Action && (composite.Children == null || composite.Children.Count == 0))
             {
-                return "Composite must have at least one child. Name: " + composite.Name;
+                error = "Composite must have at least one child.\nName: " + composite.Name;
+                return false;
             }
 
             if (composite.Children != null && composite.Children.Count > 0)
             {
                 foreach(var child in composite.Children)
                 {
-                    string retVal = ValidateTree(child);
-                    if (retVal != null)
-                        return retVal;
+                    if (!ValidateTree(child, out string retVal))
+                    {
+                        error = retVal;
+                        return false;
+                    }
                 }
             }
 
-            return null;
+            return true;
+        }
+
+        private void RenderLoadProfileMenu()
+        {
+            if (ImGui.BeginPopupModal("Load Profile", WindowFlags.AlwaysAutoResize))
+            {
+                string[] files = Directory.GetFiles(Plugin.ProfileDirectory);
+
+                if (files == null || files.Length == 0)
+                {
+                    ImGui.Text("No profiles in profile directory.");
+                    currentlySelectedProfile = -1;
+                }
+                else
+                {
+                    ImGui.Combo("Files", ref currentlySelectedProfile, files.Select(x => Path.GetFileName(x)).ToArray());
+                }
+
+                if (currentlySelectedProfile >= 0 && ImGui.Button("Load"))
+                {
+                    Profile.LoadedProfile loadedProfile = BuildYourOwnRoutineCore.LoadSettingFile<Profile.LoadedProfile>(files[currentlySelectedProfile]);
+                    if (loadedProfile == null || loadedProfile.Name == null)
+                    {
+                        StartNewOKMenu("Profile did not load properly");
+                    }
+                    else
+                    {
+                        Plugin.Settings.LoadedProfile = loadedProfile;
+                        Plugin.CreateAndStartTreeFromLoadedProfile();
+
+                        currentlySelectedProfile = -1;
+                        ImGui.CloseCurrentPopup();
+                    }
+
+                }
+                // Render the menu from loading profile
+                RenderOkMenu();
+
+                if (ImGui.Button("Cancel"))
+                {
+                    currentlySelectedProfile = -1;
+                    ImGui.CloseCurrentPopup();
+                }
+
+                ImGui.EndPopup();
+            }
+        }
+
+        private void RenderSaveProfileMenu()
+        {
+            if (ImGui.BeginPopupModal("Save Profile", WindowFlags.AlwaysAutoResize))
+            {
+
+                currentFileName = ImGuiExtension.InputText("File Name", currentFileName, 100, InputTextFlags.AlwaysInsertMode);
+                if (currentFileName != null && currentFileName.Length > 0)
+                {
+                    if (ImGui.Button("Save"))
+                    {
+                        BuildYourOwnRoutineCore.SaveSettingFile<Profile.LoadedProfile>(Plugin.ProfileDirectory + currentFileName, Plugin.Settings.LoadedProfile);
+
+                        currentFileName = "";
+                        ImGui.CloseCurrentPopup();
+                    }
+                    ImGui.SameLine();
+                }
+
+                if (ImGui.Button("Cancel"))
+                {
+                    currentFileName = "";
+                    ImGui.CloseCurrentPopup();
+                }
+                ImGui.EndPopup();
+            }
         }
 
         #region OKMenu
@@ -300,6 +421,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
             if (ImGui.BeginPopupModal(OkMenuLabel, (WindowFlags)35))
             {
                 ImGui.TextDisabled(OKMessage);
+                ImGui.Spacing();
                 if (ImGui.Button("OK"))
                 {
                     ImGui.CloseCurrentPopup();
@@ -308,6 +430,5 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
             }
         }
         #endregion
-
     }
 }

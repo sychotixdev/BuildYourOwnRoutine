@@ -38,7 +38,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
 
         public KeyboardHelper KeyboardHelper { get; set; } = null;
 
-        private ProfileMenu ProfileMenu { get; set; }
+        private ConfigurationMenu ConfigurationMenu { get; set; }
 
         public override void Initialise()
         {
@@ -53,7 +53,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
             ExtensionLoader.LoadAllExtensions(ExtensionCache, ExtensionDirectory);
             ProcessLoadedExtensions();
 
-            ProfileMenu = new ProfileMenu(this);
+            ConfigurationMenu = new ConfigurationMenu(this);
 
             CreateAndStartTreeFromLoadedProfile();
 
@@ -140,28 +140,11 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
             if (Settings.ShowSettings)
             {
                 ImGuiExtension.BeginWindow($"{PluginName} Settings", Settings.LastSettingPos.X, Settings.LastSettingPos.Y, Settings.LastSettingSize.X, Settings.LastSettingSize.Y);
-
-                if (ImGui.TreeNode("Individual Flask Settings"))
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        FlaskSetting currentFlask = Settings.FlaskSettings[i];
-                        if (ImGui.TreeNode("Flask " + (i + 1) + " Settings"))
-                        {
-                            currentFlask.Hotkey.Value = ImGuiExtension.HotkeySelector("Hotkey", currentFlask.Hotkey);
-                            ImGui.TreePop();
-                        }
-                    }
-
-                    ImGui.TreePop();
-                }
-
+                
+                ConfigurationMenu.Render();
                 ImGui.EndWindow();
-            }
-
-            if (Settings.ShowProfileMenu)
-            {
-                ProfileMenu.Render();
+                
+                //else Settings.ShowSettings = false;
             }
         }
     }
