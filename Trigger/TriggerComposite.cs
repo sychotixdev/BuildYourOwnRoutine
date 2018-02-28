@@ -24,6 +24,11 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Trigger
                 trigger.Children.ForEach(x => this.Children.Add(x));
             }
 
+            if (trigger.ConditionList != null && trigger.ConditionList.Count > 0)
+            {
+                trigger.ConditionList.ForEach(x => this.ConditionList.Add(x));
+            }
+
             if (trigger.Action != null)
             {
                 this.Action = new TriggerAction(trigger.Action);
