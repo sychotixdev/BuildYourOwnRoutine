@@ -164,7 +164,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                     // Push an ID so everything below remains unique
                     ImGuiNative.igIndent();
 
-                    var profileAction = CreateTriggerTextWithPopupMenu(label, chosenColor);
+                    var profileAction = CreateTriggerTextWithPopupMenu(label, chosenColor, parent);
                     if (profileAction == ProfileMenuAction.Edit)
                     {
                         ImGui.OpenPopup(TriggerMenuLabel);
@@ -183,7 +183,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                 {
                     ImGui.SameLine();
 
-                    var profileAction = CreateTriggerTextWithPopupMenu(label, chosenColor);
+                    var profileAction = CreateTriggerTextWithPopupMenu(label, chosenColor, parent);
                     if (profileAction == ProfileMenuAction.Edit)
                     {
                         ImGui.OpenPopup(TriggerMenuLabel);
@@ -227,7 +227,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                 {
                     // Tree is closed, but we still want to display the text.
                     ImGui.SameLine();
-                    var profileAction = CreateTriggerTextWithPopupMenu(label, chosenColor);
+                    var profileAction = CreateTriggerTextWithPopupMenu(label, chosenColor, parent);
                     if (profileAction == ProfileMenuAction.Edit)
                     {
                         ImGui.OpenPopup(TriggerMenuLabel);
@@ -251,7 +251,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
             return ProfileMenuAction.None;
         }
 
-        private ProfileMenuAction CreateTriggerTextWithPopupMenu(string label, Vector4 color)
+        private ProfileMenuAction CreateTriggerTextWithPopupMenu(string label, Vector4 color, TriggerComposite parent)
         {
             ImGui.Text(label, color);
 
@@ -271,6 +271,19 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                 {
                     selectedAction = ProfileMenuAction.Edit;
                 }
+                // Only show move up/down if our parent can have more than one child
+                if (parent != null && (parent.Type == TriggerType.PrioritySelector || parent.Type == TriggerType.Sequence))
+                {
+                    if (ImGui.Selectable("Move Up"))
+                    {
+                        selectedAction = ProfileMenuAction.MoveUp;
+                    }
+                    if (ImGui.Selectable("Move Down"))
+                    {
+                        selectedAction = ProfileMenuAction.MoveDown;
+                    }
+                }
+                
                 ImGui.EndPopup();
                 return selectedAction;
             }
