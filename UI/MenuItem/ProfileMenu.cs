@@ -209,14 +209,32 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                     if (composite.Children != null && composite.Children.Any())
                     {
                         List<TriggerComposite> childrenToRemove = new List<TriggerComposite>();
+                        List<TriggerComposite> childrenToMoveUp = new List<TriggerComposite>();
+                        List<TriggerComposite> childrenToMoveDown = new List<TriggerComposite>();
                         foreach (var child in composite.Children)
                         {
                             var childAction = CreateTreeForComposite(composite, child, depth + 1);
                             if (childAction == ProfileMenuAction.Remove)
                                 childrenToRemove.Add(child);
+                            else if (childAction == ProfileMenuAction.MoveUp)
+                                childrenToMoveUp.Add(child);
+                            else if (childAction == ProfileMenuAction.MoveDown)
+                                childrenToMoveDown.Add(child);
                         }
                         // Remove all children who were requested deletion
                         childrenToRemove.ForEach(x => composite.Children.Remove(x));
+                        childrenToMoveUp.ForEach(x =>
+                        {
+                            var index = composite.Children.IndexOf(x);
+                            composite.Children.Remove(x);
+                            composite.Children.Insert(Math.Max(0, index - 1), x);
+                        });
+                        childrenToMoveDown.ForEach(x =>
+                        {
+                            var index = composite.Children.IndexOf(x);
+                            composite.Children.Remove(x);
+                            composite.Children.Insert(index + 1, x);
+                        });
                     }
 
                     RenderTriggerMenu();
