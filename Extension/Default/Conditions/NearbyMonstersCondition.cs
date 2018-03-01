@@ -40,6 +40,24 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         private int ChaosResistanceThreshold { get; set; }
         private readonly String ChaosResistanceThresholdString = "ChaosResistanceThreshold";
 
+        private bool CountWhiteMonsters { get; set; }
+        private readonly String CountWhiteMonstersString = "CountWhiteMonsters";
+
+        private bool CountRareMonsters { get; set; }
+        private readonly String CountRareMonstersString = "CountRareMonsters";
+
+        private bool CountMagicMonsters { get; set; }
+        private readonly String CountMagicMonstersString = "CountMagicMonsters";
+
+        private bool CountUniqueMonsters { get; set; }
+        private readonly String CountUniqueMonstersString = "CountUniqueMonsters";
+
+        private int MonsterHealthPercentThreshold { get; set; }
+        private readonly String MonsterHealthPercentThresholdString = "MonsterHealthPercentThreshold";
+
+        private bool MonsterAboveHealthThreshold { get; set; }
+        private readonly String MonsterAboveHealthThresholdString = "MonsterAboveHealthThreshold";
+
         public NearbyMonstersCondition(string owner, string name) : base(owner, name)
         {
             MinimumMonsterCount = 0;
@@ -48,6 +66,12 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             FireResistanceThreshold = 0;
             LightningResistanceThreshold = 0;
             ChaosResistanceThreshold = 0;
+            CountWhiteMonsters = true;
+            CountRareMonsters = true;
+            CountMagicMonsters = true;
+            CountUniqueMonsters = true;
+            MonsterHealthPercentThreshold = 0;
+            MonsterAboveHealthThreshold = false;
         }
 
         public override void Initialise(Dictionary<String, Object> Parameters)
@@ -61,6 +85,14 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             FireResistanceThreshold = Int32.Parse((string)Parameters[FireResistanceThresholdString]);
             LightningResistanceThreshold = Int32.Parse((string)Parameters[LightningResistanceThresholdString]);
             ChaosResistanceThreshold = Int32.Parse((string)Parameters[ChaosResistanceThresholdString]);
+
+            CountWhiteMonsters = Boolean.Parse((string)Parameters[CountWhiteMonstersString]);
+            CountRareMonsters = Boolean.Parse((string)Parameters[CountRareMonstersString]);
+            CountMagicMonsters = Boolean.Parse((string)Parameters[CountMagicMonstersString]);
+            CountUniqueMonsters = Boolean.Parse((string)Parameters[CountUniqueMonstersString]);
+
+            MonsterHealthPercentThreshold = Int32.Parse((string)Parameters[MonsterHealthPercentThresholdString]);
+
         }
 
         public override bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters)
@@ -93,6 +125,32 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             ChaosResistanceThreshold = ImGuiExtension.IntSlider("Chaos Resist Above", ChaosResistanceThreshold, 0, 75);
             Parameters[ChaosResistanceThresholdString] = ChaosResistanceThreshold.ToString();
 
+            ImGui.Spacing();
+            ImGui.Separator();
+            ImGui.Spacing();
+
+            CountWhiteMonsters = ImGuiExtension.Checkbox("White Monsters", CountWhiteMonsters);
+            Parameters[CountWhiteMonstersString] = CountWhiteMonsters.ToString();
+
+            CountRareMonsters = ImGuiExtension.Checkbox("Rare Monsters", CountRareMonsters);
+            Parameters[CountRareMonstersString] = CountRareMonsters.ToString();
+
+            CountMagicMonsters = ImGuiExtension.Checkbox("Magic Monsters", CountMagicMonsters);
+            Parameters[CountMagicMonstersString] = CountMagicMonsters.ToString();
+
+            CountUniqueMonsters = ImGuiExtension.Checkbox("Unique Monsters", CountUniqueMonsters);
+            Parameters[CountUniqueMonstersString] = CountUniqueMonsters.ToString();
+
+            ImGui.Spacing();
+            ImGui.Separator();
+            ImGui.Spacing();
+
+            MonsterHealthPercentThreshold = ImGuiExtension.IntSlider("Monster Health Percent", MonsterHealthPercentThreshold, 0, 100);
+            Parameters[MonsterHealthPercentThresholdString] = MonsterHealthPercentThreshold.ToString();
+
+            MonsterAboveHealthThreshold = ImGuiExtension.Checkbox("Above Health Threshold", MonsterAboveHealthThreshold);
+            Parameters[MonsterAboveHealthThresholdString] = MonsterAboveHealthThreshold.ToString();
+
             return true;
         }
 
@@ -110,12 +168,29 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                     if (!monster.IsValid || !monster.IsAlive)
                         continue;
 
+                    var monsterType = monster.GetComponent<ObjectMagicProperties>().Rarity;
+
+                    // Don't count this monster type if we are ignoring it
+                    if (monsterType == MonsterRarity.White && !CountWhiteMonsters
+                        || monsterType == MonsterRarity.Rare && !CountRareMonsters
+                        || monsterType == MonsterRarity.Magic && !CountMagicMonsters
+                        || monsterType == MonsterRarity.Unique && !CountUniqueMonsters)
+                        continue;
+
+                    if (MonsterHealthPercentThreshold > 0)
+                    {
+                        // If the monster is still too healthy, don't count it
+                        var monsterLife = monster.GetComponent<Life>();
+                        if (monsterLife.CurHP / monsterLife.MaxHP >= MonsterHealthPercentThreshold)
+                            continue;
+                    }
+
                     var monsterPosition = monster.GetComponent<Positioned>();
                     var xDiff = playerPosition.GridX - monsterPosition.GridX;
                     var yDiff = playerPosition.GridY - monsterPosition.GridY;
-                    var monsterDistance = (xDiff * xDiff + yDiff * yDiff);
+                    var monsterDistanceSquare = (xDiff * xDiff + yDiff * yDiff);
 
-                    if (monsterDistance <= maxDistanceSquare)
+                    if (monsterDistanceSquare <= maxDistanceSquare)
                     {
                         if (ColdResistanceThreshold > 0 || FireResistanceThreshold > 0 || LightningResistanceThreshold > 0 || ChaosResistanceThreshold > 0)
                         {
