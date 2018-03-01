@@ -62,7 +62,9 @@
     <Compile Include="Extension\Default\Actions\UseFlaskTypeAction.cs" />
     <Compile Include="Extension\Default\Actions\UseFlaskActionFactory.cs" />
     <Compile Include="Extension\Default\Actions\UseFlaskTypeActionFactory.cs" />
+    <Compile Include="Extension\Default\Conditions\NearbyMonstersCondition.cs" />
     <Compile Include="Extension\Default\Conditions\LoweredResistanceCondition.cs" />
+    <Compile Include="Extension\Default\Conditions\NearbyMonstersConditionFactory.cs" />
     <Compile Include="Extension\Default\Conditions\LoweredResistanceConditionFactory.cs" />
     <Compile Include="Extension\Default\Conditions\PlayerMovingCondition.cs" />
     <Compile Include="Extension\Default\Conditions\PlayerMovingConditionFactory.cs" />

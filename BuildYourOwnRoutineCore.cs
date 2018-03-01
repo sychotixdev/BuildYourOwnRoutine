@@ -19,6 +19,8 @@ using System.IO;
 using System.Reflection;
 using TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem;
 using TreeRoutine.Routine.BuildYourOwnRoutine.Flask;
+using PoeHUD.Models;
+using System.Collections.Concurrent;
 
 namespace TreeRoutine.Routine.BuildYourOwnRoutine
 {
@@ -29,16 +31,18 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
 
         }
 
-        public string ProfileDirectory { get; set; }
-        public string ExtensionDirectory { get; set; }
-        public ExtensionCache ExtensionCache { get; set; }
+        public string ProfileDirectory { get; protected set; }
+        public string ExtensionDirectory { get; protected set; }
+        public ExtensionCache ExtensionCache { get; protected set; }
 
-        public Composite Tree { get; set; }
+        public Composite Tree { get; protected set; }
         private Coroutine TreeCoroutine { get; set; }
 
-        public KeyboardHelper KeyboardHelper { get; set; } = null;
+        public KeyboardHelper KeyboardHelper { get; protected set; } = null;
 
         private ConfigurationMenu ConfigurationMenu { get; set; }
+
+        public ConcurrentBag<EntityWrapper> LoadedMonsters { get; protected set; } = new ConcurrentBag<EntityWrapper>();
 
         public override void Initialise()
         {
@@ -145,6 +149,27 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
                 ImGui.EndWindow();
                 
                 //else Settings.ShowSettings = false;
+            }
+        }
+
+        public override void EntityAdded(EntityWrapper entityWrapper)
+        {
+            if (entityWrapper.HasComponent<Monster>() && entityWrapper.IsValid && entityWrapper.IsAlive)
+            {
+                //This will Cache the Positioned Component.
+                var k = entityWrapper.GetComponent<Positioned>();
+                var p = entityWrapper.GetComponent<ObjectMagicProperties>();
+                LoadedMonsters.Add(entityWrapper);
+            }
+        }
+        public override void EntityRemoved(EntityWrapper entityWrapper)
+        {
+            if (LoadedMonsters.TryPeek(out entityWrapper))
+            {
+                if (!LoadedMonsters.TryTake(out entityWrapper))
+                {
+                    LogError("Failed to remove an entity from the monster cache! Report this error as actually being possible.", 5);
+                }
             }
         }
     }
