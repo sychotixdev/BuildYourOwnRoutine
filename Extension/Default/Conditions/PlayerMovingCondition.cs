@@ -11,7 +11,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 {
     internal class PlayerMovingCondition : ExtensionCondition
     {
-        private int msMoving { get; set; } = 0;
+        private Int64 msMoving { get; set; } = 0;
         private const String msMovingString = "msMoving";
 
 
@@ -23,7 +23,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         public override void Initialise(Dictionary<String, Object> Parameters)
         {
             base.Initialise(Parameters);
-            msMoving = Int32.Parse((String)Parameters[msMovingString]);
+            msMoving = Int64.Parse((String)Parameters[msMovingString]);
 
         }
 
@@ -34,7 +34,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
             base.CreateConfigurationMenu(ref Parameters);
 
-            msMoving = ImGuiExtension.IntSlider("Time spent moving (ms)", msMoving, 0, 10000);
+            msMoving = ImGuiExtension.IntSlider("Time spent moving (ms)", (int)msMoving, 0, 10000);
             ImGuiExtension.ToolTip("Player must remain moving for this configured number of milliseconds (1000ms = 1 sec) before this condition returns true");
             Parameters[msMovingString] = msMoving.ToString();
             return true;
@@ -49,13 +49,13 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                     return false;
                 }
 
-                if (myCache.TryGetValue(DefaultExtension.CacheStartedMoving, out object o))
+                if (!myCache.TryGetValue(DefaultExtension.CacheStartedMoving, out object o))
                     return false;
-                if (o is Int32)
+                if (o is Int64)
                 {
-                    return ((int)o) >= msMoving;
+                    return ((Int64)o) >= msMoving;
                 }
-                profileParameter.Plugin.LogErr("The cached value " + DefaultExtension.CacheStartedMoving + " is not an int.", 5);
+                profileParameter.Plugin.LogErr("The cached value " + DefaultExtension.CacheStartedMoving + " is not an int. Type: " + o.GetType(), 5);
                 return false;
             };
         }
