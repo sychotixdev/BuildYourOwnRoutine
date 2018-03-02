@@ -40,11 +40,11 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             return true;
         }
 
-        public override Func<bool> GetCondition(ExtensionParameter profileParameter)
+        public override Func<bool> GetCondition(ExtensionParameter extensionParameter)
         {
             return () =>
             {
-                if (!profileParameter.Plugin.ExtensionCache.Cache.TryGetValue(Owner, out Dictionary<string, object> myCache))
+                if (!extensionParameter.Plugin.ExtensionCache.Cache.TryGetValue(Owner, out Dictionary<string, object> myCache))
                 {
                     return false;
                 }
@@ -55,7 +55,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                 {
                     return ((Int64)o) >= msMoving;
                 }
-                profileParameter.Plugin.LogErr("The cached value " + DefaultExtension.CacheStartedMoving + " is not an int. Type: " + o.GetType(), 5);
+                extensionParameter.Plugin.LogErr("The cached value " + DefaultExtension.CacheStartedMoving + " is not an int. Type: " + o.GetType(), 5);
                 return false;
             };
         }

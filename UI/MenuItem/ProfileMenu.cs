@@ -21,7 +21,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
             Remove,
             Edit,
             MoveUp,
-            MoveDown
+            MoveDown,
+            AddParent
         }
 
         public ProfileMenu(BuildYourOwnRoutineCore plugin)
@@ -301,6 +302,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                         selectedAction = ProfileMenuAction.MoveDown;
                     }
                 }
+                // TODO: Add an Add parent
                 
                 ImGui.EndPopup();
                 return selectedAction;
