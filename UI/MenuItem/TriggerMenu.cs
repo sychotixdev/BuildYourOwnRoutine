@@ -151,6 +151,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
                                     ActiveWorkingTriggerCondition = new TriggerCondition(selectedCondition);
                                     EditedTriggerCondition = selectedCondition;
                                 }
+
+                                ImGui.OpenPopup("Add condition");
                             }
 
                             ImGui.SameLine();
@@ -234,6 +236,11 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
                 }
 
                 int previouslySelectedCondition = SelectedOption2;
+                if (ActiveWorkingTriggerCondition.Name != null && SelectedOption2 < 0 || conditionList[SelectedOption2].Name != ActiveWorkingTriggerCondition.Name)
+                {
+                    // This means we are probably attempting to edit. Set the selected option to the one being edited
+                    SelectedOption2 = conditionList.FindIndex(x => ActiveWorkingTriggerCondition.Owner == x.Owner && ActiveWorkingTriggerCondition.Name == x.Name);
+                }
                 SelectedOption2 = ImGuiExtension.ComboBox("Conditions", SelectedOption2, conditionList.Select(x => x.Owner + ": " + x.Name).ToList());
 
                 var condition = conditionList.ElementAtOrDefault(SelectedOption2);

@@ -43,7 +43,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
                 new CanUseFlaskConditionFactory(Name),
                 new InHideoutConditionFactory(Name),
                 new HasCurableAilmentConditionFactory(Name),
-                new PlayerMovingConditionFactory(Name)
+                new PlayerMovingConditionFactory(Name),
+                new LoweredResistanceConditionFactory(Name),
+                new NearbyMonstersConditionFactory(Name)
             };
 
             return list;
