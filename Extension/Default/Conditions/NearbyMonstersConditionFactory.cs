@@ -21,7 +21,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
         public override List<string> GetFilterTypes()
         {
-            return new List<string>() { ExtensionComponentFilterType.Player };
+            return new List<string>() { ExtensionComponentFilterType.Monster };
         }
     }
 }

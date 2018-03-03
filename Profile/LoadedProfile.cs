@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TreeRoutine.Routine.BuildYourOwnRoutine.Profile
 {
-    internal class LoadedProfile
+    public class LoadedProfile
     {
         public LoadedProfile()
         {

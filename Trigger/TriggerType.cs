@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TreeRoutine.Routine.BuildYourOwnRoutine.Trigger
 {
-    internal enum TriggerType
+    public enum TriggerType
     {
         PrioritySelector = 0,
         Sequence = 1,

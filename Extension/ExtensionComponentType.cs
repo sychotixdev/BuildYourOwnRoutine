@@ -13,5 +13,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension
         public static readonly string Player  = "Player";
         public static readonly string Flask = "Flask";
         public static readonly string Input = "Input";
+        public static readonly string Monster = "Monster";
+
     }
 }

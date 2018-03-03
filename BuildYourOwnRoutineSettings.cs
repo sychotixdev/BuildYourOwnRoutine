@@ -24,6 +24,6 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
 
         public RangeNode<int> FramesBetweenTicks { get; internal set; } = new RangeNode<int>(5, 1, 60);
 
-        internal LoadedProfile LoadedProfile { get; set; }
+        public LoadedProfile LoadedProfile { get; set; }
     }
 }

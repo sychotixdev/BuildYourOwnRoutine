@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace TreeRoutine.Routine.BuildYourOwnRoutine.Trigger
 {
-    internal enum TriggerConditionType
+    public enum TriggerConditionType
     {
         And = 0,
         Or = 1
     }
 
-    internal class TriggerCondition : Trigger
+    public class TriggerCondition : Trigger
     {
         public TriggerCondition() : this("", "")
         {

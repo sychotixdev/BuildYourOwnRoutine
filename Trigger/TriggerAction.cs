@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TreeRoutine.Routine.BuildYourOwnRoutine.Trigger
 {
-    internal class TriggerAction : Trigger
+    public class TriggerAction : Trigger
     {
         public TriggerAction() : this("", "")
         {
