@@ -38,7 +38,7 @@
                         "key":"0",
                         "useLife":"True",
                         "useMana":"False",
-                        "useHybrid":"False",
+                        "useHybrid":"True",
                         "useInstant":"True",
                         "useDefense":"False",
                         "useOffense":"False",
@@ -68,7 +68,7 @@
                   "Parameters":{
                      "Invert":"False",
                      "IsAbove":"False",
-                     "Percentage":"70"
+                     "Percentage":"65"
                   },
                   "Linker":null,
                   "Owner":"Default",
@@ -89,7 +89,7 @@
                      "Parameters":{
                         "useLife":"True",
                         "useMana":"False",
-                        "useHybrid":"False",
+                        "useHybrid":"True",
                         "useInstant":"False",
                         "useDefense":"False",
                         "useOffense":"False",
@@ -119,7 +119,7 @@
                   "Parameters":{
                      "Invert":"False",
                      "IsAbove":"False",
-                     "Percentage":"30"
+                     "Percentage":"15"
                   },
                   "Linker":null,
                   "Owner":"Default",
@@ -140,7 +140,7 @@
                      "Parameters":{
                         "useLife":"False",
                         "useMana":"True",
-                        "useHybrid":"False",
+                        "useHybrid":"True",
                         "useInstant":"True",
                         "useDefense":"False",
                         "useOffense":"False",
@@ -170,7 +170,7 @@
                   "Parameters":{
                      "Invert":"False",
                      "IsAbove":"False",
-                     "Percentage":"70"
+                     "Percentage":"40"
                   },
                   "Linker":null,
                   "Owner":"Default",
@@ -191,7 +191,7 @@
                      "Parameters":{
                         "useLife":"False",
                         "useMana":"True",
-                        "useHybrid":"False",
+                        "useHybrid":"True",
                         "useInstant":"False",
                         "useDefense":"False",
                         "useOffense":"False",
@@ -204,7 +204,8 @@
                         "useBleed":"False",
                         "useCurse":"False",
                         "useUnique":"False",
-                        "useOffenseAndSpeedrun":"False"
+                        "useOffenseAndSpeedrun":"False",
+                        "flaskIndex":"1"
                      },
                      "Owner":"Default",
                      "Name":"UseFlaskTypeActionFactory"
@@ -625,7 +626,7 @@
                   "Parameters":{
                      "Invert":"False",
                      "IsAbove":"False",
-                     "Percentage":"40"
+                     "Percentage":"60"
                   },
                   "Linker":null,
                   "Owner":"Default",
@@ -676,11 +677,31 @@
                   "Parameters":{
                      "Invert":"False",
                      "IsAbove":"False",
-                     "Percentage":"95"
+                     "Percentage":"90"
                   },
                   "Linker":null,
                   "Owner":"Default",
                   "Name":"HealthPercentConditionFactory"
+               },
+               {
+                  "Parameters":{
+                     "Invert":"False",
+                     "MinimumMonsterCount":"1",
+                     "MaxDistance":"10",
+                     "ColdResistanceThreshold":"0",
+                     "FireResistanceThreshold":"0",
+                     "LightningResistanceThreshold":"0",
+                     "ChaosResistanceThreshold":"0",
+                     "CountWhiteMonsters":"False",
+                     "CountRareMonsters":"True",
+                     "CountMagicMonsters":"True",
+                     "CountUniqueMonsters":"True",
+                     "MonsterHealthPercentThreshold":"0",
+                     "MonsterAboveHealthThreshold":"False"
+                  },
+                  "Linker":1,
+                  "Owner":"Default",
+                  "Name":"NearbyMonstersConditionFactory"
                }
             ],
             "Children":[
@@ -726,7 +747,7 @@
                {
                   "Parameters":{
                      "Invert":"False",
-                     "msMoving":"1000"
+                     "msMoving":"1495"
                   },
                   "Linker":null,
                   "Owner":"Default",
@@ -744,24 +765,24 @@
 
                   ],
                   "Action":{
-                     "Parameters":{
-                        "useLife":"False",
-                        "useMana":"False",
-                        "useHybrid":"False",
-                        "useInstant":"False",
-                        "useDefense":"False",
-                        "useOffense":"False",
-                        "useUtility":"False",
-                        "useSpeedrun":"True",
-                        "usePoison":"False",
-                        "useFreeze":"False",
-                        "useIgnite":"False",
-                        "useShock":"False",
-                        "useBleed":"False",
-                        "useCurse":"False",
-                        "useUnique":"False",
-                        "useOffenseAndSpeedrun":"False"
-                     },
+                    "Parameters": {
+                      "useLife": "False",
+                      "useMana": "False",
+                      "useHybrid": "False",
+                      "useInstant": "False",
+                      "useDefense": "False",
+                      "useOffense": "False",
+                      "useUtility": "False",
+                      "useSpeedrun": "True",
+                      "usePoison": "False",
+                      "useFreeze": "False",
+                      "useIgnite": "False",
+                      "useShock": "False",
+                      "useBleed": "False",
+                      "useCurse": "False",
+                      "useUnique": "False",
+                      "useOffenseAndSpeedrun": "False"
+                    },
                      "Owner":"Default",
                      "Name":"UseFlaskTypeActionFactory"
                   }

@@ -103,7 +103,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
             useHybrid = ImGuiExtension.Checkbox("Hybrid", useHybrid);
             Parameters[useHybridString] = useHybrid.ToString();
 
-            useInstant = ImGuiExtension.Checkbox("Use Instant", useHybrid);
+            useInstant = ImGuiExtension.Checkbox("Use Instant", useInstant);
             ImGuiExtension.ToolTip("This only makes sense to use with life/mana/hybrid flasks");
 
             Parameters[useInstantString] = useInstant.ToString();
