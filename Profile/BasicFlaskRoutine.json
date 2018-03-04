@@ -15,7 +15,7 @@
                   "Parameters":{
                      "Invert":"False",
                      "IsAbove":"False",
-                     "Percentage":"30"
+                     "Percentage":"40"
                   },
                   "Linker":null,
                   "Owner":"Default",
@@ -77,36 +77,79 @@
             ],
             "Children":[
                {
-                  "Name":"Use Life Flask",
-                  "Type":3,
+                  "Name":"Health Potion Selector",
+                  "Type":0,
                   "ConditionList":[
 
                   ],
                   "Children":[
+                     {
+                        "Name":"Use Health Flask",
+                        "Type":3,
+                        "ConditionList":[
 
-                  ],
-                  "Action":{
-                     "Parameters":{
-                        "useLife":"True",
-                        "useMana":"False",
-                        "useHybrid":"True",
-                        "useInstant":"False",
-                        "useDefense":"False",
-                        "useOffense":"False",
-                        "useUtility":"False",
-                        "useSpeedrun":"False",
-                        "usePoison":"False",
-                        "useFreeze":"False",
-                        "useIgnite":"False",
-                        "useShock":"False",
-                        "useBleed":"False",
-                        "useCurse":"False",
-                        "useUnique":"False",
-                        "useOffenseAndSpeedrun":"False"
+                        ],
+                        "Children":[
+
+                        ],
+                        "Action":{
+                           "Parameters":{
+                              "useLife":"True",
+                              "useMana":"False",
+                              "useHybrid":"True",
+                              "useInstant":"False",
+                              "useDefense":"False",
+                              "useOffense":"False",
+                              "useUtility":"False",
+                              "useSpeedrun":"False",
+                              "usePoison":"False",
+                              "useFreeze":"False",
+                              "useIgnite":"False",
+                              "useShock":"False",
+                              "useBleed":"False",
+                              "useCurse":"False",
+                              "useUnique":"False",
+                              "useOffenseAndSpeedrun":"False"
+                           },
+                           "Owner":"Default",
+                           "Name":"UseFlaskTypeActionFactory"
+                        }
                      },
-                     "Owner":"Default",
-                     "Name":"UseFlaskTypeActionFactory"
-                  }
+                     {
+                        "Name":"Use Instant Health Flask (Reserve Charge)",
+                        "Type":3,
+                        "ConditionList":[
+
+                        ],
+                        "Children":[
+
+                        ],
+                        "Action":{
+                           "Parameters":{
+                              "useLife":"True",
+                              "useMana":"False",
+                              "useHybrid":"True",
+                              "useInstant":"True",
+                              "useDefense":"False",
+                              "useOffense":"False",
+                              "useUtility":"False",
+                              "useSpeedrun":"False",
+                              "useUnique":"False",
+                              "useOffenseAndSpeedrun":"False",
+                              "usePoison":"False",
+                              "useFreeze":"False",
+                              "useIgnite":"False",
+                              "useShock":"False",
+                              "useBleed":"False",
+                              "useCurse":"False",
+                              "reserveFlaskCharges":"1"
+                           },
+                           "Owner":"Default",
+                           "Name":"UseFlaskTypeActionFactory"
+                        }
+                     }
+                  ],
+                  "Action":null
                }
             ],
             "Action":null
@@ -714,28 +757,28 @@
                   "Children":[
 
                   ],
-                  "Action":{
-                     "Parameters":{
-                        "useLife":"False",
-                        "useMana":"False",
-                        "useHybrid":"False",
-                        "useInstant":"False",
-                        "useDefense":"False",
-                        "useOffense":"True",
-                        "useUtility":"False",
-                        "useSpeedrun":"False",
-                        "usePoison":"False",
-                        "useFreeze":"False",
-                        "useIgnite":"False",
-                        "useShock":"False",
-                        "useBleed":"False",
-                        "useCurse":"False",
-                        "useUnique":"False",
-                        "useOffenseAndSpeedrun":"False"
-                     },
-                     "Owner":"Default",
-                     "Name":"UseFlaskTypeActionFactory"
-                  }
+                "Action": {
+                  "Parameters": {
+                    "useLife": "False",
+                    "useMana": "False",
+                    "useHybrid": "False",
+                    "useInstant": "False",
+                    "useDefense": "False",
+                    "useOffense": "True",
+                    "useUtility": "False",
+                    "useSpeedrun": "False",
+                    "usePoison": "False",
+                    "useFreeze": "False",
+                    "useIgnite": "False",
+                    "useShock": "False",
+                    "useBleed": "False",
+                    "useCurse": "False",
+                    "useUnique": "False",
+                    "useOffenseAndSpeedrun": "False"
+                  },
+                  "Owner": "Default",
+                  "Name": "UseFlaskTypeActionFactory"
+                }
                }
             ],
             "Action":null
@@ -765,24 +808,24 @@
 
                   ],
                   "Action":{
-                    "Parameters": {
-                      "useLife": "False",
-                      "useMana": "False",
-                      "useHybrid": "False",
-                      "useInstant": "False",
-                      "useDefense": "False",
-                      "useOffense": "False",
-                      "useUtility": "False",
-                      "useSpeedrun": "True",
-                      "usePoison": "False",
-                      "useFreeze": "False",
-                      "useIgnite": "False",
-                      "useShock": "False",
-                      "useBleed": "False",
-                      "useCurse": "False",
-                      "useUnique": "False",
-                      "useOffenseAndSpeedrun": "False"
-                    },
+                     "Parameters":{
+                        "useLife":"False",
+                        "useMana":"False",
+                        "useHybrid":"False",
+                        "useInstant":"False",
+                        "useDefense":"False",
+                        "useOffense":"False",
+                        "useUtility":"False",
+                        "useSpeedrun":"True",
+                        "usePoison":"False",
+                        "useFreeze":"False",
+                        "useIgnite":"False",
+                        "useShock":"False",
+                        "useBleed":"False",
+                        "useCurse":"False",
+                        "useUnique":"False",
+                        "useOffenseAndSpeedrun":"False"
+                     },
                      "Owner":"Default",
                      "Name":"UseFlaskTypeActionFactory"
                   }

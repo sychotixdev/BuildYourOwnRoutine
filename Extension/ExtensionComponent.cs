@@ -32,6 +32,19 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension
         /// <returns>Not currently used. Recommended to return true.</returns>
         public abstract bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters);
 
-        
+        public static String InitialiseParameterString(String parameterName, String defaultValue, ref Dictionary<String, Object> Parameters)
+        {
+            return Parameters.TryGetValue(parameterName, out object value) ? (string)value : defaultValue;
+        }
+
+        public static Boolean InitialiseParameterBoolean(String parameterName, Boolean defaultValue, ref Dictionary<String, Object> Parameters)
+        {
+            return Parameters.TryGetValue(parameterName, out object value) ? Boolean.Parse((string)value) : defaultValue;
+        }
+
+        public static Int32 InitialiseParameterInt32(String parameterName, Int32 defaultValue, ref Dictionary<String, Object> Parameters)
+        {
+            return Parameters.TryGetValue(parameterName, out object value) ? Int32.Parse((string)value) : defaultValue;
+        }
     }
 }

@@ -61,6 +61,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
         private bool useOffenseAndSpeedrun { get; set; } = false;
         private const String useOffenseAndSpeedrunString = "useOffenseAndSpeedrun";
 
+        private int reserveFlaskCharges { get; set; } = 0;
+        private const String reserveFlaskChargesString = "reserveFlaskCharges";
+
 
         public UseFlaskTypeAction(string owner, string name) : base(owner, name)
         {
@@ -69,22 +72,23 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
         public override void Initialise(Dictionary<String, Object> Parameters)
         {
-            useLife = Boolean.Parse((String)Parameters[useLifeString]);
-            useMana = Boolean.Parse((String)Parameters[useManaString]);
-            useHybrid = Boolean.Parse((String)Parameters[useHybridString]);
-            useInstant = Boolean.Parse((String)Parameters[useInstantString]);
-            useDefense = Boolean.Parse((String)Parameters[useDefenseString]);
-            useUtility = Boolean.Parse((String)Parameters[useUtilityString]);
-            useSpeedrun = Boolean.Parse((String)Parameters[useSpeedrunString]);
-            useOffense = Boolean.Parse((String)Parameters[useOffenseString]);
-            usePoison = Boolean.Parse((String)Parameters[usePoisonString]);
-            useFreeze = Boolean.Parse((String)Parameters[useFreezeString]);
-            useIgnite = Boolean.Parse((String)Parameters[useIgniteString]);
-            useShock = Boolean.Parse((String)Parameters[useShockString]);
-            useBleed = Boolean.Parse((String)Parameters[useBleedString]);
-            useCurse = Boolean.Parse((String)Parameters[useCurseString]);
-            useUnique = Boolean.Parse((String)Parameters[useUniqueString]);
-            useOffenseAndSpeedrun = Boolean.Parse((String)Parameters[useOffenseAndSpeedrunString]);
+            useLife = InitialiseParameterBoolean(useLifeString, useLife, ref Parameters);
+            useMana = InitialiseParameterBoolean(useManaString, useMana, ref Parameters);
+            useHybrid = InitialiseParameterBoolean(useHybridString, useHybrid, ref Parameters);
+            useInstant = InitialiseParameterBoolean(useInstantString, useInstant, ref Parameters);
+            useDefense = InitialiseParameterBoolean(useDefenseString, useDefense, ref Parameters);
+            useUtility = InitialiseParameterBoolean(useUtilityString, useUtility, ref Parameters);
+            useSpeedrun = InitialiseParameterBoolean(useSpeedrunString, useSpeedrun, ref Parameters);
+            useOffense = InitialiseParameterBoolean(useOffenseString, useOffense, ref Parameters);
+            usePoison = InitialiseParameterBoolean(usePoisonString, usePoison, ref Parameters);
+            useFreeze = InitialiseParameterBoolean(useFreezeString, useFreeze, ref Parameters);
+            useIgnite = InitialiseParameterBoolean(useIgniteString, useIgnite, ref Parameters);
+            useShock = InitialiseParameterBoolean(useShockString, useShock, ref Parameters);
+            useBleed = InitialiseParameterBoolean(useBleedString, useBleed, ref Parameters);
+            useCurse = InitialiseParameterBoolean(useCurseString, useCurse, ref Parameters);
+            useUnique = InitialiseParameterBoolean(useUniqueString, useUnique, ref Parameters);
+            useOffenseAndSpeedrun = InitialiseParameterBoolean(useOffenseAndSpeedrunString, useOffenseAndSpeedrun, ref Parameters);
+            reserveFlaskCharges = InitialiseParameterInt32(reserveFlaskChargesString, reserveFlaskCharges, ref Parameters);
         }
 
         public override bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters)
@@ -108,6 +112,10 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
             Parameters[useInstantString] = useInstant.ToString();
 
+            ImGui.Spacing();
+            ImGui.Separator();
+            ImGui.Spacing();
+
             useDefense = ImGuiExtension.Checkbox("Defense", useDefense);
             Parameters[useDefenseString] = useDefense.ToString();
 
@@ -123,6 +131,15 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
             useSpeedrun = ImGuiExtension.Checkbox("Speedrun", useSpeedrun);
             Parameters[useSpeedrunString] = useSpeedrun.ToString();
 
+            useUnique = ImGuiExtension.Checkbox("Unique", useUnique);
+            Parameters[useUniqueString] = useUnique.ToString();
+
+            useOffenseAndSpeedrun = ImGuiExtension.Checkbox("Offense and Speedrun", useOffenseAndSpeedrun);
+            Parameters[useOffenseAndSpeedrunString] = useOffenseAndSpeedrun.ToString();
+
+            ImGui.Spacing();
+            ImGui.Separator();
+            ImGui.Spacing();
 
             usePoison = ImGuiExtension.Checkbox("Poison", usePoison);
             Parameters[usePoisonString] = usePoison.ToString();
@@ -145,11 +162,13 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
             useCurse = ImGuiExtension.Checkbox("Curse", useCurse);
             Parameters[useCurseString] = useCurse.ToString();
 
-            useUnique = ImGuiExtension.Checkbox("Unique", useUnique);
-            Parameters[useUniqueString] = useUnique.ToString();
+            ImGui.Spacing();
+            ImGui.Separator();
+            ImGui.Spacing();
 
-            useOffenseAndSpeedrun = ImGuiExtension.Checkbox("Offense and Speedrun", useOffenseAndSpeedrun);
-            Parameters[useOffenseAndSpeedrunString] = useOffenseAndSpeedrun.ToString();
+            reserveFlaskCharges = ImGuiExtension.IntSlider("Reserved Charges", reserveFlaskCharges, 0, 5);
+            Parameters[reserveFlaskChargesString] = reserveFlaskCharges.ToString();
+
             return true;
         }
 
@@ -185,17 +204,17 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
         {
             return new UseHotkeyAction(extensionParameter.Plugin.KeyboardHelper, x =>
             {
-                extensionParameter.Plugin.Log("Searching for flask.", 5);
+                //extensionParameter.Plugin.Log("Searching for flask.", 5);
 
                 var foundFlask = findFlaskMatchingAnyAction(extensionParameter, flaskActions, instant, ignoreFlasksWithAction);
 
                 if (foundFlask == null)
                 {
-                    extensionParameter.Plugin.Log("No flask found.", 5);
+                    //extensionParameter.Plugin.Log("No flask found.", 5);
                     return null;
                 }
 
-                extensionParameter.Plugin.Log("Found a flask! Index: " + foundFlask.Index, 5);
+                //extensionParameter.Plugin.Log("Found a flask! Index: " + foundFlask.Index, 5);
 
 
                 return extensionParameter.Settings.FlaskSettings[foundFlask.Index].Hotkey;
@@ -222,7 +241,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
                     (instant == null || instant.GetValueOrDefault() == x.Instant) // Only search for flasks matching the requested instant value
                     && (flaskActions.Contains(x.Action1) || flaskActions.Contains(x.Action2)) // Find any flask that matches the actions sent in
                     && (ignoreFlaskActions == null || !ignoreFlasksWithAction().Contains(x.Action1) && !ignoreFlasksWithAction().Contains(x.Action2)) // Do not choose ignored flask types
-                    && extensionParameter.Plugin.FlaskHelper.canUsePotion(x) // Do not return flasks we can't use
+                    && extensionParameter.Plugin.FlaskHelper.canUsePotion(x, reserveFlaskCharges) // Do not return flasks we can't use
                     // Below are more expensive operations and should be done last
                     && (x.Instant || (!extensionParameter.Plugin.PlayerHelper.playerHasBuffs(new List<string> { x.BuffString1 }) || !extensionParameter.Plugin.PlayerHelper.playerHasBuffs(new List<string> { x.BuffString2 }))) // If the flask is not instant, ensure we are missing at least one of the flask buffs
                     ).OrderByDescending(x => x.TotalUses).ToList();
@@ -230,9 +249,14 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
             if (flaskList == null || !flaskList.Any())
             {
-                extensionParameter.Plugin.Log("Flask list was empty", 5);
+                if (useInstant)
+                {
+                    extensionParameter.Plugin.LogErr("No Instant flasks found for requested actions: " + String.Concat(flaskActions?.Select(x => x.ToString() + ",")), 5);
+                }
                 return null;
             }
+            else extensionParameter.Plugin.Log("Using flask " + flaskList.FirstOrDefault()?.Name + " for actions: " + String.Concat(flaskActions?.Select(x => x.ToString() + ",")), 5);
+
 
             return flaskList.FirstOrDefault();
         }
