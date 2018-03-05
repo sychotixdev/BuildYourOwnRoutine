@@ -217,7 +217,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
                 //extensionParameter.Plugin.Log("Found a flask! Index: " + foundFlask.Index, 5);
 
 
-                return extensionParameter.Settings.FlaskSettings[foundFlask.Index].Hotkey;
+                return extensionParameter.Plugin.Settings.FlaskSettings[foundFlask.Index].Hotkey;
             });
         }
 
@@ -226,12 +226,19 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
             var allFlasks = extensionParameter.Plugin.FlaskHelper.getAllFlaskInfo();
 
             // We have no flasks or settings for flasks?
-            if (allFlasks == null || extensionParameter.Settings.FlaskSettings == null)
+            if (allFlasks == null || extensionParameter.Plugin.Settings.FlaskSettings == null)
             {
                 extensionParameter.Plugin.Log("No flasks or no settings.", 5);
                 return null;
             }
 
+            if (extensionParameter.Plugin.Settings.Debug)
+            {
+                foreach (var flask in allFlasks)
+                {
+                    extensionParameter.Plugin.Log("Flask: " + flask.Name + " Instant: " + flask.Instant + " A1: " + flask.Action1 + " A2: " + flask.Action2, 5);
+                }
+            }
 
             List<FlaskActions> ignoreFlaskActions = ignoreFlasksWithAction == null ? null : ignoreFlasksWithAction();
 
@@ -249,13 +256,13 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
             if (flaskList == null || !flaskList.Any())
             {
-                if (useInstant)
+                if (extensionParameter.Plugin.Settings.Debug)
                 {
-                    extensionParameter.Plugin.LogErr("No Instant flasks found for requested actions: " + String.Concat(flaskActions?.Select(x => x.ToString() + ",")), 5);
+                    extensionParameter.Plugin.Log("No flasks found for requested actions: " + String.Concat(flaskActions?.Select(x => x.ToString() + ",")), 5);
                 }
                 return null;
             }
-            else extensionParameter.Plugin.Log("Using flask " + flaskList.FirstOrDefault()?.Name + " for actions: " + String.Concat(flaskActions?.Select(x => x.ToString() + ",")), 5);
+            else if (extensionParameter.Plugin.Settings.Debug) extensionParameter.Plugin.Log("Using flask " + flaskList.FirstOrDefault()?.Name + " for actions: " + String.Concat(flaskActions?.Select(x => x.ToString() + ",")), 5);
 
 
             return flaskList.FirstOrDefault();

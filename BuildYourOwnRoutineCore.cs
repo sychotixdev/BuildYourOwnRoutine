@@ -61,7 +61,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
 
             CreateAndStartTreeFromLoadedProfile();
 
-            Settings.FramesBetweenTicks.OnValueChanged += UpdateCoroutineWaitRender;
+            Settings.TicksPerSecond.OnValueChanged += UpdateCoroutineWaitRender;
         }
 
         private void ProcessLoadedExtensions()
@@ -97,7 +97,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
         {
             if (TreeCoroutine != null)
             {
-                TreeCoroutine.UpdateCondtion(new WaitRender(Settings.FramesBetweenTicks));
+                TreeCoroutine.UpdateCondtion(new WaitTime(1000 / Settings.TicksPerSecond));
             }
         }
 
@@ -114,7 +114,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
 
             if (TreeCoroutine != null)
                 TreeCoroutine.Done(true);
-            var extensionParameter = new ExtensionParameter(this, Settings);
+            var extensionParameter = new ExtensionParameter(this);
             Tree = new ProfileTreeBuilder(ExtensionCache, extensionParameter).BuildTreeFromTriggerComposite(Settings.LoadedProfile.Composite);
 
             // Append the cache action to the built tree
@@ -124,7 +124,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
 
             // Add this as a coroutine for this plugin
             TreeCoroutine = (new Coroutine(() => TickTree(Tree)
-            , new WaitRender(Settings.FramesBetweenTicks), nameof(BuildYourOwnRoutineCore), "Tree"))
+            , new WaitTime(1000 / Settings.TicksPerSecond), nameof(BuildYourOwnRoutineCore), "Tree"))
                 .AutoRestart(GameController.CoroutineRunner).Run();
 
             LogMessage("Profile " + Settings.LoadedProfile.Name + " was loaded successfully!", 5);

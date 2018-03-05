@@ -38,7 +38,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
         public override Composite GetComposite(ExtensionParameter profileParameter)
         {
-            return new UseHotkeyAction(profileParameter.Plugin.KeyboardHelper, x => profileParameter.Settings.FlaskSettings[flaskIndex - 1].Hotkey);
+            return new UseHotkeyAction(profileParameter.Plugin.KeyboardHelper, x => profileParameter.Plugin.Settings.FlaskSettings[flaskIndex - 1].Hotkey);
         }
     }
 }

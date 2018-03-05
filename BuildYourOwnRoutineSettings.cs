@@ -22,7 +22,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
             new FlaskSetting(new HotkeyNode(Keys.D5))
         };
 
-        public RangeNode<int> FramesBetweenTicks { get; internal set; } = new RangeNode<int>(5, 1, 60);
+        public RangeNode<int> TicksPerSecond { get; internal set; } = new RangeNode<int>(10, 1, 30);
 
         public LoadedProfile LoadedProfile { get; set; }
     }

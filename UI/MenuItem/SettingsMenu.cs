@@ -20,6 +20,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
 
         public void Render()
         {
+            Plugin.Settings.TicksPerSecond.Value = ImGuiExtension.IntSlider("Ticks Per Second", Plugin.Settings.TicksPerSecond);
+            Plugin.Settings.Debug = ImGuiExtension.Checkbox("Debug", Plugin.Settings.Debug);
+
             if (ImGui.TreeNodeEx("Individual Flask Settings", TreeNodeFlags.DefaultOpen))
             {
                 for (int i = 0; i < 5; i++)
