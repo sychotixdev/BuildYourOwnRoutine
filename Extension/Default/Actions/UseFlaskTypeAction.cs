@@ -197,10 +197,12 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
                 return new TreeSharp.Action();
             }
 
-            return createUseFlaskAction(extensionParameter, actions, useInstant, null);
+            bool cleansing = usePoison || useFreeze || useIgnite || useShock || useBleed || useCurse;
+
+            return createUseFlaskAction(extensionParameter, actions, cleansing ? null : (bool?)useInstant, null);
         }
 
-        private Composite createUseFlaskAction(ExtensionParameter extensionParameter, List<FlaskActions> flaskActions, Boolean instant, Func<List<FlaskActions>> ignoreFlasksWithAction = null)
+        private Composite createUseFlaskAction(ExtensionParameter extensionParameter, List<FlaskActions> flaskActions, Boolean? instant, Func<List<FlaskActions>> ignoreFlasksWithAction = null)
         {
             return new UseHotkeyAction(extensionParameter.Plugin.KeyboardHelper, x =>
             {
