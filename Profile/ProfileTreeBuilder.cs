@@ -106,8 +106,26 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Profile
                 foreach (var condition in conditionList)
                 {
                     if (condition.Linker != TriggerConditionType.Or && !currentCondition)
+                    {
+                        if (ExtensionParameter.Plugin.Settings.Debug)
+                        {
+                            ExtensionParameter.Plugin.Log("Condition: " + condition.Name + " Linker: " + condition.Linker + " Hit first continue.", 5);
+                        }
                         continue;
 
+                    }
+
+                    // If we hit an OR, and we're sitting on a true condition... no reason to go any further
+                    if (condition.Linker == TriggerConditionType.Or && currentCondition)
+                    {
+                        if (ExtensionParameter.Plugin.Settings.Debug)
+                        {
+                            ExtensionParameter.Plugin.Log("Condition: " + condition.Name + " Linker: " + condition.Linker + " Hit first continue.", 5);
+                        }
+                        return true;
+                    }
+
+                    // TODO: It would be nice to not have to look this up every time.
                     var foundConditionFactory = ExtensionCache.ConditionList.FirstOrDefault(x => x.Owner == condition.Owner && x.Name == condition.Name);
 
                     if (foundConditionFactory == null)
@@ -128,6 +146,11 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Profile
                     Func<bool> conditionFunction = (() => conditionInstance.Invert != conditionInstance.GetCondition(ExtensionParameter)());
                     if (conditionFunction != null)
                         currentCondition = conditionFunction();
+
+                    if (ExtensionParameter.Plugin.Settings.Debug)
+                    {
+                        ExtensionParameter.Plugin.Log("Condition: " + condition.Name + " Linker: " + condition.Linker + " Evaluated: " + currentCondition, 5);
+                    }
                 }
             }
             return currentCondition;

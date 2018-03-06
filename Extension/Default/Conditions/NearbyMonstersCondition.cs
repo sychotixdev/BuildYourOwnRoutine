@@ -106,7 +106,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             MinimumMonsterCount = ImGuiExtension.IntSlider("Minimum Monster Count", MinimumMonsterCount, 1, 50);
             Parameters[MinimumMonsterCountString] = MinimumMonsterCount.ToString();
 
-            MaxDistance = ImGuiExtension.FloatSlider("Maximum Distance", MaxDistance, 1.0f, 100.0f);
+            MaxDistance = ImGuiExtension.FloatSlider("Maximum Distance", MaxDistance, 1.0f, 5000.0f);
             Parameters[MaxDistanceString] = MaxDistance.ToString();
 
             ImGui.Spacing();
