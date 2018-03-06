@@ -146,6 +146,14 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
                 ImGuiExtension.BeginWindow($"{PluginName} Settings", Settings.LastSettingPos.X, Settings.LastSettingPos.Y, Settings.LastSettingSize.X, Settings.LastSettingSize.Y);
                 
                 ConfigurationMenu.Render();
+
+                // Storing window Position and Size changed by the user
+                if (ImGui.GetWindowHeight() > 21)
+                {
+                    Settings.LastSettingPos = ImGui.GetWindowPosition();
+                    Settings.LastSettingSize = ImGui.GetWindowSize();
+                }
+
                 ImGui.EndWindow();
 
             }
