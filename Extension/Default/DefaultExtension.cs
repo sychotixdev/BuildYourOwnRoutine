@@ -71,7 +71,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
             }
             else
             {
-                MovingStopwatch.Stop();
+                MovingStopwatch.Reset();
             }
 
             myCache[CacheStartedMoving] = elapsedMovingTime;

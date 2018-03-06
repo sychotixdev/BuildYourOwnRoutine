@@ -147,8 +147,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
                 
                 ConfigurationMenu.Render();
                 ImGui.EndWindow();
-                
-                //else Settings.ShowSettings = false;
+
             }
         }
 
