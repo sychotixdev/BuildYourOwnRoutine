@@ -131,10 +131,10 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
                         SelectedOption1 = ImGuiExtension.ComboBox("Conditions", SelectedOption1, TriggerComposite.ConditionList.Select(x => x.Owner + ": " + x.Name).ToList());
                         if (ImGui.Button("Add"))
                         {
-                            if (ActiveWorkingTriggerCondition == null)
-                            {
+                            //if (ActiveWorkingTriggerCondition == null)
+                            //{
                                 ActiveWorkingTriggerCondition = new TriggerCondition();
-                            }
+                            //}
 
                             ImGui.OpenPopup("Add condition");
                         }
@@ -146,11 +146,11 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
 
                             if (ImGui.Button("Edit"))
                             {
-                                if (ActiveWorkingTriggerCondition == null)
-                                {
+                                //if (ActiveWorkingTriggerCondition == null)
+                                //{
                                     ActiveWorkingTriggerCondition = new TriggerCondition(selectedCondition);
                                     EditedTriggerCondition = selectedCondition;
-                                }
+                                //}
 
                                 ImGui.OpenPopup("Add condition");
                             }
@@ -265,6 +265,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
                     if (ActiveWorkingExtensionCondition == null || previouslySelectedCondition != SelectedOption2)
                     {
                         ActiveWorkingExtensionCondition = condition.GetCondition();
+                        ActiveWorkingExtensionCondition.Initialise(ActiveWorkingTriggerCondition.Parameters);
                     }
 
                     ActiveWorkingExtensionCondition.CreateConfigurationMenu(ExtensionParameter, ref ActiveWorkingTriggerCondition.Parameters);
@@ -289,6 +290,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
                         // Select the condition we just added
                         ActiveWorkingTriggerCondition = null;
                         EditedTriggerCondition = null;
+                        ActiveWorkingExtensionCondition = null;
                         ImGui.CloseCurrentPopup();
                     }
                 }
@@ -297,6 +299,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
                 {
                     ActiveWorkingTriggerCondition = null;
                     EditedTriggerCondition = null;
+                    ActiveWorkingExtensionCondition = null;
                     ImGui.CloseCurrentPopup();
                 }
 

@@ -22,7 +22,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
         public override void Initialise(Dictionary<String, Object> Parameters)
         {
-            flaskIndex = Int32.Parse((String)Parameters[flaskIndexString]);
+            flaskIndex = ExtensionComponent.InitialiseParameterInt32(flaskIndexString, flaskIndex, ref Parameters);
         }
 
         public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)

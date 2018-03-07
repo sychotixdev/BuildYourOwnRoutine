@@ -27,8 +27,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         {
             base.Initialise(Parameters);
 
-            IsAbove = Boolean.Parse((string)Parameters[IsAboveString]);
-            Percentage = Int32.Parse((string)Parameters[PercentageString]);
+            IsAbove = ExtensionComponent.InitialiseParameterBoolean(IsAboveString, IsAbove, ref Parameters);
+            Percentage = ExtensionComponent.InitialiseParameterInt32(PercentageString, Percentage, ref Parameters);
         }
 
         public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)

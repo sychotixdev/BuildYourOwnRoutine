@@ -11,7 +11,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 {
     internal class PlayerMovingCondition : ExtensionCondition
     {
-        private Int64 msMoving { get; set; } = 0;
+        private Int64 MsMoving { get; set; } = 0;
         private const String msMovingString = "msMoving";
 
 
@@ -23,8 +23,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         public override void Initialise(Dictionary<String, Object> Parameters)
         {
             base.Initialise(Parameters);
-            msMoving = Int64.Parse((String)Parameters[msMovingString]);
 
+            MsMoving = ExtensionComponent.InitialiseParameterInt32(msMovingString, (int)MsMoving, ref Parameters);
         }
 
         public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)
@@ -34,9 +34,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
             base.CreateConfigurationMenu(extensionParameter, ref Parameters);
 
-            msMoving = ImGuiExtension.IntSlider("Time spent moving (ms)", (int)msMoving, 0, 10000);
+            MsMoving = ImGuiExtension.IntSlider("Time spent moving (ms)", (int)MsMoving, 0, 10000);
             ImGuiExtension.ToolTip("Player must remain moving for this configured number of milliseconds (1000ms = 1 sec) before this condition returns true");
-            Parameters[msMovingString] = msMoving.ToString();
+            Parameters[msMovingString] = MsMoving.ToString();
             return true;
         }
 
@@ -53,7 +53,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                     return false;
                 if (o is Int64)
                 {
-                    return ((Int64)o) >= msMoving;
+                    return ((Int64)o) >= MsMoving;
                 }
                 extensionParameter.Plugin.LogErr("The cached value " + DefaultExtension.CacheStartedMoving + " is not an int. Type: " + o.GetType(), 5);
                 return false;

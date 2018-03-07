@@ -72,23 +72,23 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
         public override void Initialise(Dictionary<String, Object> Parameters)
         {
-            useLife = InitialiseParameterBoolean(useLifeString, useLife, ref Parameters);
-            useMana = InitialiseParameterBoolean(useManaString, useMana, ref Parameters);
-            useHybrid = InitialiseParameterBoolean(useHybridString, useHybrid, ref Parameters);
-            useInstant = InitialiseParameterBoolean(useInstantString, useInstant, ref Parameters);
-            useDefense = InitialiseParameterBoolean(useDefenseString, useDefense, ref Parameters);
-            useUtility = InitialiseParameterBoolean(useUtilityString, useUtility, ref Parameters);
-            useSpeedrun = InitialiseParameterBoolean(useSpeedrunString, useSpeedrun, ref Parameters);
-            useOffense = InitialiseParameterBoolean(useOffenseString, useOffense, ref Parameters);
-            usePoison = InitialiseParameterBoolean(usePoisonString, usePoison, ref Parameters);
-            useFreeze = InitialiseParameterBoolean(useFreezeString, useFreeze, ref Parameters);
-            useIgnite = InitialiseParameterBoolean(useIgniteString, useIgnite, ref Parameters);
-            useShock = InitialiseParameterBoolean(useShockString, useShock, ref Parameters);
-            useBleed = InitialiseParameterBoolean(useBleedString, useBleed, ref Parameters);
-            useCurse = InitialiseParameterBoolean(useCurseString, useCurse, ref Parameters);
-            useUnique = InitialiseParameterBoolean(useUniqueString, useUnique, ref Parameters);
-            useOffenseAndSpeedrun = InitialiseParameterBoolean(useOffenseAndSpeedrunString, useOffenseAndSpeedrun, ref Parameters);
-            reserveFlaskCharges = InitialiseParameterInt32(reserveFlaskChargesString, reserveFlaskCharges, ref Parameters);
+            useLife = ExtensionComponent.InitialiseParameterBoolean(useLifeString, useLife, ref Parameters);
+            useMana = ExtensionComponent.InitialiseParameterBoolean(useManaString, useMana, ref Parameters);
+            useHybrid = ExtensionComponent.InitialiseParameterBoolean(useHybridString, useHybrid, ref Parameters);
+            useInstant = ExtensionComponent.InitialiseParameterBoolean(useInstantString, useInstant, ref Parameters);
+            useDefense = ExtensionComponent.InitialiseParameterBoolean(useDefenseString, useDefense, ref Parameters);
+            useUtility = ExtensionComponent.InitialiseParameterBoolean(useUtilityString, useUtility, ref Parameters);
+            useSpeedrun = ExtensionComponent.InitialiseParameterBoolean(useSpeedrunString, useSpeedrun, ref Parameters);
+            useOffense = ExtensionComponent.InitialiseParameterBoolean(useOffenseString, useOffense, ref Parameters);
+            usePoison = ExtensionComponent.InitialiseParameterBoolean(usePoisonString, usePoison, ref Parameters);
+            useFreeze = ExtensionComponent.InitialiseParameterBoolean(useFreezeString, useFreeze, ref Parameters);
+            useIgnite = ExtensionComponent.InitialiseParameterBoolean(useIgniteString, useIgnite, ref Parameters);
+            useShock = ExtensionComponent.InitialiseParameterBoolean(useShockString, useShock, ref Parameters);
+            useBleed = ExtensionComponent.InitialiseParameterBoolean(useBleedString, useBleed, ref Parameters);
+            useCurse = ExtensionComponent.InitialiseParameterBoolean(useCurseString, useCurse, ref Parameters);
+            useUnique = ExtensionComponent.InitialiseParameterBoolean(useUniqueString, useUnique, ref Parameters);
+            useOffenseAndSpeedrun = ExtensionComponent.InitialiseParameterBoolean(useOffenseAndSpeedrunString, useOffenseAndSpeedrun, ref Parameters);
+            reserveFlaskCharges = ExtensionComponent.InitialiseParameterInt32(reserveFlaskChargesString, reserveFlaskCharges, ref Parameters);
         }
 
         public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)

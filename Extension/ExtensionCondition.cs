@@ -28,7 +28,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension
 
         public override void Initialise(Dictionary<String, Object> Parameters)
         {
-            Invert = Boolean.Parse((string)Parameters[InvertString]);
+            Invert = ExtensionComponent.InitialiseParameterBoolean(InvertString, Invert, ref Parameters);
         }
 
         public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<string, object> Parameters)

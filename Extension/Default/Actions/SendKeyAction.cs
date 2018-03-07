@@ -23,7 +23,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
         public override void Initialise(Dictionary<String, Object> Parameters)
         {
-            Key = Int32.Parse((String)Parameters[keyString]);
+            Key = ExtensionComponent.InitialiseParameterInt32(keyString, Key, ref Parameters);
         }
 
         public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)

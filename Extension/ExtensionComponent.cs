@@ -46,5 +46,10 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension
         {
             return Parameters.TryGetValue(parameterName, out object value) ? Int32.Parse((string)value) : defaultValue;
         }
+
+        public static Single InitialiseParameterSingle(String parameterName, Single defaultValue, ref Dictionary<String, Object> Parameters)
+        {
+            return Parameters.TryGetValue(parameterName, out object value) ? Single.Parse((string)value) : defaultValue;
+        }
     }
 }

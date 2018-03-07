@@ -83,21 +83,20 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         {
             base.Initialise(Parameters);
 
-            MinimumMonsterCount = Int32.Parse((string)Parameters[MinimumMonsterCountString]);
-            MaxDistance = Single.Parse((string)Parameters[MaxDistanceString]);
+            MinimumMonsterCount = ExtensionComponent.InitialiseParameterInt32(MinimumMonsterCountString, MinimumMonsterCount, ref Parameters);
+            MaxDistance = ExtensionComponent.InitialiseParameterSingle(MaxDistanceString, MaxDistance, ref Parameters);
 
-            ColdResistanceThreshold = Int32.Parse((string)Parameters[ColdResistanceThresholdString]);
-            FireResistanceThreshold = Int32.Parse((string)Parameters[FireResistanceThresholdString]);
-            LightningResistanceThreshold = Int32.Parse((string)Parameters[LightningResistanceThresholdString]);
-            ChaosResistanceThreshold = Int32.Parse((string)Parameters[ChaosResistanceThresholdString]);
+            ColdResistanceThreshold = ExtensionComponent.InitialiseParameterInt32(ColdResistanceThresholdString, ColdResistanceThreshold, ref Parameters);
+            FireResistanceThreshold = ExtensionComponent.InitialiseParameterInt32(FireResistanceThresholdString, FireResistanceThreshold, ref Parameters);
+            LightningResistanceThreshold = ExtensionComponent.InitialiseParameterInt32(LightningResistanceThresholdString, LightningResistanceThreshold, ref Parameters);
+            ChaosResistanceThreshold = ExtensionComponent.InitialiseParameterInt32(ChaosResistanceThresholdString, ChaosResistanceThreshold, ref Parameters);
 
-            CountWhiteMonsters = Boolean.Parse((string)Parameters[CountWhiteMonstersString]);
-            CountRareMonsters = Boolean.Parse((string)Parameters[CountRareMonstersString]);
-            CountMagicMonsters = Boolean.Parse((string)Parameters[CountMagicMonstersString]);
-            CountUniqueMonsters = Boolean.Parse((string)Parameters[CountUniqueMonstersString]);
+            CountWhiteMonsters = ExtensionComponent.InitialiseParameterBoolean(CountWhiteMonstersString, CountWhiteMonsters, ref Parameters);
+            CountRareMonsters = ExtensionComponent.InitialiseParameterBoolean(CountRareMonstersString, CountRareMonsters, ref Parameters);
+            CountMagicMonsters = ExtensionComponent.InitialiseParameterBoolean(CountMagicMonstersString, CountMagicMonsters, ref Parameters);
+            CountUniqueMonsters = ExtensionComponent.InitialiseParameterBoolean(CountUniqueMonstersString, CountUniqueMonsters, ref Parameters);
 
-            MonsterHealthPercentThreshold = Int32.Parse((string)Parameters[MonsterHealthPercentThresholdString]);
-
+            MonsterHealthPercentThreshold = ExtensionComponent.InitialiseParameterInt32(MonsterHealthPercentThresholdString, MonsterHealthPercentThreshold, ref Parameters);
         }
 
         public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)

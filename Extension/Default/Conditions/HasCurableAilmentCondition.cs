@@ -42,14 +42,13 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         {
             base.Initialise(Parameters);
 
-            RemFrozen = Boolean.Parse((String)Parameters[RemFrozenString]);
-            RemBurning = Boolean.Parse((String)Parameters[RemBurningString]);
-            RemShocked = Boolean.Parse((String)Parameters[RemShockedString]);
-            RemCurse = Boolean.Parse((String)Parameters[RemCurseString]);
-            RemPoison = Boolean.Parse((String)Parameters[RemPoisonString]);
-            RemBleed = Boolean.Parse((String)Parameters[RemBleedString]);
-            CorruptCount = Int32.Parse((String)Parameters[CorruptCountString]);
-
+            RemFrozen = ExtensionComponent.InitialiseParameterBoolean(RemFrozenString, RemFrozen, ref Parameters);
+            RemBurning = ExtensionComponent.InitialiseParameterBoolean(RemBurningString, RemBurning, ref Parameters);
+            RemShocked = ExtensionComponent.InitialiseParameterBoolean(RemShockedString, RemShocked, ref Parameters);
+            RemCurse = ExtensionComponent.InitialiseParameterBoolean(RemCurseString, RemCurse, ref Parameters);
+            RemPoison = ExtensionComponent.InitialiseParameterBoolean(RemPoisonString, RemPoison, ref Parameters);
+            RemBleed = ExtensionComponent.InitialiseParameterBoolean(RemBleedString, RemBleed, ref Parameters);
+            CorruptCount = ExtensionComponent.InitialiseParameterInt32(CorruptCountString, CorruptCount, ref Parameters);
         }
 
         public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)

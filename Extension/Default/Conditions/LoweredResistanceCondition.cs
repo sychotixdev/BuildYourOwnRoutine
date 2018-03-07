@@ -47,11 +47,11 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         {
             base.Initialise(Parameters);
 
-            CheckCold = Boolean.Parse((string)Parameters[CheckColdString]);
-            CheckFire = Boolean.Parse((string)Parameters[CheckFireString]);
-            CheckLightning = Boolean.Parse((string)Parameters[CheckLightningString]);
-            CheckChaos = Boolean.Parse((string)Parameters[CheckChaosString]);
-            ResistanceThreshold = Int32.Parse((string)Parameters[ResistanceThresholdString]);
+            CheckCold = ExtensionComponent.InitialiseParameterBoolean(CheckColdString, CheckCold, ref Parameters);
+            CheckFire = ExtensionComponent.InitialiseParameterBoolean(CheckFireString, CheckFire, ref Parameters);
+            CheckLightning = ExtensionComponent.InitialiseParameterBoolean(CheckLightningString, CheckLightning, ref Parameters);
+            CheckChaos = ExtensionComponent.InitialiseParameterBoolean(CheckChaosString, CheckChaos, ref Parameters);
+            ResistanceThreshold = ExtensionComponent.InitialiseParameterInt32(ResistanceThresholdString, ResistanceThreshold, ref Parameters);
         }
 
         public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)
