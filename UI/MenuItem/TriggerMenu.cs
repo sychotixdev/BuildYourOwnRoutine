@@ -14,16 +14,16 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
 
     internal class TriggerMenu
     {
-        public TriggerMenu(ExtensionCache extensionCache, TriggerComposite parent)
+        public TriggerMenu(ExtensionParameter extensionParameter, TriggerComposite parent)
         {
-            ExtensionCache = extensionCache;
+            ExtensionParameter = extensionParameter;
             Parent = parent;
 
             ActiveWorkingTriggerCondition = null;
             TriggerComposite = new TriggerComposite();
         }
 
-        public TriggerMenu(ExtensionCache extensionCache, TriggerComposite parent, TriggerComposite trigger) : this(extensionCache, parent)
+        public TriggerMenu(ExtensionParameter extensionParameter, TriggerComposite parent, TriggerComposite trigger) : this(extensionParameter, parent)
         {
             EditedTrigger = trigger;
             TriggerComposite = new TriggerComposite(trigger);
@@ -34,7 +34,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
         public TriggerCondition ActiveWorkingTriggerCondition { get; set; }
         public TriggerCondition EditedTriggerCondition { get; set; }
 
-        private ExtensionCache ExtensionCache { get; set; }
+        private ExtensionParameter ExtensionParameter { get; set; }
 
         private int FilterOption { get; set; } = 0;
         private int SelectedOption1 { get; set; } = -1;
@@ -99,10 +99,10 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
                     if (TriggerComposite.Type == TriggerType.Action)
                     {
                         // TODO: HashSet is not guaranteed ordered. This should be fixed later
-                        var filterList = ExtensionCache.ActionFilterList.ToList();
+                        var filterList = ExtensionParameter.Plugin.ExtensionCache.ActionFilterList.ToList();
                         FilterOption = ImGuiExtension.ComboBox("Filter Type", FilterOption, filterList);
 
-                        var actionList = ExtensionCache.ActionList;
+                        var actionList = ExtensionParameter.Plugin.ExtensionCache.ActionList;
                         if (filterList[FilterOption] != ExtensionComponentFilterType.None)
                         {
                             actionList = actionList.Where(x => x.GetFilterTypes().Contains(filterList[FilterOption])).ToList();
@@ -123,7 +123,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
                             }
 
                             // Render the menu and ensure the parameters get saved to the action
-                            ActiveWorkingExtensionAction.CreateConfigurationMenu(ref TriggerComposite.Action.Parameters);
+                            ActiveWorkingExtensionAction.CreateConfigurationMenu(ExtensionParameter, ref TriggerComposite.Action.Parameters);
                         }
                     }
                     else if (TriggerComposite.Type == TriggerType.Decorator)
@@ -226,10 +226,10 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
             if (ImGui.BeginPopupModal("Add condition", WindowFlags.AlwaysAutoResize))
             {
                 // TODO: HashSet is not guaranteed ordered. This should be fixed later
-                var filterList = ExtensionCache.ConditionFilterList.ToList();
+                var filterList = ExtensionParameter.Plugin.ExtensionCache.ConditionFilterList.ToList();
                 FilterOption = ImGuiExtension.ComboBox("Filter Type", FilterOption, filterList);
 
-                var conditionList = ExtensionCache.ConditionList;
+                var conditionList = ExtensionParameter.Plugin.ExtensionCache.ConditionList;
                 if (filterList[FilterOption] != ExtensionComponentFilterType.None)
                 {
                     conditionList = conditionList.Where(x => x.GetFilterTypes().Contains(filterList[FilterOption])).ToList();
@@ -267,7 +267,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
                         ActiveWorkingExtensionCondition = condition.GetCondition();
                     }
 
-                    ActiveWorkingExtensionCondition.CreateConfigurationMenu(ref ActiveWorkingTriggerCondition.Parameters);
+                    ActiveWorkingExtensionCondition.CreateConfigurationMenu(ExtensionParameter, ref ActiveWorkingTriggerCondition.Parameters);
 
                     if (ImGui.Button("Save condition"))
                     {

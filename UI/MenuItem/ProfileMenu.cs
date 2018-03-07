@@ -117,7 +117,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                 if (ImGui.Button("+"))
                 {
                     ImGui.OpenPopup(TriggerMenuLabel);
-                    NewTriggerMenu = new TriggerMenu(Plugin.ExtensionCache, null);
+                    NewTriggerMenu = new TriggerMenu(Plugin.ExtensionParameter, null);
                 }
                 ImGuiExtension.ToolTip("Add root");
 
@@ -169,7 +169,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                     if (profileAction == ProfileMenuAction.Edit)
                     {
                         ImGui.OpenPopup(TriggerMenuLabel);
-                        NewTriggerMenu = new TriggerMenu(Plugin.ExtensionCache, parent, composite);
+                        NewTriggerMenu = new TriggerMenu(Plugin.ExtensionParameter, parent, composite);
                     }
                     else if (profileAction != ProfileMenuAction.None)
                     {
@@ -188,7 +188,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                     if (profileAction == ProfileMenuAction.Edit)
                     {
                         ImGui.OpenPopup(TriggerMenuLabel);
-                        NewTriggerMenu = new TriggerMenu(Plugin.ExtensionCache, parent, composite);
+                        NewTriggerMenu = new TriggerMenu(Plugin.ExtensionParameter, parent, composite);
                     }
                     else if (profileAction != ProfileMenuAction.None)
                     {
@@ -202,7 +202,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                         if (ImGui.Button("+"))
                         {
                             ImGui.OpenPopup(TriggerMenuLabel);
-                            NewTriggerMenu = new TriggerMenu(Plugin.ExtensionCache, composite);
+                            NewTriggerMenu = new TriggerMenu(Plugin.ExtensionParameter, composite);
                         }
                         ImGuiExtension.ToolTip("Add Child");
                     }
@@ -250,7 +250,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                     if (profileAction == ProfileMenuAction.Edit)
                     {
                         ImGui.OpenPopup(TriggerMenuLabel);
-                        NewTriggerMenu = new TriggerMenu(Plugin.ExtensionCache, parent, composite);
+                        NewTriggerMenu = new TriggerMenu(Plugin.ExtensionParameter, parent, composite);
                     }
                     else if (profileAction != ProfileMenuAction.None)
                     {
@@ -424,7 +424,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                 {
                     if (ImGui.Button("Save"))
                     {
-                        BuildYourOwnRoutineCore.SaveSettingFile<Profile.LoadedProfile>(Plugin.ProfileDirectory + currentFileName, Plugin.Settings.LoadedProfile);
+                        BaseTreeRoutinePlugin<BuildYourOwnRoutineSettings, BaseTreeCache>.SaveSettingFile<Profile.LoadedProfile>(Plugin.ProfileDirectory + currentFileName, Plugin.Settings.LoadedProfile);
 
                         currentFileName = "";
                         ImGui.CloseCurrentPopup();

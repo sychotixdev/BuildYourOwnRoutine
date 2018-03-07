@@ -91,7 +91,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
             reserveFlaskCharges = InitialiseParameterInt32(reserveFlaskChargesString, reserveFlaskCharges, ref Parameters);
         }
 
-        public override bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters)
+        public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)
         {
             ImGui.TextDisabled("Action Info");
             ImGuiExtension.ToolTip("This action is used to use a specific type(s) of flask.\nFlask Hotkey will be pulled from plugin settings.\nFlask types will be pulled from the file /config/flaskinfo.json");

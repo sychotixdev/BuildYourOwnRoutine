@@ -54,13 +54,13 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             ResistanceThreshold = Int32.Parse((string)Parameters[ResistanceThresholdString]);
         }
 
-        public override bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters)
+        public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)
         {
             ImGui.TextDisabled("Condition Info");
             ImGuiExtension.ToolTip("This condition will return true if any of the selected player's resistances\nare reduced by more than or equal to the specified amount.\nReduced max resistance modifiers are taken into effect automatically (e.g. -res map mods).");
 
 
-            base.CreateConfigurationMenu(ref Parameters);
+            base.CreateConfigurationMenu(extensionParameter, ref Parameters);
 
             CheckCold = ImGuiExtension.Checkbox("Cold", CheckCold);
             Parameters[CheckColdString] = CheckCold.ToString();

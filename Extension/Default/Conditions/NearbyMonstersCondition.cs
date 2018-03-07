@@ -58,6 +58,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         private bool MonsterAboveHealthThreshold { get; set; }
         private readonly String MonsterAboveHealthThresholdString = "MonsterAboveHealthThreshold";
 
+        // Local, non-config value
+        private bool PreviewDistance { get; set; }
+
         public NearbyMonstersCondition(string owner, string name) : base(owner, name)
         {
             MinimumMonsterCount = 0;
@@ -72,6 +75,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             CountUniqueMonsters = true;
             MonsterHealthPercentThreshold = 0;
             MonsterAboveHealthThreshold = false;
+
+            PreviewDistance = false;
         }
 
         public override void Initialise(Dictionary<String, Object> Parameters)
@@ -95,19 +100,26 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
         }
 
-        public override bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters)
+        public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)
         {
             ImGui.TextDisabled("Condition Info");
             ImGuiExtension.ToolTip("This condition will return true if any of the selected player's resistances\nare reduced by more than or equal to the specified amount.\nReduced max resistance modifiers are taken into effect automatically (e.g. -res map mods).");
 
 
-            base.CreateConfigurationMenu(ref Parameters);
+            base.CreateConfigurationMenu(extensionParameter, ref Parameters);
 
             MinimumMonsterCount = ImGuiExtension.IntSlider("Minimum Monster Count", MinimumMonsterCount, 1, 50);
             Parameters[MinimumMonsterCountString] = MinimumMonsterCount.ToString();
 
             MaxDistance = ImGuiExtension.FloatSlider("Maximum Distance", MaxDistance, 1.0f, 5000.0f);
             Parameters[MaxDistanceString] = MaxDistance.ToString();
+
+            PreviewDistance = ImGuiExtension.Checkbox("Preview distance", PreviewDistance);
+
+            if (PreviewDistance)
+            {
+                extensionParameter.Plugin.PlayerHelper.RenderRangeFromPlayer(MaxDistance);
+            }
 
             ImGui.Spacing();
             ImGui.Separator();

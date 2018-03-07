@@ -34,6 +34,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
         public string ProfileDirectory { get; protected set; }
         public string ExtensionDirectory { get; protected set; }
         public ExtensionCache ExtensionCache { get; protected set; }
+        public ExtensionParameter ExtensionParameter { get; protected set; }
 
         public Composite Tree { get; protected set; }
         private Coroutine TreeCoroutine { get; set; }
@@ -51,6 +52,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
             PluginName = "BuildYourOwnRoutineCore";
             KeyboardHelper = new KeyboardHelper(GameController);
             ExtensionCache = new ExtensionCache();
+            ExtensionParameter = new ExtensionParameter(this);
 
             ProfileDirectory = PluginDirectory + @"/Profile/";
             ExtensionDirectory = PluginDirectory + @"/Extension/";

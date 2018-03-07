@@ -31,12 +31,12 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             Percentage = Int32.Parse((string)Parameters[PercentageString]);
         }
 
-        public override bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters)
+        public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)
         {
             ImGui.TextDisabled("Condition Info");
             ImGuiExtension.ToolTip("This condition will return true if the player's energy shield percentage is above/below the specified amount.");
 
-            base.CreateConfigurationMenu(ref Parameters);
+            base.CreateConfigurationMenu(extensionParameter, ref Parameters);
 
             int radioTarget = IsAbove ? 0 : 1;
             if (ImGui.RadioButton("Above Percentage", ref radioTarget, 0))

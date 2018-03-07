@@ -25,7 +25,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
             flaskIndex = Int32.Parse((String)Parameters[flaskIndexString]);
         }
 
-        public override bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters)
+        public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)
         {
             ImGui.TextDisabled("Action Info");
             ImGuiExtension.ToolTip("This action is used to use a specific flask.\nFlask Hotkey will be pulled from plugin settings.");

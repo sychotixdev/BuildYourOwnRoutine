@@ -52,12 +52,12 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
         }
 
-        public override bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters)
+        public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)
         {
             ImGui.TextDisabled("Condition Info");
             ImGuiExtension.ToolTip("This condition will return true if the player has any of the selected ailments or a minimum of the specified corrupted blood stacks.");
 
-            base.CreateConfigurationMenu(ref Parameters);
+            base.CreateConfigurationMenu(extensionParameter, ref Parameters);
 
             RemFrozen = ImGuiExtension.Checkbox("Frozen", RemFrozen);
             Parameters[RemFrozenString] = RemFrozen.ToString();

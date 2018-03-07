@@ -27,12 +27,12 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
         }
 
-        public override bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters)
+        public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)
         {
             ImGui.TextDisabled("Condition Info");
             ImGuiExtension.ToolTip("This condition will return true if the player has been moving longer than the specified time.");
 
-            base.CreateConfigurationMenu(ref Parameters);
+            base.CreateConfigurationMenu(extensionParameter, ref Parameters);
 
             msMoving = ImGuiExtension.IntSlider("Time spent moving (ms)", (int)msMoving, 0, 10000);
             ImGuiExtension.ToolTip("Player must remain moving for this configured number of milliseconds (1000ms = 1 sec) before this condition returns true");

@@ -30,7 +30,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension
         /// </summary>
         /// <param name="Parameters"></param>
         /// <returns>Not currently used. Recommended to return true.</returns>
-        public abstract bool CreateConfigurationMenu(ref Dictionary<String, Object> Parameters);
+        public abstract bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters);
 
         public static String InitialiseParameterString(String parameterName, String defaultValue, ref Dictionary<String, Object> Parameters)
         {

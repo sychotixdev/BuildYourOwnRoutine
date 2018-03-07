@@ -31,7 +31,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension
             Invert = Boolean.Parse((string)Parameters[InvertString]);
         }
 
-        public override bool CreateConfigurationMenu(ref Dictionary<string, object> Parameters)
+        public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<string, object> Parameters)
         {
             Invert = ImGuiExtension.Checkbox("Invert", Invert);
             ImGuiExtension.ToolTip("Check this box to invert the returned value of this condition.\nFor Example when enabled, if the condition returns true when in hideout, it would now return true when NOT in hideout.");

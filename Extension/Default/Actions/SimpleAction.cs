@@ -16,7 +16,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
             this.Action = action;
         }
 
-        public override bool CreateConfigurationMenu(ref Dictionary<string, object> Parameters)
+        public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<string, object> Parameters)
         {
             return true;
         }
