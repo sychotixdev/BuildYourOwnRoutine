@@ -52,9 +52,26 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             return true;
         }
 
-        public override Func<bool> GetCondition(ExtensionParameter profileParameter)
+        public override Func<bool> GetCondition(ExtensionParameter extensionParameter)
         {
-            return () => !profileParameter.Plugin.PlayerHelper.isManaBelowPercentage(Percentage) == IsAbove;
+            return () => !extensionParameter.Plugin.PlayerHelper.isManaBelowPercentage(Percentage) == IsAbove;
+        }
+
+        public override string GetDisplayName(bool isAddingNew)
+        {
+            string displayName = "Mana Percentage";
+
+            if (!isAddingNew)
+            {
+                displayName += " [";
+                if (IsAbove) displayName += ("Above ");
+                else displayName += ("Below ");
+                displayName += ("Percentage=" + Percentage.ToString());
+                displayName += "]";
+
+            }
+
+            return displayName;
         }
     }
 }

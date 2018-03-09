@@ -20,6 +20,13 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension
         public String Name { get; protected set; }
 
         /// <summary>
+        /// Returns the display name for this condition.
+        /// </summary>
+        /// <param name="isAddingNew">true if adding as a new parameter</param>
+        /// <returns></returns>
+        public abstract string GetDisplayName(Boolean isAddingNew);
+
+        /// <summary>
         /// Used to initalize the instance's values, especially when loading a profile.
         /// </summary>
         /// <param name="Parameters"></param>

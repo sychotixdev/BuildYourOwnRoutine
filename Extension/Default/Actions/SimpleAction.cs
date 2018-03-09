@@ -30,5 +30,10 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
         {
             
         }
+
+        public override string GetDisplayName(bool isAddingNew)
+        {
+            return Name;
+        }
     }
 }

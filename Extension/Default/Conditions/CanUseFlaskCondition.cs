@@ -11,10 +11,10 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 {
     internal class CanUseFlaskCondition : ExtensionCondition
     {
-        private int flaskIndex { get; set; } = 1;
+        private int FlaskIndex { get; set; } = 1;
         private const String flaskIndexString = "flaskIndex";
 
-        private int reserveUses { get; set; } = 0;
+        private int ReservedUses { get; set; } = 0;
         private const String reserveUsesString = "reserveUses";
 
 
@@ -27,8 +27,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         {
             base.Initialise(Parameters);
 
-            flaskIndex = ExtensionComponent.InitialiseParameterInt32(flaskIndexString, flaskIndex, ref Parameters);
-            reserveUses = ExtensionComponent.InitialiseParameterInt32(reserveUsesString, reserveUses, ref Parameters);
+            FlaskIndex = ExtensionComponent.InitialiseParameterInt32(flaskIndexString, FlaskIndex, ref Parameters);
+            ReservedUses = ExtensionComponent.InitialiseParameterInt32(reserveUsesString, ReservedUses, ref Parameters);
         }
 
         public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)
@@ -38,16 +38,32 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
             base.CreateConfigurationMenu(extensionParameter, ref Parameters);
 
-            flaskIndex = ImGuiExtension.IntSlider("Flask Index", flaskIndex, 1, 5);
-            Parameters[flaskIndexString] = flaskIndex.ToString();
-            reserveUses = ImGuiExtension.IntSlider("Reserved Uses", reserveUses, 0, 5);
-            Parameters[flaskIndexString] = reserveUses.ToString();
+            FlaskIndex = ImGuiExtension.IntSlider("Flask Index", FlaskIndex, 1, 5);
+            Parameters[flaskIndexString] = FlaskIndex.ToString();
+            ReservedUses = ImGuiExtension.IntSlider("Reserved Uses", ReservedUses, 0, 5);
+            Parameters[flaskIndexString] = ReservedUses.ToString();
             return true;
         }
 
         public override Func<bool> GetCondition(ExtensionParameter profileParameter)
         {
-            return () => !profileParameter.Plugin.FlaskHelper.canUsePotion(flaskIndex, reserveUses);
+            return () => !profileParameter.Plugin.FlaskHelper.canUsePotion(FlaskIndex, ReservedUses);
+        }
+
+        public override string GetDisplayName(bool isAddingNew)
+        {
+            string displayName = "Can Use Flask";
+
+            if (!isAddingNew)
+            {
+                displayName += " [";
+                displayName += ("FlaskIndex=" + FlaskIndex.ToString());
+                displayName += (",Reserved=" + ReservedUses.ToString());
+                displayName += "]";
+
+            }
+
+            return displayName;
         }
     }
 }

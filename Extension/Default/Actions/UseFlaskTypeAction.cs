@@ -269,5 +269,35 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
             return flaskList.FirstOrDefault();
         }
+
+        public override string GetDisplayName(bool isAddingNew)
+        {
+            string displayName = "Use Flask Type";
+
+            if (!isAddingNew)
+            {
+                displayName += " [";
+                if (useLife) displayName += ("Life,");
+                if (useMana) displayName += ("Mana,");
+                if (useHybrid) displayName += ("Hybrid,");
+                if (useDefense) displayName += ("Defense,");
+                if (useUtility) displayName += ("Utility,");
+                if (useSpeedrun) displayName += ("Speedrun,");
+                if (useOffense) displayName += ("Offense,");
+                if (usePoison) displayName += ("Poison,");
+                if (useFreeze) displayName += ("Freeze,");
+                if (useIgnite) displayName += ("Ignite,");
+                if (useShock) displayName += ("Shock,");
+                if (useBleed) displayName += ("Bleed,");
+                if (useCurse) displayName += ("Curse,");
+                if (useUnique) displayName += ("Unique,");
+                if (useOffenseAndSpeedrun) displayName += ("Off&Def,");
+                if (reserveFlaskCharges > 0) displayName += ("Reserved=" + reserveFlaskCharges);
+                displayName += "]";
+
+            }
+
+            return displayName;
+        }
     }
 }

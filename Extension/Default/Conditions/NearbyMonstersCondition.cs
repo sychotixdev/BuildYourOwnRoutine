@@ -176,7 +176,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
                 foreach (var monster in extensionParameter.Plugin.LoadedMonsters)
                 {
-                    if (!monster.IsValid || !monster.IsAlive)
+                    if (!monster.IsValid || !monster.IsAlive || !monster.IsHostile)
                         continue;
 
                     var monsterType = monster.GetComponent<ObjectMagicProperties>().Rarity;
@@ -192,7 +192,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                     {
                         // If the monster is still too healthy, don't count it
                         var monsterLife = monster.GetComponent<Life>();
-                        if (monsterLife.CurHP / monsterLife.MaxHP >= MonsterHealthPercentThreshold)
+                        if ((monsterLife.CurHP / monsterLife.MaxHP >= MonsterHealthPercentThreshold) == MonsterAboveHealthThreshold)
                             continue;
                     }
 
@@ -228,11 +228,40 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                     }
 
                     if (mobCount >= MinimumMonsterCount)
+                    {
+                        if (extensionParameter.Plugin.Settings.Debug)
+                        {
+                            extensionParameter.Plugin.Log("NearbyMonstersCondition returning true because " + mobCount + " mobs valid monsters were found nearby.", 2);
+                        }
                         return true;
+                    }
                 }
 
                 return false;
             };
+        }
+
+        public override string GetDisplayName(bool isAddingNew)
+        {
+            string displayName = "Nearby Monsters";
+
+            if (!isAddingNew)
+            {
+                displayName += " [";
+                displayName += ("Types=");
+                if (CountWhiteMonsters) displayName += ("White,");
+                if (CountRareMonsters) displayName += ("Rare,");
+                if (CountMagicMonsters) displayName += ("Magic,");
+                if (CountUniqueMonsters) displayName += ("Unique");
+
+                displayName += ("MaxDistance=" + MaxDistance.ToString());
+                if (ColdResistanceThreshold > 0 || FireResistanceThreshold > 0 || LightningResistanceThreshold > 0 || ChaosResistanceThreshold > 0)
+                    displayName += ("Resist restrictions");
+                displayName += "]";
+
+            }
+
+            return displayName;
         }
     }
 }

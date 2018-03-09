@@ -40,5 +40,20 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
         {
             return new UseHotkeyAction(profileParameter.Plugin.KeyboardHelper, x => (Keys)Key);
         }
+
+        public override string GetDisplayName(bool isAddingNew)
+        {
+            string displayName = "Send Key Press";
+
+            if (!isAddingNew)
+            {
+                displayName += " [";
+                displayName += ("Key=" + Key.ToString());
+                displayName += "]";
+
+            }
+
+            return displayName;
+        }
     }
 }

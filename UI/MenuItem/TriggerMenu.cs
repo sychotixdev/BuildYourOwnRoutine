@@ -128,7 +128,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
                     }
                     else if (TriggerComposite.Type == TriggerType.Decorator)
                     {
-                        SelectedOption1 = ImGuiExtension.ComboBox("Conditions", SelectedOption1, TriggerComposite.ConditionList.Select(x => x.Owner + ": " + x.Name).ToList());
+                        SelectedOption1 = ImGuiExtension.ComboBox("Conditions", SelectedOption1, TriggerComposite.ConditionList.Select(x => x.Owner + ": " + x.).ToList());
                         if (ImGui.Button("Add"))
                         {
                             //if (ActiveWorkingTriggerCondition == null)

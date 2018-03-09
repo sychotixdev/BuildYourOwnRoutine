@@ -12,7 +12,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 {
     internal class UseFlaskAction : ExtensionAction
     {
-        private int flaskIndex { get; set; } = 1;
+        private int FlaskIndex { get; set; } = 1;
         private const String flaskIndexString = "flaskIndex";
 
         public UseFlaskAction(string owner, string name) : base(owner, name)
@@ -22,7 +22,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
         public override void Initialise(Dictionary<String, Object> Parameters)
         {
-            flaskIndex = ExtensionComponent.InitialiseParameterInt32(flaskIndexString, flaskIndex, ref Parameters);
+            FlaskIndex = ExtensionComponent.InitialiseParameterInt32(flaskIndexString, FlaskIndex, ref Parameters);
         }
 
         public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)
@@ -30,15 +30,30 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
             ImGui.TextDisabled("Action Info");
             ImGuiExtension.ToolTip("This action is used to use a specific flask.\nFlask Hotkey will be pulled from plugin settings.");
 
-            flaskIndex = ImGuiExtension.IntSlider("Flask Index", flaskIndex, 1, 5);
+            FlaskIndex = ImGuiExtension.IntSlider("Flask Index", FlaskIndex, 1, 5);
             ImGuiExtension.ToolTip("Index for flask to be used (1= farthest left, 5 = farthest right)");
-            Parameters[flaskIndexString] = flaskIndex.ToString();
+            Parameters[flaskIndexString] = FlaskIndex.ToString();
             return true;
         }
 
         public override Composite GetComposite(ExtensionParameter profileParameter)
         {
-            return new UseHotkeyAction(profileParameter.Plugin.KeyboardHelper, x => profileParameter.Plugin.Settings.FlaskSettings[flaskIndex - 1].Hotkey);
+            return new UseHotkeyAction(profileParameter.Plugin.KeyboardHelper, x => profileParameter.Plugin.Settings.FlaskSettings[FlaskIndex - 1].Hotkey);
+        }
+
+        public override string GetDisplayName(bool isAddingNew)
+        {
+            string displayName = "Use Flask";
+
+            if (!isAddingNew)
+            {
+                displayName += " [";
+                displayName += ("FlaskIndex=" + FlaskIndex.ToString());
+                displayName += "]";
+
+            }
+
+            return displayName;
         }
     }
 }

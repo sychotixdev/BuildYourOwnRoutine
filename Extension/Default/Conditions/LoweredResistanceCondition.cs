@@ -80,20 +80,20 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             return true;
         }
 
-        public override Func<bool> GetCondition(ExtensionParameter profileParameter)
+        public override Func<bool> GetCondition(ExtensionParameter extensionParameter)
         {
             return () =>
             {
                 bool finalResult = true;
 
                 if (finalResult && CheckCold)
-                    finalResult = CheckResistance(profileParameter, "Cold");
+                    finalResult = CheckResistance(extensionParameter, "Cold");
                 if (finalResult && CheckFire)
-                    finalResult = CheckResistance(profileParameter, "Fire");
+                    finalResult = CheckResistance(extensionParameter, "Fire");
                 if (finalResult && CheckLightning)
-                    finalResult = CheckResistance(profileParameter, "Lightning");
+                    finalResult = CheckResistance(extensionParameter, "Lightning");
                 if (finalResult && CheckChaos)
-                    finalResult = CheckResistance(profileParameter, "Chaos");
+                    finalResult = CheckResistance(extensionParameter, "Chaos");
 
                 return finalResult;
             };
@@ -121,6 +121,26 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                 return false;
             }
             return true;
+        }
+
+        public override string GetDisplayName(bool isAddingNew)
+        {
+            string displayName = "Player Lowered Resists";
+
+            if (!isAddingNew)
+            {
+                displayName += " [";
+                if (CheckCold) displayName += ("Cold,");
+                if (CheckFire) displayName += ("Fire,");
+                if (CheckLightning) displayName += ("Lightning,");
+                if (CheckChaos) displayName += ("Chaos,");
+                displayName += ("ResistanceThreshold=" + ResistanceThreshold.ToString());
+
+                displayName += "]";
+
+            }
+
+            return displayName;
         }
     }
 }

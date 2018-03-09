@@ -56,5 +56,22 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         {
             return () => !profileParameter.Plugin.PlayerHelper.isEnergyShieldBelowPercentage(Percentage) == IsAbove;
         }
+
+        public override string GetDisplayName(bool isAddingNew)
+        {
+            string displayName = "Energy Shield Percentage";
+
+            if (!isAddingNew)
+            {
+                displayName += " [";
+                if (IsAbove) displayName += ("Above ");
+                else displayName += ("Below ");
+                displayName += ("Percentage=" + Percentage.ToString());
+                displayName += "]";
+
+            }
+
+            return displayName;
+        }
     }
 }

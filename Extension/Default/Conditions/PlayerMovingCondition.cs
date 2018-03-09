@@ -59,5 +59,20 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                 return false;
             };
         }
+
+        public override string GetDisplayName(bool isAddingNew)
+        {
+            string displayName = "Player Moving";
+
+            if (!isAddingNew)
+            {
+                displayName += " [";
+                displayName += ("MsMoving=" + MsMoving.ToString());
+                displayName += "]";
+
+            }
+
+            return displayName;
+        }
     }
 }

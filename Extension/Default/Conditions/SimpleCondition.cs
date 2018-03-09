@@ -22,5 +22,10 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         {
             return Condition(extensionParameter);
         }
+
+        public override string GetDisplayName(bool isAddingNew)
+        {
+            return Name;
+        }
     }
 }

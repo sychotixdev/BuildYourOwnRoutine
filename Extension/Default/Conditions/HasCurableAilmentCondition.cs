@@ -99,8 +99,6 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                     return true;
                 if (CorruptCount > 0 && hasAilment(profileParameter, profileParameter.Plugin.Cache.DebuffPanelConfig.Corruption, () => CorruptCount))
                     return true;
-                if (RemBurning && hasAilment(profileParameter, profileParameter.Plugin.Cache.DebuffPanelConfig.Burning))
-                    return true;
 
                 return false;
             };
@@ -122,6 +120,27 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                 }
             }
             return false;
+        }
+
+        public override string GetDisplayName(bool isAddingNew)
+        {
+            string displayName = "Has Curable Ailment";
+
+            if (!isAddingNew)
+            {
+                displayName += " [";
+                if (RemFrozen) displayName += ("Frozen,");
+                if (RemBurning) displayName += ("Burn,");
+                if (RemShocked) displayName += ("Shock,");
+                if (RemCurse) displayName += ("Curse,");
+                if (RemPoison) displayName += ("Poison,");
+                if (RemBleed) displayName += ("Bleed,");
+                if (CorruptCount > 0) displayName += ("Corrupt,");
+                displayName += "]";
+
+            }
+
+            return displayName;
         }
     }
 }
