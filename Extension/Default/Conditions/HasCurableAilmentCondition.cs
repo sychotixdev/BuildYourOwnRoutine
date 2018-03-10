@@ -81,23 +81,23 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             return true;
         }
 
-        public override Func<bool> GetCondition(ExtensionParameter profileParameter)
+        public override Func<bool> GetCondition(ExtensionParameter extensionParameter)
         {
             return () =>
             {
-                if (RemFrozen && hasAilment(profileParameter, profileParameter.Plugin.Cache.DebuffPanelConfig.Frozen))
+                if (RemFrozen && hasAilment(extensionParameter, extensionParameter.Plugin.Cache.DebuffPanelConfig.Frozen))
                     return true;
-                if (RemBurning && hasAilment(profileParameter, profileParameter.Plugin.Cache.DebuffPanelConfig.Burning))
+                if (RemBurning && hasAilment(extensionParameter, extensionParameter.Plugin.Cache.DebuffPanelConfig.Burning))
                     return true;
-                if (RemShocked && hasAilment(profileParameter, profileParameter.Plugin.Cache.DebuffPanelConfig.Shocked))
+                if (RemShocked && hasAilment(extensionParameter, extensionParameter.Plugin.Cache.DebuffPanelConfig.Shocked))
                     return true;
-                if (RemCurse && hasAilment(profileParameter, profileParameter.Plugin.Cache.DebuffPanelConfig.WeakenedSlowed))
+                if (RemCurse && hasAilment(extensionParameter, extensionParameter.Plugin.Cache.DebuffPanelConfig.WeakenedSlowed))
                     return true;
-                if (RemPoison && hasAilment(profileParameter, profileParameter.Plugin.Cache.DebuffPanelConfig.Poisoned))
+                if (RemPoison && hasAilment(extensionParameter, extensionParameter.Plugin.Cache.DebuffPanelConfig.Poisoned))
                     return true;
-                if (RemBleed && hasAilment(profileParameter, profileParameter.Plugin.Cache.DebuffPanelConfig.Bleeding))
+                if (RemBleed && hasAilment(extensionParameter, extensionParameter.Plugin.Cache.DebuffPanelConfig.Bleeding))
                     return true;
-                if (CorruptCount > 0 && hasAilment(profileParameter, profileParameter.Plugin.Cache.DebuffPanelConfig.Corruption, () => CorruptCount))
+                if (CorruptCount > 0 && hasAilment(extensionParameter, extensionParameter.Plugin.Cache.DebuffPanelConfig.Corruption, () => CorruptCount))
                     return true;
 
                 return false;
@@ -106,7 +106,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
         private bool hasAilment(ExtensionParameter profileParameter, Dictionary<string, int> dictionary, Func<int> minCharges = null)
         {
-            var buffs = profileParameter.Plugin.Cache.SavedIngameState.Data.LocalPlayer.GetComponent<Life>().Buffs;
+            var buffs = profileParameter.Plugin.GameController.Game.IngameState.Data.LocalPlayer.GetComponent<Life>().Buffs;
             foreach (var buff in buffs)
             {
                 if (float.IsInfinity(buff.Timer))

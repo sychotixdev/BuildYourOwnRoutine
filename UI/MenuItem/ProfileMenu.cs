@@ -345,7 +345,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
             if (composite == null)
             {
                 error = "No profile loaded";
-                return false; ;
+                return false;
             }
             if (composite.Type != TriggerType.Action && (composite.Children == null || composite.Children.Count == 0))
             {
@@ -386,7 +386,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
 
                 if (currentlySelectedProfile >= 0 && ImGui.Button("Load"))
                 {
-                    Profile.LoadedProfile loadedProfile = BuildYourOwnRoutineCore.LoadSettingFile<Profile.LoadedProfile>(files[currentlySelectedProfile]);
+                    Profile.LoadedProfile loadedProfile = BaseTreeRoutinePlugin<BuildYourOwnRoutineSettings, BaseTreeCache>.LoadSettingFile<Profile.LoadedProfile>(files[currentlySelectedProfile]);
                     if (loadedProfile == null || loadedProfile.Name == null)
                     {
                         StartNewOKMenu("Profile did not load properly");

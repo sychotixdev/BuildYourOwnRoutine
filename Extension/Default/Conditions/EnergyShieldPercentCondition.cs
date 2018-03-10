@@ -52,9 +52,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             return true;
         }
 
-        public override Func<bool> GetCondition(ExtensionParameter profileParameter)
+        public override Func<bool> GetCondition(ExtensionParameter extensionParameter)
         {
-            return () => !profileParameter.Plugin.PlayerHelper.isEnergyShieldBelowPercentage(Percentage) == IsAbove;
+            return () => !extensionParameter.Plugin.PlayerHelper.isEnergyShieldBelowPercentage(Percentage) == IsAbove;
         }
 
         public override string GetDisplayName(bool isAddingNew)

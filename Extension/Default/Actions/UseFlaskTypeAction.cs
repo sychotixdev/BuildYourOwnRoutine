@@ -172,7 +172,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
             return true;
         }
 
-        public override Composite GetComposite(ExtensionParameter extensionParameter)
+        public override Composite GetComposite(ExtensionParameter profileParameter)
         {
             List<FlaskActions> actions = new List<FlaskActions>();
             if (useLife) actions.Add(FlaskActions.Life);
@@ -193,13 +193,13 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
             if(actions.Count == 0)
             {
-                extensionParameter.Plugin.Log("No actions selected.", 5);
+                profileParameter.Plugin.Log("No actions selected.", 5);
                 return new TreeSharp.Action();
             }
 
             bool cleansing = usePoison || useFreeze || useIgnite || useShock || useBleed || useCurse;
 
-            return createUseFlaskAction(extensionParameter, actions, cleansing ? null : (bool?)useInstant, null);
+            return createUseFlaskAction(profileParameter, actions, cleansing ? null : (bool?)useInstant, null);
         }
 
         private Composite createUseFlaskAction(ExtensionParameter extensionParameter, List<FlaskActions> flaskActions, Boolean? instant, Func<List<FlaskActions>> ignoreFlasksWithAction = null)
