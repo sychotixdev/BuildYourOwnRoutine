@@ -15,6 +15,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
         public const string CacheStartedMoving = "StartedMoving";
         private Stopwatch MovingStopwatch { get; set; } = new Stopwatch();
 
+        public const String CustomerTimerPrefix = "CustomTimerPrefix";
 
         public DefaultExtension()
         {
@@ -27,7 +28,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
             {
                 new UseFlaskActionFactory(Name),
                 new SendKeyActionFactory(Name),
-                new UseFlaskTypeActionFactory(Name)
+                new UseFlaskTypeActionFactory(Name),
+                new TimerActionFactory(Name)
             };
 
             return list;
@@ -45,7 +47,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
                 new HasCurableAilmentConditionFactory(Name),
                 new PlayerMovingConditionFactory(Name),
                 new LoweredResistanceConditionFactory(Name),
-                new NearbyMonstersConditionFactory(Name)
+                new NearbyMonstersConditionFactory(Name),
+                new TimerConditionFactory(Name)
             };
 
             return list;

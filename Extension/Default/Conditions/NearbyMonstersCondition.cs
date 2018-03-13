@@ -117,7 +117,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
             if (PreviewDistance)
             {
-                extensionParameter.Plugin.PlayerHelper.RenderRangeFromPlayer(MaxDistance);
+                extensionParameter.Plugin.PlayerHelper.DrawSquareToWorld(extensionParameter.Plugin.GameController.Player.Pos, MaxDistance);
             }
 
             ImGui.Spacing();
