@@ -38,7 +38,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
 
         private ConfigurationMenu ConfigurationMenu { get; set; }
 
-        public ConcurrentBag<EntityWrapper> LoadedMonsters { get; protected set; } = new ConcurrentBag<EntityWrapper>();
+        public List<EntityWrapper> LoadedMonsters { get; protected set; } = new List<EntityWrapper>();
 
         public override void Initialise()
         {
@@ -147,23 +147,15 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
 
         public override void EntityAdded(EntityWrapper entityWrapper)
         {
-            if (entityWrapper.HasComponent<Monster>() && entityWrapper.IsValid && entityWrapper.IsAlive)
+            if (entityWrapper.HasComponent<Monster>())
             {
-                //This will Cache the Positioned Component.
-                var k = entityWrapper.GetComponent<Positioned>();
-                var p = entityWrapper.GetComponent<ObjectMagicProperties>();
                 LoadedMonsters.Add(entityWrapper);
             }
         }
+
         public override void EntityRemoved(EntityWrapper entityWrapper)
         {
-            if (LoadedMonsters.TryPeek(out entityWrapper))
-            {
-                if (!LoadedMonsters.TryTake(out entityWrapper))
-                {
-                    LogError("Failed to remove an entity from the monster cache! Report this error as actually being possible.", 5);
-                }
-            }
+            LoadedMonsters.Remove(entityWrapper);
         }
     }
 }

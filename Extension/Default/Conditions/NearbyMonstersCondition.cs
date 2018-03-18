@@ -172,11 +172,12 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                 var mobCount = 0;
                 var maxDistanceSquare = MaxDistance * MaxDistance;
 
-                var playerPosition = extensionParameter.Plugin.GameController.Player.GetComponent<Positioned>();
+                var playerPosition = extensionParameter.Plugin.GameController.Player.Pos;
 
-                foreach (var monster in extensionParameter.Plugin.LoadedMonsters)
+                // Make sure we create our own list to iterate as we may be adding/removing from the list
+                foreach (var monster in new List<PoeHUD.Models.EntityWrapper>(extensionParameter.Plugin.LoadedMonsters))
                 {
-                    if (!monster.IsValid || !monster.IsAlive || !monster.IsHostile)
+                    if (!monster.HasComponent<Monster>() || !monster.IsValid || !monster.IsAlive || !monster.IsHostile)
                         continue;
 
                     var monsterType = monster.GetComponent<ObjectMagicProperties>().Rarity;
@@ -196,13 +197,19 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                             continue;
                     }
 
-                    var monsterPosition = monster.GetComponent<Positioned>();
-                    var xDiff = playerPosition.GridX - monsterPosition.GridX;
-                    var yDiff = playerPosition.GridY - monsterPosition.GridY;
+                    var monsterPosition = monster.Pos;
+
+                    var xDiff = playerPosition.X - monsterPosition.X;
+                    var yDiff = playerPosition.Y - monsterPosition.Y;
                     var monsterDistanceSquare = (xDiff * xDiff + yDiff * yDiff);
 
                     if (monsterDistanceSquare <= maxDistanceSquare)
                     {
+                        //if (extensionParameter.Plugin.Settings.Debug)
+                        //{
+                        //    extensionParameter.Plugin.Log("Enemy was in range. Mobs so far: " + mobCount + " monsterDistanceSquare:" + monsterDistanceSquare + " maxDistanceSquare:" + maxDistanceSquare, 2);
+                        //}
+
                         if (ColdResistanceThreshold > 0 || FireResistanceThreshold > 0 || LightningResistanceThreshold > 0 || ChaosResistanceThreshold > 0)
                         {
                             // We care about resists. Only increment IF we are above the threshold
@@ -237,6 +244,10 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                     }
                 }
 
+                if (extensionParameter.Plugin.Settings.Debug)
+                {
+                    extensionParameter.Plugin.Log("NearbyMonstersCondition returning false because " + mobCount + " mobs valid monsters were found nearby.", 2);
+                }
                 return false;
             };
         }
