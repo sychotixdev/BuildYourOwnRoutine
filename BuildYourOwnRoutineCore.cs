@@ -26,11 +26,6 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
 {
     public class BuildYourOwnRoutineCore : BaseTreeRoutinePlugin<BuildYourOwnRoutineSettings, BaseTreeCache>
     {
-        public BuildYourOwnRoutineCore() : base()
-        {
-
-        }
-
         public string ProfileDirectory { get; protected set; }
         public string ExtensionDirectory { get; protected set; }
         public ExtensionCache ExtensionCache { get; protected set; }
@@ -138,27 +133,16 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
         {
             base.Render();
             if (!Settings.Enable.Value) return;
+        }
+
+        public override void InitializeSettingsMenu()
+        {
 
         }
 
-        protected override void RunWindow()
-        {
-            if (Settings.ShowSettings)
-            {
-                ImGuiExtension.BeginWindow($"{PluginName} Settings", Settings.LastSettingPos.X, Settings.LastSettingPos.Y, Settings.LastSettingSize.X, Settings.LastSettingSize.Y);
-                
-                ConfigurationMenu.Render();
-
-                // Storing window Position and Size changed by the user
-                if (ImGui.GetWindowHeight() > 21)
-                {
-                    Settings.LastSettingPos = ImGui.GetWindowPosition();
-                    Settings.LastSettingSize = ImGui.GetWindowSize();
-                }
-
-                ImGui.EndWindow();
-
-            }
+        public override void DrawSettingsMenu()
+        {                
+            ConfigurationMenu.Render();
         }
 
         public override void EntityAdded(EntityWrapper entityWrapper)
