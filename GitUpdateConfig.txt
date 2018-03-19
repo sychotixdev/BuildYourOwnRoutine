@@ -1,0 +1,9 @@
+Owner: sychotixdev
+Name: BuildYourOwnRoutine
+Repository
+
+Ignore:
+src
+.gitignore
+README.md
+LICENSE
