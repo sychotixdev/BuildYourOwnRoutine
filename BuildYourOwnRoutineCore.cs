@@ -26,11 +26,6 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
 {
     public class BuildYourOwnRoutineCore : BaseTreeRoutinePlugin<BuildYourOwnRoutineSettings, BaseTreeCache>
     {
-        public BuildYourOwnRoutineCore() : base()
-        {
-
-        }
-
         public string ProfileDirectory { get; protected set; }
         public string ExtensionDirectory { get; protected set; }
         public ExtensionCache ExtensionCache { get; protected set; }
@@ -43,7 +38,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
 
         private ConfigurationMenu ConfigurationMenu { get; set; }
 
-        public ConcurrentBag<EntityWrapper> LoadedMonsters { get; protected set; } = new ConcurrentBag<EntityWrapper>();
+        public List<EntityWrapper> LoadedMonsters { get; protected set; } = new List<EntityWrapper>();
 
         public override void Initialise()
         {
@@ -138,48 +133,29 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
         {
             base.Render();
             if (!Settings.Enable.Value) return;
+        }
+
+        public override void InitializeSettingsMenu()
+        {
 
         }
 
-        protected override void RunWindow()
-        {
-            if (Settings.ShowSettings)
-            {
-                ImGuiExtension.BeginWindow($"{PluginName} Settings", Settings.LastSettingPos.X, Settings.LastSettingPos.Y, Settings.LastSettingSize.X, Settings.LastSettingSize.Y);
-                
-                ConfigurationMenu.Render();
-
-                // Storing window Position and Size changed by the user
-                if (ImGui.GetWindowHeight() > 21)
-                {
-                    Settings.LastSettingPos = ImGui.GetWindowPosition();
-                    Settings.LastSettingSize = ImGui.GetWindowSize();
-                }
-
-                ImGui.EndWindow();
-
-            }
+        public override void DrawSettingsMenu()
+        {                
+            ConfigurationMenu.Render();
         }
 
         public override void EntityAdded(EntityWrapper entityWrapper)
         {
-            if (entityWrapper.HasComponent<Monster>() && entityWrapper.IsValid && entityWrapper.IsAlive)
+            if (entityWrapper.HasComponent<Monster>())
             {
-                //This will Cache the Positioned Component.
-                var k = entityWrapper.GetComponent<Positioned>();
-                var p = entityWrapper.GetComponent<ObjectMagicProperties>();
                 LoadedMonsters.Add(entityWrapper);
             }
         }
+
         public override void EntityRemoved(EntityWrapper entityWrapper)
         {
-            if (LoadedMonsters.TryPeek(out entityWrapper))
-            {
-                if (!LoadedMonsters.TryTake(out entityWrapper))
-                {
-                    LogError("Failed to remove an entity from the monster cache! Report this error as actually being possible.", 5);
-                }
-            }
+            LoadedMonsters.Remove(entityWrapper);
         }
     }
 }
