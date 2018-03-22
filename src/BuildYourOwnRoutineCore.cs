@@ -105,7 +105,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
 
             if (Settings.LoadedProfile.Composite == null)
             {
-                LogMessage("Profile " + Settings.LoadedProfile.Name + " was loaded, but it had no composite.", 5);
+                LogMessage(PluginName + ": Profile " + Settings.LoadedProfile.Name + " was loaded, but it had no composite.", 5);
                 return true;
             }
 
@@ -124,7 +124,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
             , new WaitTime(1000 / Settings.TicksPerSecond), nameof(BuildYourOwnRoutineCore), "Tree"))
                 .AutoRestart(GameController.CoroutineRunner).Run();
 
-            LogMessage("Profile " + Settings.LoadedProfile.Name + " was loaded successfully!", 5);
+            LogMessage(PluginName + ": Profile " + Settings.LoadedProfile.Name + " was loaded successfully!", 5);
 
             return true;
         }

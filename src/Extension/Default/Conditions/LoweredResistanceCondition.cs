@@ -12,12 +12,12 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 {
     internal class LoweredResistanceCondition : ExtensionCondition
     {
-        private static Dictionary<String, Tuple<PlayerStats, PlayerStats>> resistanceTypes = new Dictionary<String, Tuple<PlayerStats, PlayerStats>>()
+        private static Dictionary<String, Tuple<GameStat, GameStat>> resistanceTypes = new Dictionary<String, Tuple<GameStat, GameStat>>()
         {
-            { "Cold", Tuple.Create(PlayerStats.ColdDamageResistancePct, PlayerStats.MaximumColdDamageResistancePct) },
-            { "Fire", Tuple.Create(PlayerStats.FireDamageResistancePct, PlayerStats.MaximumFireDamageResistancePct) },
-            { "Lightning",Tuple.Create(PlayerStats.LightningDamageResistancePct, PlayerStats.LightningDamageResistancePct) },
-            { "Chaos", Tuple.Create(PlayerStats.ChaosDamageResistancePct, PlayerStats.MaximumChaosDamageResistancePct) }
+            { "Cold", Tuple.Create(GameStat.ColdDamageResistancePct, GameStat.MaximumColdDamageResistancePct) },
+            { "Fire", Tuple.Create(GameStat.FireDamageResistancePct, GameStat.MaximumFireDamageResistancePct) },
+            { "Lightning",Tuple.Create(GameStat.LightningDamageResistancePct, GameStat.LightningDamageResistancePct) },
+            { "Chaos", Tuple.Create(GameStat.ChaosDamageResistancePct, GameStat.MaximumChaosDamageResistancePct) }
         };
 
         private Boolean CheckCold { get; set; }
@@ -105,7 +105,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             int? current = 0;
             int? maximum = 0;
 
-            Tuple<PlayerStats, PlayerStats> playerStat;
+            Tuple<GameStat, GameStat> playerStat;
             if (resistanceTypes.TryGetValue(key, out playerStat))
             {
                 // Get the stats

@@ -13,12 +13,12 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 {
     internal class NearbyMonstersCondition : ExtensionCondition
     {
-        private static Dictionary<String, Tuple<PlayerStats, PlayerStats>> resistanceTypes = new Dictionary<String, Tuple<PlayerStats, PlayerStats>>()
+        private static Dictionary<String, Tuple<GameStat, GameStat>> resistanceTypes = new Dictionary<String, Tuple<GameStat, GameStat>>()
         {
-            { "Cold", Tuple.Create(PlayerStats.ColdDamageResistancePct, PlayerStats.MaximumColdDamageResistancePct) },
-            { "Fire", Tuple.Create(PlayerStats.FireDamageResistancePct, PlayerStats.MaximumFireDamageResistancePct) },
-            { "Lightning",Tuple.Create(PlayerStats.LightningDamageResistancePct, PlayerStats.LightningDamageResistancePct) },
-            { "Chaos", Tuple.Create(PlayerStats.ChaosDamageResistancePct, PlayerStats.MaximumChaosDamageResistancePct) }
+            { "Cold", Tuple.Create(GameStat.ColdDamageResistancePct, GameStat.MaximumColdDamageResistancePct) },
+            { "Fire", Tuple.Create(GameStat.FireDamageResistancePct, GameStat.MaximumFireDamageResistancePct) },
+            { "Lightning",Tuple.Create(GameStat.LightningDamageResistancePct, GameStat.LightningDamageResistancePct) },
+            { "Chaos", Tuple.Create(GameStat.ChaosDamageResistancePct, GameStat.MaximumChaosDamageResistancePct) }
         };
 
         private int MinimumMonsterCount { get; set; }
@@ -214,19 +214,19 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                         {
                             // We care about resists. Only increment IF we are above the threshold
                             var monsterStats = monster.GetComponent<Stats>();
-                            if (ColdResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(PlayerStats.ColdDamageResistancePct, out int coldRes) && coldRes >= ColdResistanceThreshold)
+                            if (ColdResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(GameStat.ColdDamageResistancePct, out int coldRes) && coldRes >= ColdResistanceThreshold)
                             {
                                 mobCount++;
                             }
-                            else if (FireResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(PlayerStats.FireDamageResistancePct, out int fireRes) && fireRes >= FireResistanceThreshold)
+                            else if (FireResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(GameStat.FireDamageResistancePct, out int fireRes) && fireRes >= FireResistanceThreshold)
                             {
                                 mobCount++;
                             }
-                            else if (LightningResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(PlayerStats.LightningDamageResistancePct, out int lightningRes) && lightningRes >= LightningResistanceThreshold)
+                            else if (LightningResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(GameStat.LightningDamageResistancePct, out int lightningRes) && lightningRes >= LightningResistanceThreshold)
                             {
                                 mobCount++;
                             }
-                            else if (ChaosResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(PlayerStats.ChaosDamageResistancePct, out int chaosRes) && chaosRes >= ChaosResistanceThreshold)
+                            else if (ChaosResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(GameStat.ChaosDamageResistancePct, out int chaosRes) && chaosRes >= ChaosResistanceThreshold)
                             {
                                 mobCount++;
                             }
