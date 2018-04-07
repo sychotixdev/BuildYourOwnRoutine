@@ -247,12 +247,22 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
             var flaskList = allFlasks
                     .Where(x =>
                     // Below are cheap operations and should be done first
-                    (instant == null || instant.GetValueOrDefault() == x.Instant) // Only search for flasks matching the requested instant value
-                    && (flaskActions.Contains(x.Action1) || flaskActions.Contains(x.Action2)) // Find any flask that matches the actions sent in
+                    (flaskActions.Contains(x.Action1) || flaskActions.Contains(x.Action2)) // Find any flask that matches the actions sent in
                     && (ignoreFlaskActions == null || !ignoreFlasksWithAction().Contains(x.Action1) && !ignoreFlasksWithAction().Contains(x.Action2)) // Do not choose ignored flask types
-                    && extensionParameter.Plugin.FlaskHelper.canUsePotion(x, reserveFlaskCharges) // Do not return flasks we can't use
-                    // Below are more expensive operations and should be done last
-                    && (x.Instant || (!extensionParameter.Plugin.PlayerHelper.playerHasBuffs(new List<string> { x.BuffString1 }) || !extensionParameter.Plugin.PlayerHelper.playerHasBuffs(new List<string> { x.BuffString2 }))) // If the flask is not instant, ensure we are missing at least one of the flask buffs
+                    && extensionParameter.Plugin.FlaskHelper.canUsePotion(x) // Do not return flasks we can't use
+                    // If we don't care if it is instant or not... we don't care to even check buffs
+                    && (instant == null
+                        // If we don't care about instant, OR we want a standard flasks AND
+                        || (instant == false
+                                // Ensure the flask is NOT considered instant right now
+                                && (x.InstantType == FlaskInstantType.None // The flask is not instant
+                                    || x.InstantType == FlaskInstantType.Partial /*&& !Settings.ForceBubblingAsInstantOnly*/ // OR the flask is partially instant, and we aren't forcing as only instant
+                                    || x.InstantType == FlaskInstantType.LowLife /*&& !Settings.ForcePanickedAsInstantOnly*/)  // OR the flask is a low life instant, and we aren't forcing it as only instant
+                                                                                                                           // Ensure we don't already have a flask of this type popped
+                                && !extensionParameter.Plugin.PlayerHelper.playerHasBuffs(new List<string> { x.BuffString1 }) || !extensionParameter.Plugin.PlayerHelper.playerHasBuffs(new List<string> { x.BuffString2 })
+                           )
+                        // Only select flasks that are considered instant right now
+                        || instant == true && (x.InstantType == FlaskInstantType.Partial || x.InstantType == FlaskInstantType.Full || x.InstantType == FlaskInstantType.LowLife && extensionParameter.Plugin.PlayerHelper.isHealthBelowPercentage(35))) // If we want instant only, then search only instant flasks. Only count LowLife as instant if we are low life
                     ).OrderByDescending(x => x.TotalUses).ToList();
 
 
