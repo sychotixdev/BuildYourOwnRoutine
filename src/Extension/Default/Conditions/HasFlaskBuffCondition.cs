@@ -42,7 +42,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         {
             return () =>
             {
-                var flaskInfo = extensionParameter.Plugin.FlaskHelper.getFlaskInfo(FlaskIndex);
+                var flaskInfo = extensionParameter.Plugin.FlaskHelper.getFlaskInfo(FlaskIndex - 1);
                 return !extensionParameter.Plugin.PlayerHelper.playerDoesNotHaveAnyOfBuffs(new List<string> { flaskInfo.BuffString1, flaskInfo.BuffString2 });
             };
         }
