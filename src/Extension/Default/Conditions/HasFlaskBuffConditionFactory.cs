@@ -16,7 +16,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
         public override ExtensionCondition GetCondition()
         {
-            return new CanUseFlaskCondition(Owner, Name);
+            return new HasFlaskBuffCondition(Owner, Name);
         }
 
         public override List<string> GetFilterTypes()
