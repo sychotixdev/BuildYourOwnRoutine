@@ -48,7 +48,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
                 new PlayerMovingConditionFactory(Name),
                 new LoweredResistanceConditionFactory(Name),
                 new NearbyMonstersConditionFactory(Name),
-                new TimerConditionFactory(Name)
+                new TimerConditionFactory(Name),
+                new HasFlaskBuffConditionFactory(Name)
             };
 
             return list;
