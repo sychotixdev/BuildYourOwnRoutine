@@ -41,7 +41,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             FlaskIndex = ImGuiExtension.IntSlider("Flask Index", FlaskIndex, 1, 5);
             Parameters[flaskIndexString] = FlaskIndex.ToString();
             ReservedUses = ImGuiExtension.IntSlider("Reserved Uses", ReservedUses, 0, 5);
-            Parameters[flaskIndexString] = ReservedUses.ToString();
+            Parameters[reserveUsesString] = ReservedUses.ToString();
             return true;
         }
 
