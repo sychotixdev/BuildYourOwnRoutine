@@ -47,7 +47,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
         public override Func<bool> GetCondition(ExtensionParameter extensionParameter)
         {
-            return () => !extensionParameter.Plugin.FlaskHelper.canUsePotion(FlaskIndex - 1, ReservedUses);
+            return () => extensionParameter.Plugin.FlaskHelper.canUsePotion(FlaskIndex - 1, ReservedUses);
         }
 
         public override string GetDisplayName(bool isAddingNew)
