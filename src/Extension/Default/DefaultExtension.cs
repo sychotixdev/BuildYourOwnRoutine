@@ -49,7 +49,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
                 new LoweredResistanceConditionFactory(Name),
                 new NearbyMonstersConditionFactory(Name),
                 new TimerConditionFactory(Name),
-                new HasFlaskBuffConditionFactory(Name)
+                new PlayerHasBuffConditionFactory(Name)
             };
 
             return list;
