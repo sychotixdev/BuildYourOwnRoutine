@@ -16,6 +16,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
         public override ExtensionCondition GetCondition()
         {
+
             return new SimpleCondition(Owner, Name, x => (() => x.Plugin.Cache.InHideout));
         }
 

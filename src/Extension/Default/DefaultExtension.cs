@@ -29,6 +29,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
                 new UseFlaskActionFactory(Name),
                 new SendKeyActionFactory(Name),
                 new UseFlaskTypeActionFactory(Name),
+                new UseVaalSkillActionFactory(Name),
                 new TimerActionFactory(Name)
             };
 
