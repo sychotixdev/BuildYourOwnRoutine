@@ -171,14 +171,13 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             {
                 var mobCount = 0;
                 var maxDistanceSquare = MaxDistance * MaxDistance;
+
                 var playerPosition = extensionParameter.Plugin.GameController.Player.Pos;
 
                 // Make sure we create our own list to iterate as we may be adding/removing from the list
                 foreach (var monster in new List<PoeHUD.Models.EntityWrapper>(extensionParameter.Plugin.LoadedMonsters))
                 {
-                    var targetTest = monster.GetComponent<Targetable>();
-
-                    if (!monster.HasComponent<Monster>() || !monster.IsValid || !monster.IsAlive || !monster.IsHostile || !targetTest.isTargeted)
+                    if (!monster.HasComponent<Monster>() || !monster.IsValid || !monster.IsAlive || !monster.IsHostile)
                         continue;
 
                     var monsterType = monster.GetComponent<ObjectMagicProperties>().Rarity;
@@ -231,7 +230,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                             {
                                 mobCount++;
                             }
-                        } else mobCount++;
+                        }
+                        else mobCount++;
 
                     }
 

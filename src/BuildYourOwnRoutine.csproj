@@ -64,7 +64,9 @@
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors" />
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>..\..\..\Release\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>..\..\..\Release\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
       <Private>False</Private>

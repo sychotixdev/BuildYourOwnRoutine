@@ -26,6 +26,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
 {
     public class BuildYourOwnRoutineCore : BaseTreeRoutinePlugin<BuildYourOwnRoutineSettings, BaseTreeCache>
     {
+        //smoke find this
         public string ProfileDirectory { get; protected set; }
         public string ExtensionDirectory { get; protected set; }
         public ExtensionCache ExtensionCache { get; protected set; }
