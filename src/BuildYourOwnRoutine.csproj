@@ -146,7 +146,6 @@
     <Compile Include="Profile\ProfileTreeBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Trigger\Trigger.cs" />
-    <Compile Include="UI\BuffsEnum.cs" />
     <Compile Include="UI\MenuItem\ConfigurationMenu.cs" />
     <Compile Include="UI\MenuItem\ProfileMenu.cs" />
     <Compile Include="UI\MenuItem\SettingsMenu.cs" />
