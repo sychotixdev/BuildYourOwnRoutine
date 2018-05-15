@@ -6,24 +6,22 @@ using System.Threading.Tasks;
 
 namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 {
-    internal class InHideoutConditionFactory : ExtensionConditionFactory
+    internal class PlayerHasBuffConditionFactory : ExtensionConditionFactory
     {
-        public InHideoutConditionFactory(string owner)
+        public PlayerHasBuffConditionFactory(string owner)
         {
             Owner = owner;
-            Name = "InHideoutConditionFactory";
+            Name = "PlayerHasBuffConditionFactory";
         }
 
         public override ExtensionCondition GetCondition()
         {
-
-            return new SimpleCondition(Owner, Name, x => (() => x.Plugin.Cache.InHideout));
+            return new PlayerHasBuffCondition(Owner, Name);
         }
 
         public override List<string> GetFilterTypes()
         {
             return new List<string>() { ExtensionComponentFilterType.Player };
         }
-
     }
 }

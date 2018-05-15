@@ -29,6 +29,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
                 new UseFlaskActionFactory(Name),
                 new SendKeyActionFactory(Name),
                 new UseFlaskTypeActionFactory(Name),
+                new UseVaalSkillActionFactory(Name),
                 new TimerActionFactory(Name)
             };
 
@@ -49,7 +50,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
                 new LoweredResistanceConditionFactory(Name),
                 new NearbyMonstersConditionFactory(Name),
                 new TimerConditionFactory(Name),
-                new HasFlaskBuffConditionFactory(Name)
+                new HasFlaskBuffConditionFactory(Name),
+                new PlayerHasBuffConditionFactory(Name)
             };
 
             return list;

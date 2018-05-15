@@ -230,7 +230,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                             {
                                 mobCount++;
                             }
-                        } else mobCount++;
+                        }
+                        else mobCount++;
 
                     }
 
