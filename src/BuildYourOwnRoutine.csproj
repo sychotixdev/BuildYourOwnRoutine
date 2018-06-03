@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -75,11 +75,11 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="TreeRoutine">
-      <HintPath>..\TreeRoutine.dll</HintPath>
+      <HintPath>..\..\BaseTreeRoutine\src\bin\Release\TreeRoutine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="TreeSharp">
-      <HintPath>..\TreeSharp.dll</HintPath>
+      <HintPath>..\..\TreeSharp\bin\Release\TreeSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
