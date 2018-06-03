@@ -248,7 +248,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
                      .Where(x =>
                      //extensionParameter.Plugin.Settings.FlaskSettings[x.Index].Enabled && 
                      flaskHasAvailableAction(flaskActions, ignoreFlaskActions, x)
-                     && extensionParameter.Plugin.FlaskHelper.canUsePotion(x)
+                     && extensionParameter.Plugin.FlaskHelper.canUsePotion(x, 0, instant == null)
                      && FlaskMatchesInstant(extensionParameter, x, instant)
                      && (ignoreBuffs || MissingFlaskBuff(extensionParameter, x))
                      ).OrderByDescending(x => x.TotalUses).ToList();
