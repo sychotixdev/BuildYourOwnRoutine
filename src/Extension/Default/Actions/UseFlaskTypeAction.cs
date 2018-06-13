@@ -251,7 +251,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
                      && extensionParameter.Plugin.FlaskHelper.canUsePotion(x, reserveFlaskCharges, instant == null)
                      && FlaskMatchesInstant(extensionParameter, x, instant)
                      && (ignoreBuffs || MissingFlaskBuff(extensionParameter, x))
-                     ).OrderByDescending(x => x.TotalUses).ToList();
+                     ).OrderByDescending(x => flaskActions.Contains(x.Action1)).ThenByDescending(x => x.TotalUses).ToList();
 
 
             if (flaskList == null || !flaskList.Any())
