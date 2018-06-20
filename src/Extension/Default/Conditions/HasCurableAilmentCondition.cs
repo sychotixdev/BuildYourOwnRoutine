@@ -32,6 +32,10 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         public int CorruptCount { get; set; } = 0;
         public string CorruptCountString { get; set; } = "CorruptCount";
 
+        public bool IgnoreInfiniteTimer { get; set; } = false;
+        public string IgnoreInfiniteTimerString { get; set; } = "IgnoreInfiniteTimer";
+
+
 
         public HasCurableAilmentCondition(string owner, string name) : base(owner, name)
         {
@@ -49,6 +53,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             RemPoison = ExtensionComponent.InitialiseParameterBoolean(RemPoisonString, RemPoison, ref Parameters);
             RemBleed = ExtensionComponent.InitialiseParameterBoolean(RemBleedString, RemBleed, ref Parameters);
             CorruptCount = ExtensionComponent.InitialiseParameterInt32(CorruptCountString, CorruptCount, ref Parameters);
+            IgnoreInfiniteTimer = ExtensionComponent.InitialiseParameterBoolean(IgnoreInfiniteTimerString, IgnoreInfiniteTimer, ref Parameters);
         }
 
         public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)
@@ -78,6 +83,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
             CorruptCount = ImGuiExtension.IntSlider("Corruption Count", CorruptCount, 0, 20);
             Parameters[CorruptCountString] = CorruptCount.ToString();
+
+            IgnoreInfiniteTimer = ImGuiExtension.Checkbox("Ignore Infinite Timer", IgnoreInfiniteTimer);
+            Parameters[IgnoreInfiniteTimerString] = IgnoreInfiniteTimer.ToString();
             return true;
         }
 
@@ -109,7 +117,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             var buffs = profileParameter.Plugin.GameController.Game.IngameState.Data.LocalPlayer.GetComponent<Life>().Buffs;
             foreach (var buff in buffs)
             {
-                if (float.IsInfinity(buff.Timer))
+                if (!IgnoreInfiniteTimer && float.IsInfinity(buff.Timer))
                     continue;
 
                 int filterId = 0;
