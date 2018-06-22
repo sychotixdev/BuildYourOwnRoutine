@@ -1,2 +1,6 @@
 src/bin/
 src/obj/
+Trinet.Core.IO.Ntfs.dll
+PoeFilterParser.dll
+Antlr4.Runtime.xml
+Antlr4.Runtime.dll

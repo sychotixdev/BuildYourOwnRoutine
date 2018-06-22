@@ -86,11 +86,11 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
             var playerBuffs = GameController.Instance.Game.IngameState.Data.LocalPlayer.GetComponent<Life>().Buffs;
             var player = profileParameter.Plugin.PlayerHelper;
             var localPlayer = GameController.Instance.Game.IngameState.Data.LocalPlayer;
-            var playeraccess = localPlayer.GetComponent<Actor>().ActorSkills;
+            var playeraccess = localPlayer.GetComponent<Actor>().ActorVaalSkills;
 
             #region Vaal Haste
             bool VaalHasteUseable = false;
-            var VaalHasteUsable = playeraccess.Any(x => x.Name == "VaalHaste" && x.CurrentSouls >= x.SoulsCap);
+            var VaalHasteUsable = playeraccess.Any(x => x.VaalSkillSkillName == "VaalHaste" && x.CurrVaalSouls >= x.VaalSoulsPerUse);
 
             if (VaalHasteUsable && !playerBuff.HasBuff("vaal_aura_speed"))
             {
@@ -104,7 +104,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
             #region Vaal Grace
             bool VaalGraceUseable = false;
-            var VaalGraceUsable = playeraccess.Any(x => x.Name == "VaalGrace" && x.CurrentSouls >= x.SoulsCap);
+            var VaalGraceUsable = playeraccess.Any(x => x.VaalSkillSkillName == "VaalGrace" && x.CurrVaalSouls >= x.VaalSoulsPerUse);
 
             if (VaalGraceUsable && !playerBuff.HasBuff("vaal_aura_dodge"))
             {
@@ -118,7 +118,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
             #region Vaal Clarity
             bool VaalClarityUseable = false;
-            var VaalClarityUsable = playeraccess.Any(x => x.Name == "VaalClarity" && x.CurrentSouls >= x.SoulsCap);
+            var VaalClarityUsable = playeraccess.Any(x => x.VaalSkillSkillName == "VaalClarity" && x.CurrVaalSouls >= x.VaalSoulsPerUse);
 
             if (VaalClarityUsable && !playerBuff.HasBuff("vaal_aura_no_mana_cost"))
             {
@@ -133,7 +133,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
             #region Vaal Reave
             bool VaalReaveUseable = false;
             var reavePlayerCount = playerBuffs.Exists(x => x.Name == "reave_counter" && x.Charges == 4);
-            var VaalReaveUsable = playeraccess.Exists(x => x.Name == "VaalReave" && x.CurrentSouls >= x.SoulsCap);
+            var VaalReaveUsable = playeraccess.Exists(x => x.VaalSkillSkillName == "VaalReave" && x.CurrVaalSouls >= x.VaalSoulsPerUse);
 
             if(reavePlayerCount)
             {
