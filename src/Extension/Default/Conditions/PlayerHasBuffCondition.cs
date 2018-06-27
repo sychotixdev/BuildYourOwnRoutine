@@ -27,6 +27,10 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         public string SearchStringString { get; set; } = "SearchStringString";
         public string CorruptCountString { get; set; } = "CorruptCount";
 
+        public int RemainingDuration { get; set; } = 0;
+        public string RemainingDurationString { get; set; } = "RemainingDuration";
+
+
         public static List<string> GetEnumList<T>()
         {
             // validate that T is in fact an enum
@@ -51,6 +55,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
             HasBuffReady = ExtensionComponent.InitialiseParameterString(SearchingBuff, HasBuffReady, ref Parameters);
             SearchString = ExtensionComponent.InitialiseParameterString(SearchStringString, SearchString, ref Parameters);
+            RemainingDuration = ExtensionComponent.InitialiseParameterInt32(RemainingDurationString, RemainingDuration, ref Parameters);
         }
 
         public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)
@@ -67,6 +72,10 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
             SearchString = ImGuiExtension.InputText("Filter Buffs", SearchString, 32, InputTextFlags.AllowTabInput);
             Parameters[SearchStringString] = SearchString.ToString();
+
+            RemainingDuration = ImGuiExtension.IntSlider("Remaining Duration", RemainingDuration, 0, 2000);
+            ImGuiExtension.ToolTip("Includes buffs with duration longer than specified. Set to 0 to ignore duration.");
+            Parameters[RemainingDurationString] = RemainingDuration.ToString();
             return true;
         }
 
@@ -78,7 +87,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                 var player = extensionParameter.Plugin.PlayerHelper;
                 var localPlayer = GameController.Instance.Game.IngameState.Data.LocalPlayer;
                 var playeraccess = localPlayer.GetComponent<Actor>().ActorSkills;
-                var playerhasBuff = playerBuff.Buffs.Any(x => x.Name == HasBuffReady);
+                var playerhasBuff = playerBuff.Buffs.Any(x => x.Name == HasBuffReady && (1000 * x.Timer >= RemainingDuration));
 
                 if(playerhasBuff)
                 {
