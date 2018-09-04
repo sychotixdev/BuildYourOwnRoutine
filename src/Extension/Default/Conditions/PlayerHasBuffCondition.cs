@@ -90,10 +90,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                 var playerhasBuff = playerBuff.Buffs.Any(x => x.Name == HasBuffReady && (1000 * x.Timer >= RemainingDuration));
 
                 if(playerhasBuff)
-                {
-                    extensionParameter.Plugin.Log(playerhasBuff, 200);
                     return true;
-                }
 
                 return false;
             };
