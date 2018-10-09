@@ -44,6 +44,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
                 new HealthPercentConditionFactory(Name),
                 new EnergyShieldPercentConditionFactory(Name),
                 new CanUseFlaskConditionFactory(Name),
+                new InTownConditionFactory(Name),
                 new InHideoutConditionFactory(Name),
                 new HasCurableAilmentConditionFactory(Name),
                 new PlayerMovingConditionFactory(Name),
