@@ -98,6 +98,7 @@
     <Compile Include="Extension\Default\Actions\UseFlaskTypeActionFactory.cs" />
     <Compile Include="Extension\Default\Conditions\HasFlaskBuffCondition.cs" />
     <Compile Include="Extension\Default\Conditions\HasFlaskBuffConditionFactory.cs" />
+    <Compile Include="Extension\Default\Conditions\InTownConditionFactory.cs" />
     <Compile Include="Extension\Default\Conditions\PlayerHasBuffConditionFactory.cs" />
     <Compile Include="Extension\Default\Conditions\PlayerHasBuffCondition.cs" />
     <Compile Include="Extension\Default\Conditions\TimerCondition.cs" />
