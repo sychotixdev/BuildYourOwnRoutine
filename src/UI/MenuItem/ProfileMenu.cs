@@ -268,6 +268,16 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
                         ImGui.OpenPopup(TriggerMenuLabel);
                         NewTriggerMenu = new TriggerMenu(Plugin.ExtensionParameter, parent, composite);
                     }
+                    else if (profileAction == ProfileMenuAction.ImportTree)
+                    {
+                        forceOpenLoad = true;
+                        LoadSaveTrigger = composite;
+                    }
+                    else if (profileAction == ProfileMenuAction.ExportTree)
+                    {
+                        forceOpenSave = true;
+                        LoadSaveTrigger = composite;
+                    }
                     else if (profileAction != ProfileMenuAction.None)
                     {
                         // Pass it up, maybe someone above knows how to deal with it
@@ -473,7 +483,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem
             {
 
                 currentFileName = ImGuiExtension.InputText("File Name", currentFileName, 100, InputTextFlags.AlwaysInsertMode);
-                if (String.IsNullOrEmpty(currentFileName))
+                if (!String.IsNullOrEmpty(currentFileName))
                 {
                     if (ImGui.Button("Save"))
                     {
