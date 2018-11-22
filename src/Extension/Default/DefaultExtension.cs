@@ -52,7 +52,8 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default
                 new NearbyMonstersConditionFactory(Name),
                 new TimerConditionFactory(Name),
                 new HasFlaskBuffConditionFactory(Name),
-                new PlayerHasBuffConditionFactory(Name)
+                new PlayerHasBuffConditionFactory(Name),
+                new IsKeyPressedConditionFactory(Name)
             };
 
             return list;
