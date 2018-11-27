@@ -68,7 +68,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             {
                 if (extensionParameter.Plugin.ExtensionCache.Cache.TryGetValue(Owner, out Dictionary<string, object> MyCache))
                 {
-                    var timerCacheString = DefaultExtension.CustomerTimerPrefix + TimerNameString;
+                    var timerCacheString = DefaultExtension.CustomerTimerPrefix + TimerName;
                     if (MyCache.TryGetValue(timerCacheString, out object value))
                     {
                         Stopwatch stopWatch = (Stopwatch)value;
