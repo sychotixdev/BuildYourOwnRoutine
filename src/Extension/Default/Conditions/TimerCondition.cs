@@ -44,7 +44,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             base.CreateConfigurationMenu(extensionParameter, ref Parameters);
 
             TimerName = ImGuiExtension.InputText("Timer Name", TimerName, 30, InputTextFlags.Default);
-            ImGuiExtension.ToolTip("Name for this timer");
+            ImGuiExtension.ToolTip("Name for this timer. Make sure this is unique.");
             Parameters[TimerNameString] = TimerName.ToString();
 
             var tempTimerLength = ImGuiExtension.InputText("Time Elapsed (ms)", TimeElapsed.ToString(), 30, InputTextFlags.Default);
