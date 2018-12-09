@@ -13,6 +13,8 @@ Developers of additional actions or conditions can either make a pull request, o
 * BCH: 17Eu4YCs7MUnHrBuSeUggbCsnHNX7n5fNZ
 * ETH: 0x38B6e014F3923B8F9aFbE4e0ff0e872beCdb5d72
 * LTC: LMXsH6DyKiqLw3JZea9ZdHDV4oXZ2Uek3W
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](72QZ2RSUMGJ8N)
  
 ### Plugin Development
 * Requires [PoeHUD.](https://github.com/TehCheat/PoEHUD) Either add PoeHUD.exe as a reference, or download the repository and reference the project
