@@ -40,6 +40,10 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Trigger
         // What type of composite are we? (Decorator, Sequence, PrioritySelector, Action)
         public TriggerType Type { get; set; }
 
+        // Always return RunStatus.Success, even if children return RunStatus.Failure
+        // Only applies to Decorators and Actions
+        public bool AlwaysContinue { get; set; }
+
         // Condition/Delegate for running the composite
         // -- Should be able to be a list of conditions (e.g. hp below, mana below) with ability to and/or
         public List<TriggerCondition> ConditionList { get; set; } = new List<TriggerCondition>();

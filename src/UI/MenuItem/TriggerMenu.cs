@@ -128,6 +128,9 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.UI
                     }
                     else if (TriggerComposite.Type == TriggerType.Decorator)
                     {
+                        TriggerComposite.AlwaysContinue  = ImGuiExtension.Checkbox("Always Continue", TriggerComposite.AlwaysContinue);
+                        ImGuiExtension.ToolTip("When enabled, the decorator will not end a sequence, even if its child fails.");
+
                         SelectedOption1 = ImGuiExtension.ComboBox("Conditions", SelectedOption1, TriggerComposite.ConditionList.Select(x => x.Owner + ": " + x.Name).ToList());
                         if (ImGui.Button("Add"))
                         {

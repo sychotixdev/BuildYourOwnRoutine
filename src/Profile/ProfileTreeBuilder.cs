@@ -73,7 +73,15 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Profile
                 return null;
             }
 
-            return new Decorator(x => EvaluateConditionList(composite.ConditionList), BuildTreeFromTriggerComposite(composite.Children.FirstOrDefault()));
+            // If we should always continue, use a decorator continue instead
+            if (composite.AlwaysContinue)
+            {
+                return new DecoratorContinue(x => EvaluateConditionList(composite.ConditionList), BuildTreeFromTriggerComposite(composite.Children.FirstOrDefault()));
+            }
+            else
+            {
+                return new Decorator(x => EvaluateConditionList(composite.ConditionList), BuildTreeFromTriggerComposite(composite.Children.FirstOrDefault()));
+            }
         }
 
         public Composite CreateCompositeForPrioritySelector(TriggerComposite composite)
