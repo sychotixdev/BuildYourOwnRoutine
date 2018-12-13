@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PoeHUD.Controllers;
 using TreeRoutine.Menu;
 using TreeSharp;
 
@@ -214,19 +215,19 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                         {
                             // We care about resists. Only increment IF we are above the threshold
                             var monsterStats = monster.GetComponent<Stats>();
-                            if (ColdResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(GameStat.ColdDamageResistancePct, out int coldRes) && coldRes >= ColdResistanceThreshold)
+                            if (ColdResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(GameController.Instance.Files.Stats.records["cold_damage_resistance_%"].ID, out int coldRes) && coldRes >= ColdResistanceThreshold)
                             {
                                 mobCount++;
                             }
-                            else if (FireResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(GameStat.FireDamageResistancePct, out int fireRes) && fireRes >= FireResistanceThreshold)
+                            else if (FireResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(GameController.Instance.Files.Stats.records["fire_damage_resistance_%"].ID, out int fireRes) && fireRes >= FireResistanceThreshold)
                             {
                                 mobCount++;
                             }
-                            else if (LightningResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(GameStat.LightningDamageResistancePct, out int lightningRes) && lightningRes >= LightningResistanceThreshold)
+                            else if (LightningResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(GameController.Instance.Files.Stats.records["lightning_damage_resistance_%"].ID, out int lightningRes) && lightningRes >= LightningResistanceThreshold)
                             {
                                 mobCount++;
                             }
-                            else if (ChaosResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(GameStat.ChaosDamageResistancePct, out int chaosRes) && chaosRes >= ChaosResistanceThreshold)
+                            else if (ChaosResistanceThreshold > 0 && monsterStats.StatDictionary.TryGetValue(GameController.Instance.Files.Stats.records["chaos_damage_resistance_%"].ID, out int chaosRes) && chaosRes >= ChaosResistanceThreshold)
                             {
                                 mobCount++;
                             }
