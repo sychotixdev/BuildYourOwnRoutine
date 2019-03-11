@@ -34,38 +34,44 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Gma.System.MouseKeyHook">
-      <HintPath>..\..\PoEHUD\src\packages\MouseKeyHook.5.6.0\lib\net40\Gma.System.MouseKeyHook.dll</HintPath>
+      <HintPath>$(POEHUD_PATH)\Gma.System.MouseKeyHook.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ImGui.NET">
-      <HintPath>..\..\PoEHUD\src\packages\ImGui.NET.0.4.0\lib\netstandard1.1\ImGui.NET.dll</HintPath>
+      <HintPath>$(POEHUD_PATH)\ImGui.NET.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\PoEHUD\src\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>$(POEHUD_PATH)\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PoeHUD">
+      <HintPath>$(POEHUD_PATH)\PoeHUD.exe</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SharpDX">
-      <HintPath>..\..\PoEHUD\src\packages\SharpDX.4.0.1\lib\net45\SharpDX.dll</HintPath>
+      <HintPath>$(POEHUD_PATH)\SharpDX.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SharpDX.Desktop">
-      <HintPath>..\..\PoEHUD\src\packages\SharpDX.Desktop.4.0.1\lib\net45\SharpDX.Desktop.dll</HintPath>
+      <HintPath>$(POEHUD_PATH)\SharpDX.Desktop.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SharpDX.Direct3D9">
-      <HintPath>..\..\PoEHUD\src\packages\SharpDX.Direct3D9.4.0.1\lib\net45\SharpDX.Direct3D9.dll</HintPath>
+      <HintPath>$(POEHUD_PATH)\SharpDX.Direct3D9.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SharpDX.Mathematics">
-      <HintPath>..\..\PoEHUD\src\packages\SharpDX.Mathematics.4.0.1\lib\net45\SharpDX.Mathematics.dll</HintPath>
+      <HintPath>$(POEHUD_PATH)\SharpDX.Mathematics.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors">
-      <HintPath>..\..\..\Release\System.Numerics.Vectors.dll</HintPath>
+    <Reference Include="System.Numerics.Vectors, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(POEHUD_PATH)\System.Numerics.Vectors.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -76,10 +82,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="TreeRoutine">
       <HintPath>..\..\BaseTreeRoutine\src\bin\Release\TreeRoutine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="TreeSharp">
-      <HintPath>..\..\TreeSharp\bin\Release\TreeSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -149,13 +151,6 @@
     <Compile Include="Trigger\TriggerCondition.cs" />
     <Compile Include="Trigger\TriggerComposite.cs" />
     <Compile Include="Trigger\TriggerType.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\PoEHUD\src\PoeHUD.csproj">
-      <Project>{e86368b2-ae1e-4489-a749-e29a0ab48f83}</Project>
-      <Name>PoeHUD</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Extension\AddExtensionsHere.txt">

@@ -4,7 +4,6 @@ using TreeRoutine.FlaskComponents;
 using PoeHUD.Poe.Components;
 using System;
 using System.Collections.Generic;
-using TreeSharp;
 using PoeHUD.Models.Enums;
 using System.Linq;
 using TreeRoutine.Menu;
@@ -21,6 +20,7 @@ using TreeRoutine.Routine.BuildYourOwnRoutine.UI.MenuItem;
 using TreeRoutine.Routine.BuildYourOwnRoutine.Flask;
 using PoeHUD.Models;
 using System.Collections.Concurrent;
+using TreeRoutine.TreeSharp;
 
 namespace TreeRoutine.Routine.BuildYourOwnRoutine
 {

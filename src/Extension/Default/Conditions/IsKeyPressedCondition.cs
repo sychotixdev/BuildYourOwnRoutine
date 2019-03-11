@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using PoeHUD.Framework;
 using PoeHUD.Hud.Settings;
 using TreeRoutine.Menu;
-using TreeSharp;
 
 namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 {
