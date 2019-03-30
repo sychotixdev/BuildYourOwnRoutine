@@ -97,6 +97,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             CountUniqueMonsters = ExtensionComponent.InitialiseParameterBoolean(CountUniqueMonstersString, CountUniqueMonsters, ref Parameters);
 
             MonsterHealthPercentThreshold = ExtensionComponent.InitialiseParameterInt32(MonsterHealthPercentThresholdString, MonsterHealthPercentThreshold, ref Parameters);
+            MonsterAboveHealthThreshold = ExtensionComponent.InitialiseParameterBoolean(MonsterAboveHealthThresholdString, MonsterAboveHealthThreshold, ref Parameters);
         }
 
         public override bool CreateConfigurationMenu(ExtensionParameter extensionParameter, ref Dictionary<String, Object> Parameters)
