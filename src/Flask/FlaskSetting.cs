@@ -14,6 +14,6 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Flask
             Hotkey = hotkey;
         }
 
-        public HotkeyNode Hotkey { get; internal set; }
+        public HotkeyNode Hotkey { get; set; }
     }
 }

@@ -16,18 +16,20 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
             LastSettingSize = new ImGuiVector2(620, 376);
             LastSettingPos = new ImGuiVector2(centerPos.X - LastSettingSize.X / 2, centerPos.Y - LastSettingSize.Y / 2);
             ShowSettings = false;
+            FlaskSettings = new FlaskSetting[5]
+                                {
+                                    new FlaskSetting(new HotkeyNode(Keys.D1)),
+                                    new FlaskSetting(new HotkeyNode(Keys.D2)),
+                                    new FlaskSetting(new HotkeyNode(Keys.D3)),
+                                    new FlaskSetting(new HotkeyNode(Keys.D4)),
+                                    new FlaskSetting(new HotkeyNode(Keys.D5))
+                                };
+            TicksPerSecond = new RangeNode<int>(10, 1, 30);
         }
 
-        public FlaskSetting[] FlaskSettings { get; internal set; } = new FlaskSetting[5]
-        {
-            new FlaskSetting(new HotkeyNode(Keys.D1)),
-            new FlaskSetting(new HotkeyNode(Keys.D2)),
-            new FlaskSetting(new HotkeyNode(Keys.D3)),
-            new FlaskSetting(new HotkeyNode(Keys.D4)),
-            new FlaskSetting(new HotkeyNode(Keys.D5))
-        };
+        public FlaskSetting[] FlaskSettings { get; set; }
 
-        public RangeNode<int> TicksPerSecond { get; internal set; } = new RangeNode<int>(10, 1, 30);
+        public RangeNode<int> TicksPerSecond { get; set; } 
 
         public LoadedProfile LoadedProfile { get; set; }
 

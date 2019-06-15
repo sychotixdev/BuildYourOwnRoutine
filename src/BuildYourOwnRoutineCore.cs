@@ -41,6 +41,12 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
 
         public List<EntityWrapper> LoadedMonsters { get; protected set; } = new List<EntityWrapper>();
 
+        public BuildYourOwnRoutineCore()
+        {
+            ConfigurationMenu = new ConfigurationMenu(this);
+        }
+
+
         public override void Initialise()
         {
             base.Initialise();
@@ -54,8 +60,6 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine
             ExtensionDirectory = PluginDirectory + @"/Extension/";
             ExtensionLoader.LoadAllExtensions(ExtensionCache, ExtensionDirectory);
             ProcessLoadedExtensions();
-
-            ConfigurationMenu = new ConfigurationMenu(this);
 
             CreateAndStartTreeFromLoadedProfile();
 
