@@ -73,7 +73,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
             SearchString = ImGuiExtension.InputText("Filter Buffs", SearchString, 32, InputTextFlags.AllowTabInput);
             Parameters[SearchStringString] = SearchString.ToString();
 
-            RemainingDuration = ImGuiExtension.IntSlider("Remaining Duration", RemainingDuration, 0, 2000);
+            RemainingDuration = ImGuiExtension.IntSlider("Remaining Duration", RemainingDuration, 0, 4000);
             ImGuiExtension.ToolTip("Includes buffs with duration longer than specified. Set to 0 to ignore duration.");
             Parameters[RemainingDurationString] = RemainingDuration.ToString();
             return true;
@@ -87,31 +87,13 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                 var player = extensionParameter.Plugin.PlayerHelper;
                 var localPlayer = GameController.Instance.Game.IngameState.Data.LocalPlayer;
                 var playeraccess = localPlayer.GetComponent<Actor>().ActorSkills;
-                var playerhasBuff = playerBuff.Buffs.Any(x => x.Name == HasBuffReady && (1000 * x.Timer >= RemainingDuration));
+                var playerhasBuff = playerBuff.Buffs.Any(x => x.Name == HasBuffReady && (x.Timer >= RemainingDuration * 1000));
 
                 if(playerhasBuff)
                     return true;
 
                 return false;
             };
-        }
-
-        private bool hasBuff(ExtensionParameter profileParameter, Dictionary<string, int> dictionary, Func<int> minCharges = null)
-        {
-            var buffs = profileParameter.Plugin.GameController.Game.IngameState.Data.LocalPlayer.GetComponent<Life>().Buffs;
-            foreach (var buff in buffs)
-            {
-                if (float.IsInfinity(buff.Timer))
-                    continue;
-
-                int filterId = 0;
-                if (dictionary.TryGetValue(buff.Name, out filterId))
-                {
-                    // I'm not sure what the values are here, but this is the effective logic from the old plugin
-                    return (filterId == 0 || filterId != 1) && (minCharges == null || buff.Charges >= minCharges());
-                }
-            }
-            return false;
         }
 
         public override string GetDisplayName(bool isAddingNew)
