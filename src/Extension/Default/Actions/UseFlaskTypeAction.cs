@@ -225,7 +225,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
 
         private PlayerFlask findFlaskMatchingAnyAction(ExtensionParameter extensionParameter, List<FlaskActions> flaskActions, Boolean? instant, Boolean ignoreBuffs, Func<List<FlaskActions>> ignoreFlasksWithAction)
         {
-            var allFlasks = extensionParameter.Plugin.FlaskHelper.getAllFlaskInfo();
+            var allFlasks = extensionParameter.Plugin.FlaskHelper.GetAllFlaskInfo();
 
             // We have no flasks or settings for flasks?
             if (allFlasks == null || extensionParameter.Plugin.Settings.FlaskSettings == null)
@@ -248,7 +248,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Actions
                      .Where(x =>
                      //extensionParameter.Plugin.Settings.FlaskSettings[x.Index].Enabled && 
                      flaskHasAvailableAction(flaskActions, ignoreFlaskActions, x)
-                     && extensionParameter.Plugin.FlaskHelper.canUsePotion(x, reserveFlaskCharges, instant == null)
+                     && extensionParameter.Plugin.FlaskHelper.CanUsePotion(x, reserveFlaskCharges, instant == null)
                      && FlaskMatchesInstant(extensionParameter, x, instant)
                      && (ignoreBuffs || MissingFlaskBuff(extensionParameter, x))
                      ).OrderByDescending(x => flaskActions.Contains(x.Action1)).ThenByDescending(x => x.TotalUses).ToList();

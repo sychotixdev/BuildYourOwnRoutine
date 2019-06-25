@@ -41,7 +41,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
         {
             return () =>
             {
-                var flaskInfo = extensionParameter.Plugin.FlaskHelper.getFlaskInfo(FlaskIndex - 1);
+                var flaskInfo = extensionParameter.Plugin.FlaskHelper.GetFlaskInfo(FlaskIndex - 1);
                 if (flaskInfo == null)
                     return false;
                 return !extensionParameter.Plugin.PlayerHelper.playerDoesNotHaveAnyOfBuffs(new List<string> { flaskInfo.BuffString1, flaskInfo.BuffString2 });
