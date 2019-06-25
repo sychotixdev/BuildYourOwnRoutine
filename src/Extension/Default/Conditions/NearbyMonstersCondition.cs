@@ -13,14 +13,6 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 {
     internal class NearbyMonstersCondition : ExtensionCondition
     {
-        private static Dictionary<String, Tuple<GameStat, GameStat>> resistanceTypes = new Dictionary<String, Tuple<GameStat, GameStat>>()
-        {
-            { "Cold", Tuple.Create(GameStat.ColdDamageResistancePct, GameStat.MaximumColdDamageResistancePct) },
-            { "Fire", Tuple.Create(GameStat.FireDamageResistancePct, GameStat.MaximumFireDamageResistancePct) },
-            { "Lightning",Tuple.Create(GameStat.LightningDamageResistancePct, GameStat.LightningDamageResistancePct) },
-            { "Chaos", Tuple.Create(GameStat.ChaosDamageResistancePct, GameStat.MaximumChaosDamageResistancePct) }
-        };
-
         private int MinimumMonsterCount { get; set; }
         private readonly String MinimumMonsterCountString = "MinimumMonsterCount";
 
@@ -60,6 +52,14 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
 
         // Local, non-config value
         private bool PreviewDistance { get; set; }
+
+        public static Dictionary<string, Tuple<GameStat, GameStat>> ResistanceTypes { get; } = new Dictionary<string, Tuple<GameStat, GameStat>>()
+        {
+            { "Cold", Tuple.Create(GameStat.ColdDamageResistancePct, GameStat.MaximumColdDamageResistancePct) },
+            { "Fire", Tuple.Create(GameStat.FireDamageResistancePct, GameStat.MaximumFireDamageResistancePct) },
+            { "Lightning",Tuple.Create(GameStat.LightningDamageResistancePct, GameStat.LightningDamageResistancePct) },
+            { "Chaos", Tuple.Create(GameStat.ChaosDamageResistancePct, GameStat.MaximumChaosDamageResistancePct) }
+        };
 
         public NearbyMonstersCondition(string owner, string name) : base(owner, name)
         {
@@ -194,7 +194,7 @@ namespace TreeRoutine.Routine.BuildYourOwnRoutine.Extension.Default.Conditions
                     {
                         // If the monster is still too healthy, don't count it
                         var monsterLife = monster.GetComponent<Life>();
-                        if (((monsterLife.CurHP / monsterLife.MaxHP) * 100 >= MonsterHealthPercentThreshold) != MonsterAboveHealthThreshold)
+                        if (monsterLife != null && monsterLife.Address > 0 && ((monsterLife.CurHP / Math.Min(1, monsterLife.MaxHP)) * 100 >= MonsterHealthPercentThreshold) != MonsterAboveHealthThreshold)
                             continue;
                     }
 
