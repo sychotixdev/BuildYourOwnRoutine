@@ -1,3 +1,6 @@
+# BuildYourOwnRoutine is now built into BasicFlaskRoutine for ExileApi.
+https://github.com/sychotixdev/BasicFlaskRoutine/tree/master/src
+
 # BuildYourOwnRoutine
 
 This PoEHUD plugin is designed to make it easy for non-developers to make their own routines. 
